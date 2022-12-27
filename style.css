@@ -11,4 +11,5 @@
 body {
   font-family: "Helvetica";
   font-size: 120%;    
+  line-break: strict;
 }
