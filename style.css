@@ -15,4 +15,5 @@ line-break: normal;
 }
 p span {
   display: block;
+  white-space: pre;  
 }
