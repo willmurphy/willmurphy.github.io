@@ -10,5 +10,6 @@
 }
 body {
   font-family: "Helvetica";
-  font-size: 120%;    
+  font-size: 120%;
+line-break: anywhere;  
 }
