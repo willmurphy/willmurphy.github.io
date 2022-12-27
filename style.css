@@ -13,3 +13,6 @@ body {
   font-size: 120%;
 line-break: normal;
 }
+p span {
+  display: block;
+}
