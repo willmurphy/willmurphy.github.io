@@ -89,6 +89,28 @@
     height: 80%;
     filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
   }
+  .board-section { position: relative; }
+  .anim-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 50;
+  }
+  .animating-piece {
+    position: absolute;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .animating-piece .piece-svg {
+    width: 80%;
+    height: 80%;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+  }
+  .move-arrow {
+    position: absolute;
+    pointer-events: none;
+  }
   .square.light { background: #f0d9b5; }
   .square.dark { background: #b58863; }
   .square.selected { background: #7fc97f !important; }
@@ -960,14 +982,140 @@ function executeMove(move, promoPiece) {
   }
 }
 
+function getSquareEl(r, c) {
+  return boardEl.querySelector(`.square[data-row="${r}"][data-col="${c}"]`);
+}
+
+function animateMove(move, piece, callback) {
+  const fromSq = getSquareEl(move.from[0], move.from[1]);
+  const toSq = getSquareEl(move.to[0], move.to[1]);
+  if (!fromSq || !toSq) { callback(); return; }
+
+  const boardSection = boardEl.parentElement;
+  const boardRect = boardEl.getBoundingClientRect();
+  const sectionRect = boardSection.getBoundingClientRect();
+  const fromRect = fromSq.getBoundingClientRect();
+  const toRect = toSq.getBoundingClientRect();
+  const sqSize = fromRect.width;
+
+  // Positions relative to board-section
+  const fromX = fromRect.left - sectionRect.left;
+  const fromY = fromRect.top - sectionRect.top;
+  const toX = toRect.left - sectionRect.left;
+  const toY = toRect.top - sectionRect.top;
+  const dx = toX - fromX;
+  const dy = toY - fromY;
+
+  // Create overlay outside the board (avoids overflow:hidden clipping)
+  const overlay = document.createElement('div');
+  overlay.className = 'anim-overlay';
+  boardSection.appendChild(overlay);
+
+  // Draw arrow from center of source to center of destination
+  const fromCX = fromX + sqSize / 2;
+  const fromCY = fromY + sqSize / 2;
+  const toCX = toX + sqSize / 2;
+  const toCY = toY + sqSize / 2;
+  const ow = sectionRect.width;
+  const oh = sectionRect.height;
+
+  const arrow = document.createElement('div');
+  arrow.className = 'move-arrow';
+  arrow.style.left = '0';
+  arrow.style.top = '0';
+  arrow.style.width = ow + 'px';
+  arrow.style.height = oh + 'px';
+  // Build arrow as a single path (shaft + triangular head) for uniform color
+  const adx = toCX - fromCX;
+  const ady = toCY - fromCY;
+  const len = Math.sqrt(adx * adx + ady * ady);
+  const ux = adx / len;
+  const uy = ady / len;
+  const headLen = sqSize * 0.35;
+  const headW = sqSize * 0.25;
+  const shaftW = sqSize * 0.12;
+  // Point where shaft meets head base
+  const bx = toCX - ux * headLen;
+  const by = toCY - uy * headLen;
+  // Perpendicular
+  const px = -uy;
+  const py = ux;
+  // Shaft corners
+  const s1x = fromCX + px * shaftW / 2;
+  const s1y = fromCY + py * shaftW / 2;
+  const s2x = fromCX - px * shaftW / 2;
+  const s2y = fromCY - py * shaftW / 2;
+  const s3x = bx - px * shaftW / 2;
+  const s3y = by - py * shaftW / 2;
+  const s4x = bx + px * shaftW / 2;
+  const s4y = by + py * shaftW / 2;
+  // Head corners
+  const h1x = bx + px * headW / 2;
+  const h1y = by + py * headW / 2;
+  const h2x = bx - px * headW / 2;
+  const h2y = by - py * headW / 2;
+  arrow.innerHTML = `<svg width="${ow}" height="${oh}" viewBox="0 0 ${ow} ${oh}" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="${s1x},${s1y} ${s4x},${s4y} ${h1x},${h1y} ${toCX},${toCY} ${h2x},${h2y} ${s3x},${s3y} ${s2x},${s2y}"
+      fill="rgba(200,200,200,0.45)"/>
+  </svg>`;
+  overlay.appendChild(arrow);
+
+  // Hide the piece on the source square during animation
+  const pieceSvg = fromSq.querySelector('.piece-svg');
+  if (pieceSvg) pieceSvg.style.visibility = 'hidden';
+
+  // Create floating animated piece
+  const anim = document.createElement('div');
+  anim.className = 'animating-piece';
+  anim.style.width = sqSize + 'px';
+  anim.style.height = sqSize + 'px';
+  anim.style.display = 'flex';
+  anim.style.alignItems = 'center';
+  anim.style.justifyContent = 'center';
+  anim.innerHTML = pieceHTML(piece);
+  anim.style.left = fromX + 'px';
+  anim.style.top = fromY + 'px';
+  anim.style.transform = 'translate(0, 0)';
+  anim.style.transition = 'none';
+  overlay.appendChild(anim);
+
+  // Force layout, then start animation
+  anim.getBoundingClientRect();
+  anim.style.transition = 'transform 3.15s cubic-bezier(0.25, 0.1, 0.25, 1)';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      anim.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  });
+
+  let done = false;
+  function finish() {
+    if (done) return;
+    done = true;
+    overlay.remove();
+    callback();
+  }
+
+  anim.addEventListener('transitionend', finish, { once: true });
+
+  // Fallback in case transitionend doesn't fire
+  setTimeout(finish, 3600);
+}
+
 function doAIMove() {
   const result = aiBestMove(game);
   aiThinking = false;
   if (result) {
-    game = makeMove(game, result.move, result.promoPiece);
-    lastMove = result.move;
+    const movingPiece = game.board[result.move.from[0]][result.move.from[1]];
+    animateMove(result.move, movingPiece, () => {
+      game = makeMove(game, result.move, result.promoPiece);
+      lastMove = result.move;
+      render();
+    });
+  } else {
+    render();
   }
-  render();
 }
 
 function showPromotionDialog(move) {
