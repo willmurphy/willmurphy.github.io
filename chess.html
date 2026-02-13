@@ -211,6 +211,60 @@
   .rank-label { top: 1px; left: 3px; }
   .square.light .coord-label { color: #b58863; }
   .square.dark .coord-label { color: #f0d9b5; }
+  .speech-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 10px;
+    max-width: min(480px, 90vw);
+    width: 100%;
+    transition: opacity 0.3s;
+  }
+  .speech-wrapper.empty { opacity: 0.4; }
+  .ai-avatar {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    line-height: 1;
+    padding-bottom: 4px;
+  }
+  .speech-bubble {
+    background: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 12px;
+    padding: 10px 16px;
+    min-height: 44px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #e0e0e0;
+  }
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: 10px;
+    left: -8px;
+    width: 0; height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 8px solid #16213e;
+  }
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: 9px;
+    left: -10px;
+    width: 0; height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-right: 10px solid #0f3460;
+  }
+  .speech-bubble .ai-text {
+    flex: 1;
+    min-height: 1.4em;
+  }
   @media (max-width: 720px) {
     .game-container { flex-direction: column; align-items: center; }
     .sidebar { width: min(480px, 90vw); max-height: 200px; }
@@ -236,6 +290,12 @@
 
 <div class="game-container">
   <div class="board-section">
+    <div class="speech-wrapper empty" id="speechWrapper">
+      <span class="ai-avatar">🤖</span>
+      <div class="speech-bubble" id="speechBubble">
+        <span class="ai-text" id="aiText">Let's play! Make your move.</span>
+      </div>
+    </div>
     <div class="captured-row" id="capturedBlack"></div>
     <div class="board" id="board"></div>
     <div class="captured-row" id="capturedWhite"></div>
@@ -914,11 +974,13 @@ function updateStatus() {
     } else {
       statusEl.textContent = 'Stalemate! Draw.';
       statusEl.className = 'status mate-status';
+      if (isAIMode()) aiSay(pick(COMMENTS.stalemateDraw));
     }
   } else if (game.halfMoves >= 100) {
     game.gameOver = true;
     statusEl.textContent = 'Draw by 50-move rule.';
     statusEl.className = 'status mate-status';
+    if (isAIMode()) aiSay("50 moves without a capture or pawn move. It's a draw!");
   } else if (inCheck) {
     statusEl.textContent = `${turnName} is in check!`;
     statusEl.className = 'status check-status';
@@ -969,16 +1031,25 @@ function onSquareClick(r, c) {
 }
 
 function executeMove(move, promoPiece) {
+  const prevGame = cloneGame(game);
   game = makeMove(game, move, promoPiece);
   lastMove = move;
   selectedSquare = null;
   legalMovesCache = [];
   render();
 
-  if (!game.gameOver && isAIMode() && game.turn === 'b') {
-    aiThinking = true;
-    updateStatus();
-    aiTimer = setTimeout(doAIMove, 50);
+  if (isAIMode()) {
+    // AI reacts to the player's move
+    aiSay(getPlayerComment(game, move));
+
+    if (!game.gameOver && game.turn === 'b') {
+      aiThinking = true;
+      updateStatus();
+      aiTimer = setTimeout(() => {
+        aiSay(pick(COMMENTS.thinking));
+        setTimeout(doAIMove, 400);
+      }, 600);
+    }
   }
 }
 
@@ -1107,11 +1178,14 @@ function doAIMove() {
   const result = aiBestMove(game);
   aiThinking = false;
   if (result) {
+    const gBefore = cloneGame(game);
     const movingPiece = game.board[result.move.from[0]][result.move.from[1]];
     animateMove(result.move, movingPiece, () => {
       game = makeMove(game, result.move, result.promoPiece);
       lastMove = result.move;
       render();
+      // AI comments on its own move
+      aiSay(getAIComment(gBefore, game, result.move));
     });
   } else {
     render();
@@ -1139,6 +1213,7 @@ function isAIMode() { return modeSelect.value === 'ai'; }
 
 modeSelect.addEventListener('change', () => {
   difficultySelect.style.display = isAIMode() ? '' : 'none';
+  speechWrapper.style.display = isAIMode() ? '' : 'none';
   startNewGame();
 });
 
@@ -1152,11 +1227,320 @@ function startNewGame() {
   legalMovesCache = [];
   aiThinking = false;
   render();
+  if (isAIMode()) {
+    aiSay(pick(COMMENTS.opening));
+  } else {
+    aiTextEl.textContent = '';
+    speechWrapper.classList.add('empty');
+  }
+}
+
+// ========== AI COMMENTARY ==========
+
+const speechWrapper = document.getElementById('speechWrapper');
+const aiTextEl = document.getElementById('aiText');
+
+function aiSay(text) {
+  aiTextEl.textContent = text;
+  speechWrapper.classList.remove('empty');
+}
+
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+// Context analysis helpers
+function countMaterial(board, color) {
+  let total = 0;
+  for (let r = 0; r < 8; r++)
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c];
+      if (p && colorOf(p) === color) total += PIECE_VALUES[typeOf(p)] || 0;
+    }
+  return total;
+}
+
+function getMoveContext(g, move, notation) {
+  const ctx = {};
+  ctx.notation = notation;
+  ctx.piece = typeOf(g.board[move.from[0]][move.from[1]]);
+  ctx.isCapture = notation.includes('x');
+  ctx.isCheck = notation.includes('+');
+  ctx.isMate = notation.includes('#');
+  ctx.isCastle = notation.startsWith('O-');
+  ctx.isPromotion = notation.includes('=');
+  ctx.capturedPiece = null;
+  if (ctx.isCapture) {
+    // figure out what was captured from the board before the move
+    const target = g.board[move.to[0]][move.to[1]];
+    if (target) ctx.capturedPiece = typeOf(target);
+    else if (move.enPassant) ctx.capturedPiece = 'P';
+  }
+  ctx.moveNum = Math.ceil(g.moves.length / 2) + 1;
+  ctx.whiteMat = countMaterial(g.board, 'w');
+  ctx.blackMat = countMaterial(g.board, 'b');
+  ctx.matDiff = ctx.whiteMat - ctx.blackMat; // positive = white ahead
+  return ctx;
+}
+
+// --- Comment banks ---
+
+const COMMENTS = {
+  // After the player moves
+  playerGeneric: [
+    "Interesting choice...",
+    "Hmm, let me think about this.",
+    "I see what you're doing.",
+    "Okay, okay... not bad.",
+    "Let me consider my options.",
+    "You've given me something to think about.",
+    "An ambitious move.",
+    "Classic approach. Let's see where this goes.",
+    "Alright, my turn to think.",
+  ],
+  playerGoodCapture: [
+    "Ouch! That's going to cost me.",
+    "Well played — I didn't want to lose that piece.",
+    "You're sharpening the position. I respect that.",
+    "A strong capture. I need to be careful now.",
+    "That hurt. Let me regroup.",
+    "Taking my pieces, are we? Two can play that game.",
+  ],
+  playerPawnCapture: [
+    "Trading pawns, eh? The position opens up.",
+    "Fair exchange in the pawn battle.",
+    "Clearing the center, I see.",
+  ],
+  playerCheck: [
+    "Check! My king needs to move.",
+    "You're putting pressure on my king!",
+    "Check — but don't get too excited yet.",
+    "Bold! Let me get my king to safety.",
+    "A check! You're keeping me on my toes.",
+  ],
+  playerCastle: [
+    "Castling for safety — wise decision.",
+    "Good idea to tuck your king away.",
+    "Your king is safe now. But for how long?",
+    "A solid castling move. Now the real fight begins.",
+  ],
+  playerQueenMove: [
+    "Bringing out the big guns, I see.",
+    "The queen enters the battle!",
+    "Careful with your queen — she's valuable.",
+    "An aggressive queen move. I like your style.",
+  ],
+  playerKnightMove: [
+    "Tricky knight maneuver.",
+    "Knights can be sneaky. I'll watch out.",
+    "A knight hop — those are hard to predict.",
+  ],
+  playerEarlyGame: [
+    "A solid opening move.",
+    "Setting up your pieces — smart.",
+    "Building your position. I'll do the same.",
+    "Good development. Let's see your plan.",
+    "Controlling the center — textbook play.",
+  ],
+  playerWhenBehind: [
+    "You're fighting back — I respect that!",
+    "Don't give up, there's still game to play.",
+    "A scrappy move. Never count yourself out!",
+    "Still plenty of fight left in your position.",
+  ],
+  playerWhenAhead: [
+    "Hmm, you seem to have the advantage...",
+    "I need to find a way back into this game.",
+    "You're putting the pressure on. Well done.",
+    "I'm going to have to play carefully here.",
+  ],
+  playerPromotion: [
+    "A new queen! That's a game-changer.",
+    "Promotion! Your pawn made it all the way.",
+    "And the pawn becomes a queen — dangerous!",
+  ],
+
+  // After the AI moves
+  aiGeneric: [
+    "Your turn. Choose wisely.",
+    "Let's see how you handle this.",
+    "I think that's a solid move.",
+    "There. Your move now.",
+    "I've made my decision. What will you do?",
+    "That should keep things interesting.",
+    "A quiet move, but it has a purpose.",
+    "The position is evolving nicely.",
+  ],
+  aiCapture: [
+    "I'll take that, thank you!",
+    "Nom nom nom. One fewer piece for you.",
+    "That piece was looking lonely. I helped it off the board.",
+    "A fair trade, wouldn't you say?",
+    "Your piece was in the wrong place at the wrong time.",
+    "I saw an opportunity and I took it.",
+  ],
+  aiBigCapture: [
+    "Ha! That's a big catch!",
+    "I think you'll miss that piece.",
+    "A major piece down — this changes everything!",
+    "That was an expensive mistake for you.",
+    "I'll gladly accept that gift!",
+  ],
+  aiCheck: [
+    "Check! Watch your king.",
+    "Your king is in danger!",
+    "Check! How will you escape?",
+    "I'm coming for your king.",
+    "Check! The pressure is on.",
+  ],
+  aiMate: [
+    "Checkmate! Great game!",
+    "And that's checkmate. Well played though!",
+    "Checkmate! Maybe try a different approach next time?",
+    "Game over! That was a tough battle.",
+    "Checkmate! Want to go again?",
+  ],
+  aiCastle: [
+    "Time to get my king to safety.",
+    "Castling — my king appreciates the protection.",
+    "Safe and sound behind my pawns.",
+    "A good time to castle, I think.",
+  ],
+  aiPawnPush: [
+    "Pushing forward, one step at a time.",
+    "My pawns are on the march!",
+    "A small move with big ambitions.",
+    "Advancing the foot soldiers.",
+  ],
+  aiKnightMove: [
+    "My knight finds a nice square.",
+    "A little knight dance for you.",
+    "The knight leaps into action!",
+    "Knights love these kinds of positions.",
+  ],
+  aiWhenAhead: [
+    "I'm feeling pretty good about my position.",
+    "The advantage is mine. Can you turn it around?",
+    "Things are looking my way!",
+    "I'll try to convert this advantage.",
+    "Slowly but surely, I'm squeezing you.",
+  ],
+  aiWhenBehind: [
+    "I'm in trouble, but I won't go down without a fight!",
+    "I need to be creative here to survive.",
+    "Not my best position, but chess isn't over until it's over.",
+    "Time to dig deep and find a way out.",
+  ],
+  aiDevelopment: [
+    "Getting my pieces into the game.",
+    "Development first, attack later.",
+    "Preparing for the middlegame.",
+    "Building my position piece by piece.",
+  ],
+  aiPromotion: [
+    "A new queen for me! How do you like that?",
+    "Promotion! My pawn fulfilled its destiny.",
+    "Another queen on the board. Things just got serious.",
+  ],
+
+  // Game state comments
+  stalemateDraw: [
+    "A draw! Well fought.",
+    "Stalemate — nobody wins today.",
+    "A hard-fought draw. Shall we play again?",
+  ],
+  opening: [
+    "Let's play! Make your move.",
+    "Ready for a challenge? You go first.",
+    "A new game! Show me what you've got.",
+    "Fresh board, fresh chances. Your move!",
+  ],
+  thinking: [
+    "Hmm, let me think...",
+    "Give me a moment...",
+    "Calculating possibilities...",
+    "Let me consider this carefully...",
+    "Thinking deep thoughts...",
+  ]
+};
+
+function getPlayerComment(g, move) {
+  const notation = g.moves[g.moves.length - 1] || '';
+  const ctx = getMoveContext(game, move, notation); // note: game is already updated
+
+  // Use pre-move game state for material (we need the state before the move)
+  // Since game is already updated, approximate from context
+  const moveNum = Math.ceil(g.moves.length / 2);
+
+  if (ctx.isMate) return pick(["Checkmate?! No... wait... that can't be right!", "You got me! Well played!", "Checkmate! I bow to the superior player.", "Incredible finish! You earned that win."]);
+
+  if (ctx.isPromotion) return pick(COMMENTS.playerPromotion);
+  if (ctx.isCheck) return pick(COMMENTS.playerCheck);
+  if (ctx.isCastle) return pick(COMMENTS.playerCastle);
+
+  if (ctx.isCapture) {
+    if (ctx.capturedPiece === 'Q') return pick(["My queen! That's a devastating blow.", "Losing my queen hurts. A lot.", "Well, there goes my best piece..."]);
+    if (ctx.capturedPiece === 'R') return pick(["My rook! That's going to be hard to recover from.", "A rook down — you're pressing your advantage."]);
+    if (ctx.capturedPiece === 'B' || ctx.capturedPiece === 'N') return pick(COMMENTS.playerGoodCapture);
+    if (ctx.capturedPiece === 'P') return pick(COMMENTS.playerPawnCapture);
+    return pick(COMMENTS.playerGoodCapture);
+  }
+
+  // Material-based comments
+  const wMat = countMaterial(g.board, 'w');
+  const bMat = countMaterial(g.board, 'b');
+  const diff = wMat - bMat;
+  if (diff > 300) return pick(COMMENTS.playerWhenAhead);
+  if (diff < -300) return pick(COMMENTS.playerWhenBehind);
+
+  // Early game
+  if (moveNum <= 5) return pick(COMMENTS.playerEarlyGame);
+
+  // Piece-specific
+  if (ctx.piece === 'Q') return pick(COMMENTS.playerQueenMove);
+  if (ctx.piece === 'N') return pick(COMMENTS.playerKnightMove);
+
+  return pick(COMMENTS.playerGeneric);
+}
+
+function getAIComment(gBefore, gAfter, move) {
+  const notation = gAfter.moves[gAfter.moves.length - 1] || '';
+  const ctx = getMoveContext(gBefore, move, notation);
+  const moveNum = Math.ceil(gAfter.moves.length / 2);
+
+  if (ctx.isMate) return pick(COMMENTS.aiMate);
+  if (ctx.isPromotion) return pick(COMMENTS.aiPromotion);
+
+  if (ctx.isCheck) return pick(COMMENTS.aiCheck);
+  if (ctx.isCastle) return pick(COMMENTS.aiCastle);
+
+  if (ctx.isCapture) {
+    if (ctx.capturedPiece === 'Q') return pick(["Your queen is mine! That changes everything!", "I'll take your queen, thank you very much!", "The queen falls! This is a turning point."]);
+    if (ctx.capturedPiece === 'R') return pick(["I'll take that rook!", "One rook down for you.", ...COMMENTS.aiBigCapture.slice(0, 2)]);
+    if (ctx.capturedPiece === 'B' || ctx.capturedPiece === 'N') return pick(COMMENTS.aiCapture);
+    if (ctx.capturedPiece === 'P') return pick(COMMENTS.aiPawnPush);
+    return pick(COMMENTS.aiCapture);
+  }
+
+  // Material-based
+  const wMat = countMaterial(gAfter.board, 'w');
+  const bMat = countMaterial(gAfter.board, 'b');
+  const diff = wMat - bMat;
+  if (diff < -300) return pick(COMMENTS.aiWhenAhead);
+  if (diff > 300) return pick(COMMENTS.aiWhenBehind);
+
+  // Early development
+  if (moveNum <= 5) return pick(COMMENTS.aiDevelopment);
+
+  // Piece-specific
+  if (ctx.piece === 'N') return pick(COMMENTS.aiKnightMove);
+  if (ctx.piece === 'P') return pick(COMMENTS.aiPawnPush);
+
+  return pick(COMMENTS.aiGeneric);
 }
 
 // Init
 initGame();
 render();
+if (isAIMode()) aiSay(pick(COMMENTS.opening));
 
 // Expose state for testing
 window._chess = {
