@@ -1152,7 +1152,7 @@ function animateMove(move, piece, callback) {
 
   // Force layout, then start animation
   anim.getBoundingClientRect();
-  anim.style.transition = 'transform 3.15s cubic-bezier(0.25, 0.1, 0.25, 1)';
+  anim.style.transition = 'transform 1.575s cubic-bezier(0.25, 0.1, 0.25, 1)';
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -1171,7 +1171,7 @@ function animateMove(move, piece, callback) {
   anim.addEventListener('transitionend', finish, { once: true });
 
   // Fallback in case transitionend doesn't fire
-  setTimeout(finish, 3600);
+  setTimeout(finish, 1800);
 }
 
 function doAIMove() {
