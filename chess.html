@@ -122,10 +122,10 @@
     background: rgba(0,0,0,0.2);
     border-radius: 50%;
   }
-  .square.legal-capture {
-    background: radial-gradient(transparent 55%, rgba(0,0,0,0.25) 55%) !important;
-  }
   .square.last-move { background: rgba(255, 255, 100, 0.45) !important; }
+  .square.legal-capture {
+    background: radial-gradient(transparent 55%, rgba(0,0,0,0.3) 55%) !important;
+  }
   .square.check { background: radial-gradient(ellipse at center, #ff0000 0%, #cc0000 30%, rgba(200,0,0,0.3) 80%, transparent 100%) !important; }
   .status {
     margin: 10px 0;
@@ -265,6 +265,13 @@
     flex: 1;
     min-height: 1.4em;
   }
+  .hint-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 45;
+  }
   @media (max-width: 720px) {
     .game-container { flex-direction: column; align-items: center; }
     .sidebar { width: min(480px, 90vw); max-height: 200px; }
@@ -286,6 +293,7 @@
     <option value="3" selected>Medium</option>
     <option value="4">Hard</option>
   </select>
+  <button id="hintBtn">Hint</button>
 </div>
 
 <div class="game-container">
@@ -867,6 +875,35 @@ function aiBestMove(g) {
   return { move: bestMove, promoPiece: bestMove.promotion ? 'Q' : null };
 }
 
+function playerBestMove(g) {
+  const depth = parseInt(document.getElementById('difficultySelect').value);
+  const moves = generateLegalMoves(g, g.turn);
+  if (moves.length === 0) return null;
+
+  let bestMove = moves[0];
+  let bestScore = -Infinity; // Player is white, maximizing
+  let alpha = -Infinity;
+  const beta = Infinity;
+
+  moves.sort((a, b) => {
+    const capA = g.board[a.to[0]][a.to[1]] ? PIECE_VALUES[typeOf(g.board[a.to[0]][a.to[1]])] : 0;
+    const capB = g.board[b.to[0]][b.to[1]] ? PIECE_VALUES[typeOf(g.board[b.to[0]][b.to[1]])] : 0;
+    return capB - capA;
+  });
+
+  for (const m of moves) {
+    const promoPiece = m.promotion ? 'Q' : null;
+    const ng = makeMove(g, m, promoPiece);
+    const score = minimax(ng, depth - 1, alpha, Infinity, false);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMove = m;
+      alpha = Math.max(alpha, score);
+    }
+  }
+  return bestMove;
+}
+
 // ========== UI ==========
 
 const boardEl = document.getElementById('board');
@@ -881,6 +918,9 @@ const difficultySelect = document.getElementById('difficultySelect');
 const newGameBtn = document.getElementById('newGameBtn');
 
 let lastMove = null;
+let hintShowing = false;
+let hintOverlayEl = null;
+const hintBtn = document.getElementById('hintBtn');
 
 function render() {
   boardEl.innerHTML = '';
@@ -918,9 +958,10 @@ function render() {
         sq.classList.add('selected');
       }
       if (selectedSquare) {
-        const isLegal = legalMovesCache.some(m => m.to[0] === r && m.to[1] === c);
-        if (isLegal) {
-          sq.classList.add(game.board[r][c] ? 'legal-capture' : 'legal-move');
+        const legalMove = legalMovesCache.find(m => m.to[0] === r && m.to[1] === c);
+        if (legalMove) {
+          const isCapture = game.board[r][c] || legalMove.enPassant;
+          sq.classList.add(isCapture ? 'legal-capture' : 'legal-move');
         }
       }
 
@@ -1031,6 +1072,7 @@ function onSquareClick(r, c) {
 }
 
 function executeMove(move, promoPiece) {
+  clearHint();
   const prevGame = cloneGame(game);
   game = makeMove(game, move, promoPiece);
   lastMove = move;
@@ -1211,9 +1253,86 @@ function showPromotionDialog(move) {
 
 function isAIMode() { return modeSelect.value === 'ai'; }
 
+// ========== HINT ==========
+
+function clearHint() {
+  if (hintOverlayEl) { hintOverlayEl.remove(); hintOverlayEl = null; }
+  hintShowing = false;
+  hintBtn.textContent = 'Hint';
+}
+
+function showHint() {
+  if (game.gameOver || aiThinking || game.turn !== 'w') return;
+
+  const bestMove = playerBestMove(game);
+  if (!bestMove) return;
+
+  const boardSection = boardEl.parentElement;
+  const sectionRect = boardSection.getBoundingClientRect();
+  const fromSq = getSquareEl(bestMove.from[0], bestMove.from[1]);
+  const toSq = getSquareEl(bestMove.to[0], bestMove.to[1]);
+  if (!fromSq || !toSq) return;
+
+  const fromRect = fromSq.getBoundingClientRect();
+  const toRect = toSq.getBoundingClientRect();
+  const sqSize = fromRect.width;
+
+  const fromCX = fromRect.left - sectionRect.left + sqSize / 2;
+  const fromCY = fromRect.top - sectionRect.top + sqSize / 2;
+  const toCX = toRect.left - sectionRect.left + sqSize / 2;
+  const toCY = toRect.top - sectionRect.top + sqSize / 2;
+  const ow = sectionRect.width;
+  const oh = sectionRect.height;
+
+  // Build dotted arrow
+  const adx = toCX - fromCX;
+  const ady = toCY - fromCY;
+  const len = Math.sqrt(adx * adx + ady * ady);
+  const ux = adx / len;
+  const uy = ady / len;
+  const headLen = sqSize * 0.35;
+  const headW = sqSize * 0.31;
+  const px = -uy;
+  const py = ux;
+  // Shorten the line so it ends at the head base
+  const lineEndX = toCX - ux * headLen;
+  const lineEndY = toCY - uy * headLen;
+  // Arrowhead points
+  const h1x = lineEndX + px * headW / 2;
+  const h1y = lineEndY + py * headW / 2;
+  const h2x = lineEndX - px * headW / 2;
+  const h2y = lineEndY - py * headW / 2;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'hint-overlay';
+  overlay.innerHTML = `<svg width="${ow}" height="${oh}" viewBox="0 0 ${ow} ${oh}" xmlns="http://www.w3.org/2000/svg">
+    <line x1="${fromCX}" y1="${fromCY}" x2="${lineEndX}" y2="${lineEndY}"
+      stroke="rgba(180,180,180,0.6)" stroke-width="${sqSize * 0.099}"
+      stroke-dasharray="${sqSize * 0.08} ${sqSize * 0.12}"
+      stroke-linecap="butt"/>
+    <polygon points="${h1x},${h1y} ${toCX},${toCY} ${h2x},${h2y}"
+      fill="rgba(180,180,180,0.6)"/>
+  </svg>`;
+  boardSection.appendChild(overlay);
+  hintOverlayEl = overlay;
+  hintShowing = true;
+  hintBtn.textContent = 'Hide Hint';
+}
+
+function toggleHint() {
+  if (hintShowing) {
+    clearHint();
+  } else {
+    showHint();
+  }
+}
+
+hintBtn.addEventListener('click', toggleHint);
+
 modeSelect.addEventListener('change', () => {
   difficultySelect.style.display = isAIMode() ? '' : 'none';
   speechWrapper.style.display = isAIMode() ? '' : 'none';
+  hintBtn.style.display = isAIMode() ? '' : 'none';
   startNewGame();
 });
 
@@ -1221,6 +1340,7 @@ newGameBtn.addEventListener('click', startNewGame);
 
 function startNewGame() {
   if (aiTimer) { clearTimeout(aiTimer); aiTimer = null; }
+  clearHint();
   initGame();
   lastMove = null;
   selectedSquare = null;
