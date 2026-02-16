@@ -72,6 +72,9 @@
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
     flex-shrink: 0;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    touch-action: none;
   }
   .square {
     aspect-ratio: 1 / 1;
@@ -83,11 +86,22 @@
     position: relative;
     transition: background 0.1s;
     overflow: hidden;
+    -webkit-touch-callout: none;
   }
   .piece-svg {
     width: 80%;
     height: 80%;
     filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
+    pointer-events: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+  }
+  .dragging-piece {
+    position: fixed;
+    pointer-events: none;
+    z-index: 100;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    transform: translate(-50%, -50%);
   }
   .board-section { position: relative; }
   .anim-overlay {
@@ -907,6 +921,8 @@ function playerBestMove(g) {
 // ========== UI ==========
 
 const boardEl = document.getElementById('board');
+boardEl.addEventListener('contextmenu', e => e.preventDefault());
+boardEl.addEventListener('dragstart', e => e.preventDefault());
 const statusEl = document.getElementById('status');
 const moveListEl = document.getElementById('moveList');
 const capturedWhiteEl = document.getElementById('capturedWhite');
@@ -975,7 +991,8 @@ function render() {
         sq.insertAdjacentHTML('beforeend', pieceHTML(piece));
       }
 
-      sq.addEventListener('click', () => onSquareClick(r, c));
+      sq.addEventListener('mousedown', (e) => onSquareDown(r, c, e));
+      sq.addEventListener('touchstart', (e) => onSquareDown(r, c, e), { passive: false });
       boardEl.appendChild(sq);
     }
   }
@@ -1032,43 +1049,145 @@ function updateStatus() {
   }
 }
 
-function onSquareClick(r, c) {
+// ========== DRAG & DROP + CLICK ==========
+
+let dragging = false;
+let dragPieceEl = null;
+let dragFromR = -1, dragFromC = -1;
+let dragStartX = 0, dragStartY = 0;
+const DRAG_THRESHOLD = 5; // px before we consider it a drag vs click
+let dragMoved = false;
+
+function getClientPos(e) {
+  if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  return { x: e.clientX, y: e.clientY };
+}
+
+function onSquareDown(r, c, e) {
   if (game.gameOver || aiThinking) return;
   if (isAIMode() && game.turn === 'b') return;
 
   const piece = game.board[r][c];
+  const pos = getClientPos(e);
 
-  if (selectedSquare) {
-    // Try to make a move
+  // If we already have a selection and tap/click a target square, handle immediately
+  if (selectedSquare && !(selectedSquare[0] === r && selectedSquare[1] === c)) {
     const move = legalMovesCache.find(m => m.to[0] === r && m.to[1] === c);
     if (move) {
-      if (move.promotion) {
-        showPromotionDialog(move);
-        return;
-      }
+      if (move.promotion) { showPromotionDialog(move); return; }
       executeMove(move);
       return;
     }
-    // Select a different piece
-    if (piece && colorOf(piece) === game.turn) {
-      selectedSquare = [r, c];
-      legalMovesCache = generateLegalMoves(game, game.turn).filter(m => m.from[0] === r && m.from[1] === c);
-      render();
-      return;
-    }
-    // Deselect
-    selectedSquare = null;
-    legalMovesCache = [];
-    render();
-    return;
   }
 
-  // Select a piece
+  // Start drag if clicking on own piece
   if (piece && colorOf(piece) === game.turn) {
+    e.preventDefault();
+    dragFromR = r;
+    dragFromC = c;
+    dragStartX = pos.x;
+    dragStartY = pos.y;
+    dragMoved = false;
+    dragging = true;
+
+    // Select this piece and show legal moves
     selectedSquare = [r, c];
     legalMovesCache = generateLegalMoves(game, game.turn).filter(m => m.from[0] === r && m.from[1] === c);
     render();
+
+    // Create drag ghost
+    const sq = getSquareEl(r, c);
+    const sqRect = sq.getBoundingClientRect();
+    const size = sqRect.width;
+    dragPieceEl = document.createElement('div');
+    dragPieceEl.className = 'dragging-piece';
+    dragPieceEl.style.width = size + 'px';
+    dragPieceEl.style.height = size + 'px';
+    dragPieceEl.innerHTML = pieceHTML(piece);
+    dragPieceEl.style.left = pos.x + 'px';
+    dragPieceEl.style.top = pos.y + 'px';
+    dragPieceEl.style.display = 'none'; // hidden until threshold
+    document.body.appendChild(dragPieceEl);
+
+    document.addEventListener('mousemove', onDragMove);
+    document.addEventListener('touchmove', onDragMove, { passive: false });
+    document.addEventListener('mouseup', onDragEnd);
+    document.addEventListener('touchend', onDragEnd);
+  } else if (!piece || colorOf(piece) !== game.turn) {
+    // Clicked empty or enemy square without a selection — deselect
+    if (selectedSquare) {
+      selectedSquare = null;
+      legalMovesCache = [];
+      render();
+    }
   }
+}
+
+function onDragMove(e) {
+  if (!dragging || !dragPieceEl) return;
+  e.preventDefault();
+  const pos = getClientPos(e);
+  const dx = pos.x - dragStartX;
+  const dy = pos.y - dragStartY;
+
+  if (!dragMoved && Math.sqrt(dx * dx + dy * dy) > DRAG_THRESHOLD) {
+    dragMoved = true;
+    dragPieceEl.style.display = '';
+    // Hide piece on source square
+    const sq = getSquareEl(dragFromR, dragFromC);
+    if (sq) {
+      const svg = sq.querySelector('.piece-svg');
+      if (svg) svg.style.visibility = 'hidden';
+    }
+  }
+
+  if (dragMoved) {
+    dragPieceEl.style.left = pos.x + 'px';
+    dragPieceEl.style.top = pos.y + 'px';
+  }
+}
+
+function onDragEnd(e) {
+  document.removeEventListener('mousemove', onDragMove);
+  document.removeEventListener('touchmove', onDragMove);
+  document.removeEventListener('mouseup', onDragEnd);
+  document.removeEventListener('touchend', onDragEnd);
+
+  if (!dragging) return;
+  dragging = false;
+
+  // Remove drag ghost
+  if (dragPieceEl) { dragPieceEl.remove(); dragPieceEl = null; }
+
+  if (!dragMoved) {
+    // It was a click, not a drag — selection already handled in onSquareDown
+    return;
+  }
+
+  // Determine drop square
+  const pos = e.changedTouches ? { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY } : { x: e.clientX, y: e.clientY };
+  const dropSq = getSquareFromPoint(pos.x, pos.y);
+
+  if (dropSq) {
+    const [tr, tc] = dropSq;
+    const move = legalMovesCache.find(m => m.to[0] === tr && m.to[1] === tc);
+    if (move) {
+      if (move.promotion) { showPromotionDialog(move); return; }
+      executeMove(move);
+      return;
+    }
+  }
+
+  // Invalid drop — re-render to restore piece visibility (keep selection)
+  render();
+}
+
+function getSquareFromPoint(x, y) {
+  const boardRect = boardEl.getBoundingClientRect();
+  const col = Math.floor((x - boardRect.left) / (boardRect.width / 8));
+  const row = Math.floor((y - boardRect.top) / (boardRect.height / 8));
+  if (row >= 0 && row < 8 && col >= 0 && col < 8) return [row, col];
+  return null;
 }
 
 function executeMove(move, promoPiece) {
