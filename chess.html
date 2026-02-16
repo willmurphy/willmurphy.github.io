@@ -1057,15 +1057,26 @@ let dragFromR = -1, dragFromC = -1;
 let dragStartX = 0, dragStartY = 0;
 const DRAG_THRESHOLD = 5; // px before we consider it a drag vs click
 let dragMoved = false;
+let lastTouchTime = 0; // track touch events to suppress synthesized mouse events
 
 function getClientPos(e) {
   if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  if (e.changedTouches && e.changedTouches.length > 0) return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
   return { x: e.clientX, y: e.clientY };
 }
 
 function onSquareDown(r, c, e) {
   if (game.gameOver || aiThinking) return;
   if (isAIMode() && game.turn === 'b') return;
+
+  const isTouch = e.type === 'touchstart';
+
+  // Suppress synthesized mouse events after touch
+  if (!isTouch && Date.now() - lastTouchTime < 500) return;
+  if (isTouch) lastTouchTime = Date.now();
+
+  // Always prevent default on touch to stop iOS long-press menu and synthesized mouse events
+  if (isTouch) e.preventDefault();
 
   const piece = game.board[r][c];
   const pos = getClientPos(e);
@@ -1080,9 +1091,14 @@ function onSquareDown(r, c, e) {
     }
   }
 
+  // If already dragging (shouldn't happen, but cleanup just in case)
+  if (dragging) {
+    cleanupDrag();
+  }
+
   // Start drag if clicking on own piece
   if (piece && colorOf(piece) === game.turn) {
-    e.preventDefault();
+    if (!isTouch) e.preventDefault();
     dragFromR = r;
     dragFromC = c;
     dragStartX = pos.x;
@@ -1109,10 +1125,14 @@ function onSquareDown(r, c, e) {
     dragPieceEl.style.display = 'none'; // hidden until threshold
     document.body.appendChild(dragPieceEl);
 
-    document.addEventListener('mousemove', onDragMove);
-    document.addEventListener('touchmove', onDragMove, { passive: false });
-    document.addEventListener('mouseup', onDragEnd);
-    document.addEventListener('touchend', onDragEnd);
+    if (isTouch) {
+      document.addEventListener('touchmove', onDragMove, { passive: false });
+      document.addEventListener('touchend', onDragEnd, { once: true });
+      document.addEventListener('touchcancel', onDragEnd, { once: true });
+    } else {
+      document.addEventListener('mousemove', onDragMove);
+      document.addEventListener('mouseup', onDragEnd, { once: true });
+    }
   } else if (!piece || colorOf(piece) !== game.turn) {
     // Clicked empty or enemy square without a selection — deselect
     if (selectedSquare) {
@@ -1147,25 +1167,32 @@ function onDragMove(e) {
   }
 }
 
-function onDragEnd(e) {
+function cleanupDrag() {
   document.removeEventListener('mousemove', onDragMove);
   document.removeEventListener('touchmove', onDragMove);
   document.removeEventListener('mouseup', onDragEnd);
   document.removeEventListener('touchend', onDragEnd);
-
-  if (!dragging) return;
-  dragging = false;
-
-  // Remove drag ghost
+  document.removeEventListener('touchcancel', onDragEnd);
   if (dragPieceEl) { dragPieceEl.remove(); dragPieceEl = null; }
+  dragging = false;
+  dragMoved = false;
+}
 
-  if (!dragMoved) {
-    // It was a click, not a drag — selection already handled in onSquareDown
+function onDragEnd(e) {
+  if (!dragging) return;
+
+  const wasDragMoved = dragMoved;
+  const pos = getClientPos(e);
+
+  // Clean up listeners and ghost element
+  cleanupDrag();
+
+  if (!wasDragMoved) {
+    // It was a tap/click, not a drag — selection already handled in onSquareDown
     return;
   }
 
   // Determine drop square
-  const pos = e.changedTouches ? { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY } : { x: e.clientX, y: e.clientY };
   const dropSq = getSquareFromPoint(pos.x, pos.y);
 
   if (dropSq) {
