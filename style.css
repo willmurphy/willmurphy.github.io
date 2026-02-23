@@ -347,6 +347,28 @@ section + section {
   font-weight: 500;
 }
 
+.about-more {
+  margin-top: 4px;
+}
+
+.about-more summary {
+  cursor: pointer;
+  list-style: none;
+  width: fit-content;
+}
+
+.about-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.about-more-content {
+  margin-top: 20px;
+}
+
+.about-close-btn {
+  margin-top: 12px;
+}
+
 /* ============================
    PROJECTS
    ============================ */

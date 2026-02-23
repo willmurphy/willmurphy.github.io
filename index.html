@@ -90,14 +90,25 @@
     <h2 class="section-title">About Me</h2>
     <div class="about-body">
       <p>
-        Thanks for visiting. This page is partially an "about me" and mostly a place where I share projects I've worked on that others might find useful. I'm a Silicon Valley tech and product leader who has spent over a decade at the intersection of AI, product strategy, and zero-to-one innovation across startups and corporate labs. At <strong>Intuit's Futures Group</strong>, I launched two AI agents, then led the charge to build Intuit's next-generation flagship agent platform using neuro-symbolic AI and small language models. Before that, I led AI new product development at <strong>Data.ai</strong> Labs (formerly App Annie).
+        Thanks for visiting. This page is partially an "about me" and mostly a place where I share projects I've worked on that others might find useful. I'm a Silicon Valley tech and product leader who has spent over a decade at the intersection of AI, product strategy, and zero-to-one innovation across startups and corporate labs. 
+        
+
       </p>
-      <p>
-        I founded <strong>MessagePath</strong>, a top-5 AI Writing Assistant on G2.com, and was the founding Head of Product at <strong>Talla</strong>, an enterprise AI chatbot startup that was acquired. Earlier, I co-founded <strong><a href="https://senseaware.com/" target="_blank">SenseAware</a></strong>, a pioneering IoT analytics venture for FedEx, and led FedEx Innovation/ new product missions where I created a partnership and co-developed a service with eBay. I also founded the EPICenter Logistics Innovation Startup Accelerator and pitched/ spearheaded the concept that became FedEx DataWorks. My idea was to launch a new FedEx division that would utilize FedEx's vast dataset to launch new, high-margin, data-driven services.
-      </p>
-      <p>
-        I pioneered the concept of the <a href="https://futurelab.substack.com/p/probabilistic-products" target="_blank"><strong>"probabilistic product"</strong></a> in 2016 to describe the unique design and product management challenges of AI-driven software. I'm an <a href="https://www.beondeck.com/" target="_blank">OnDeck</a> Fellow (Founder &amp; Corporate Innovation Fellow) and hold multiple patents in AI, intelligent agents, knowledge graphs, and IoT. I speak on AI and innovation at venues including Stanford, MIT VLAB, and the Global AI Conference.
-      </p>
+      <details class="about-more">
+        <summary class="btn btn-secondary about-toggle">More About Me...</summary>
+        <div class="about-more-content">
+          <p>
+            At <strong>Intuit's Futures Group</strong>, I launched two AI agents, then led the charge to build Intuit's next-generation flagship agent platform using neuro-symbolic AI and small language models. Before that, I led AI new product development at <strong>Data.ai</strong> Labs (formerly App Annie).
+            </p>
+            <p>
+              I founded <strong>MessagePath</strong>, a top-5 AI Writing Assistant on G2.com, and was the founding Head of Product at <strong>Talla</strong>, an enterprise AI chatbot startup that was acquired. Earlier, I co-founded <strong><a href="https://senseaware.com/" target="_blank">SenseAware</a></strong>, a pioneering IoT analytics venture for FedEx, and led FedEx Innovation/ new product missions where I created a partnership and co-developed a service with eBay. I also founded the EPICenter Logistics Innovation Startup Accelerator and pitched/ spearheaded the concept that became FedEx DataWorks. My idea was to launch a new FedEx division that would utilize FedEx's vast dataset to launch new, high-margin, data-driven services.
+            </p>
+          <p>
+            I pioneered the concept of the <a href="https://futurelab.substack.com/p/probabilistic-products" target="_blank"><strong>"probabilistic product"</strong></a> in 2016 to describe the unique design and product management challenges of AI-driven software. I'm an <a href="https://www.beondeck.com/" target="_blank">OnDeck</a> Fellow (Founder &amp; Corporate Innovation Fellow) and hold multiple patents in AI, intelligent agents, knowledge graphs, and IoT. I speak on AI and innovation at venues including Stanford, MIT VLAB, and the Global AI Conference.
+          </p>
+        </div>
+        <button class="btn btn-secondary about-toggle about-close-btn" onclick="document.querySelector('.about-more').removeAttribute('open')">Close</button>
+      </details>
     </div>
   </div>
 </section>
@@ -391,6 +402,12 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.querySelector('.about-more').addEventListener('toggle', function () {
+  this.querySelector('summary').textContent = this.open ? 'Close' : 'More About Me...';
+});
+</script>
 
 </body>
 </html>
