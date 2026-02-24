@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Probabilistic Products by Will Murphy">
+    <meta name="description"
+        content="Probabilistic Products: Product Management, Design, and Development's Next Big Thing by Will Murphy.">
+    <title>Probabilistic Products — Will Murphy</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .book-hero {
+            padding: 120px 0 80px;
+            min-height: 80vh;
+        }
+
+        .book-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .book-cover {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-content h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .book-content p {
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--text-color, #4a4a4a);
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-color, #111);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 40px;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .book-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .book-hero {
+                padding: 100px 0 60px;
+            }
+
+            .book-cover {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==============================
+     NAVIGATION
+     ============================== -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-brand">Will Murphy</a>
+            <div class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#writing">Writing</a>
+                <a href="index.html#speaking">Speaking</a>
+                <a href="index.html#patents">Patents</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==============================
+     BOOK SECTION
+     ============================== -->
+    <section class="book-hero">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Home
+            </a>
+            <div class="book-grid">
+                <div class="book-image">
+                    <img src="images/probabilistic-products-cover.png" alt="Probabilistic Products Book Cover"
+                        class="book-cover" />
+                </div>
+                <div class="book-content">
+                    <h1>Probabilistic Products</h1>
+                    <p>
+                        The next big paradigm shift in software is already here. <strong>Probabilistic Products</strong>
+                        explores the unique design, product management, and development challenges of building AI-driven
+                        software.
+                    </p>
+                    <p>
+                        Unlike deterministic software that always does exactly what you code it to do, AI products
+                        behave probabilistically—they make educated guesses, learn from data, and sometimes make
+                        mistakes.
+                    </p>
+                    <p>
+                        This book provides a comprehensive framework for navigating this new frontier. Learn how to
+                        design user experiences that accommodate uncertainty, manage expectations when systems fail, and
+                        build products that continuously improve through feedback loops.
+                    </p>
+                    <div style="margin-top: 30px;">
+                        <a href="https://futurelab.substack.com/p/probabilistic-products" target="_blank"
+                            class="btn btn-primary">
+                            Read the Original Article
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==============================
+     FOOTER
+     ============================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div>
+                    <p class="footer-name">Will Murphy</p>
+                    <p class="footer-copy">AI Product Builder · willmurphy.net</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://linkedin.com/in/willmurphy" target="_blank">LinkedIn</a>
+                    <a href="https://futurelab.substack.com/" target="_blank">Newsletter</a>
+                    <a href="https://willmurphy.medium.com/" target="_blank">Medium</a>
+                    <a href="https://genhub.ai/will" target="_blank">GenHub</a>
+                    <a href="https://ideafeed.com/will" target="_blank">IdeaFeed</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
