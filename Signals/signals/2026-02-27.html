@@ -34,6 +34,44 @@
     .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
     .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
     .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+    .horizon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.45rem;
+    }
+    .horizon-near    { background: #fef3c7; color: #92400e; }
+    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
+    .horizon-long    { background: #dcfce7; color: #166534; }
+    .horizon-insight { background: #f1f5f9; color: #475569; }
+    .opportunity-callout {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #d0d0cc;
+      background: #fafaf8;
+      border-radius: 0 5px 5px 0;
+    }
+    .opportunity-callout .opp-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #aaa;
+      margin-bottom: 0.3rem;
+    }
+    .opportunity-callout.near { border-left-color: #f59e0b; }
+    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
+    .opportunity-callout.long { border-left-color: #22c55e; }
+    .opportunity-callout p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -48,32 +86,53 @@
 
     <div class="theme-item">
       <h3>"Prove It" Mode</h3>
+      <div><span class="horizon horizon-insight">Insight</span></div>
       <div class="signals">Technological: Nvidia posts record $68B quarter, stock drops 5% · Economic: CoreWeave down 11%, AI capex sustainability questioned · Social: AI influencers face authenticity scrutiny</div>
       <p>Nvidia reported the best quarter in its history this week — $68.1 billion in revenue, guidance of $78 billion, a 73% year-over-year surge — and the market wiped $260 billion from its market cap. That is not a contradiction: it is a mood shift. Investors are no longer rewarding AI infrastructure announcements; they are waiting to see the returns. CoreWeave's simultaneous 11% drop, driven by ballooning capex and widening losses, sharpened the same question: when does spend become revenue? AI remains the dominant investment narrative of the decade, but the era of reflexive applause for big numbers is over.</p>
     </div>
 
     <div class="theme-item">
       <h3>AI's Moral Fault Lines</h3>
+      <div><span class="horizon horizon-near">Near-term Opportunity · 1 yr</span></div>
       <div class="signals">Technological: Anthropic rejects Pentagon demands on Claude · Economic: Government AI contracts at stake · Social: Public debate about AI in autonomous weapons and mass surveillance</div>
       <p>The most consequential AI story of the day is not a product launch. Anthropic CEO Dario Amodei rejected the Pentagon's demand for unrestricted military access to Claude, drawing specific lines against two use cases: mass domestic surveillance and fully autonomous weapons with no human in the loop. Defense Secretary Hegseth set a 5 PM Friday deadline, threatening to designate Anthropic a supply chain risk — a status normally reserved for foreign adversaries. Amodei's position is that safety constraints are non-negotiable regardless of who is asking. The standoff sets a precedent that every AI company with a government contract will now have to navigate.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Build enterprise AI governance tooling — auditable compliance layers that give organizations explicit control over which parties can access their AI systems and on what terms. Most enterprise AI buyers lack a defensible policy on government access; the Anthropic precedent makes that gap immediately visible. The first credible product that lets a legal or compliance team answer "what can the government compel our AI to do?" owns this market.</p>
+      </div>
     </div>
 
     <div class="theme-item">
       <h3>The Tariff Ratchet</h3>
+      <div><span class="horizon horizon-near">Near-term Opportunity · 1 yr</span></div>
       <div class="signals">Economic: Section 122 tariffs at 15%, additional 10% China tariff announced for March 4, Treasury yields surging · Social: Consumer price anxiety rising in social sentiment</div>
       <p>Every legal check on tariff authority has simply produced a new mechanism. The Supreme Court struck down IEEPA tariffs; Section 122 tariffs went up within hours, now at 15%. Today Trump announced an additional 10% tariff on Chinese imports, effective March 4. The 10-year Treasury yield has climbed to 4.04% — what analysts are calling the "Warsh Shock," reflecting both tariff-driven inflation expectations and uncertainty around the next Fed chair. Businesses have largely stopped trying to plan around specific rates and are instead building permanent price-flexibility into supply chains. The tariff state is not a policy; it is a new baseline.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Build or invest in supply chain scenario-planning software that models tariff exposure in real time and surfaces alternative sourcing options as policy shifts. This was a strategic nice-to-have in 2024; it is now operational infrastructure. The companies that sell "tariff agility" — fast supplier switching, landed-cost modeling, dynamic pricing — are positioned for immediate and sustained demand regardless of which specific tariff regime is in force.</p>
+      </div>
     </div>
 
     <div class="theme-item">
       <h3>The Displacement Economy</h3>
+      <div><span class="horizon horizon-mid">Mid-term Opportunity · 2–3 yrs</span></div>
       <div class="signals">Economic: 300K DOGE federal cuts, weakest labor market since 2002 · Social: Ex-federal worker stories as content genre · Technological: AI efficiency replacing headcount</div>
       <p>Three simultaneous forces are reshaping who has work and who doesn't. DOGE's 300,000 federal cuts have wiped out years of employment gains across federal-dependent regions — Virginia lost six years of job growth in eleven months. The broader labor market posted its weakest non-recessionary performance since 2002. And firms across the private sector are growing output without growing headcount, using AI efficiency gains to do more with less. The unemployment rate climbing from 4.1% to 4.4% understates the underlying fragility: layoff rates are low, but hiring has largely stopped. The displacement is quiet, distributed, and cumulative.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Build private-sector alternatives to degraded federal services, starting where the gaps are most acute and the affected population most concentrated: benefits navigation for displaced federal workers, AI-assisted Social Security and veterans' claims processing, and outsourced administrative capacity for state agencies absorbing federal workload. The demand is real, politically durable across administrations, and currently served by no one at scale.</p>
+      </div>
     </div>
 
     <div class="theme-item">
       <h3>The Attention Economy's Identity Crisis</h3>
+      <div><span class="horizon horizon-near">Near-term Opportunity · 1 yr</span></div>
       <div class="signals">Social: Grammys content supercycle, #BringBack2016 at 55M TikTok videos, Key &amp; Peele audio trend, social commerce maturing · Technological: Algorithms shift to retention signals</div>
       <p>The feed is evolving faster than creators can track. TikTok's algorithm has shifted its core ranking signals from reach to retention — watch time, rewatches, saves — and the content strategies that worked six months ago are underperforming. The Grammys triggered a multi-day content ecosystem rather than a single broadcast event. "2026 is the new 2016" has its own Wikipedia entry now, anchoring a nostalgia movement that frames the pre-algorithmic internet as a lost golden age. At the same time, TikTok Shop and YouTube's commerce integrations are turning passive scrolling into active buying. The same feed is simultaneously a nostalgic retreat and a storefront.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Build retention-first content infrastructure: tools that help creators and brands optimize for watch-time completion, rewatch rate, and follows-after-viewing rather than impressions and reach. Most creator analytics dashboards still optimize for the old signals. The brands and agencies that retool their production process and measurement stack around retention now will compound their audience advantage while competitors catch up — a gap that typically takes 12–18 months to close.</p>
+      </div>
     </div>
 
   </section>
