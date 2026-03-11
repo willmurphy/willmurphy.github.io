@@ -401,6 +401,8 @@ section + section {
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border);
   position: relative;
+  display: block;
+  cursor: pointer;
 }
 
 .project-card-preview img {
