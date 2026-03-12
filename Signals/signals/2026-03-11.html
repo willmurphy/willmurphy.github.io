@@ -13,6 +13,7 @@
     }
     header { border-bottom: 2px solid #1a1a1a; padding-bottom: 1rem; margin-bottom: 2.5rem; }
     header nav a { font-size: 0.85rem; color: #555; text-decoration: none; }
+    header nav a:hover { color: #1a1a1a; }
     header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-top: 0.5rem; }
     header .date { font-size: 1rem; color: #555; margin-top: 0.25rem; }
     section { margin-bottom: 3rem; }
@@ -25,18 +26,57 @@
     .trend .source:hover { color: #0066cc; }
     footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
     footer a { color: #888; text-decoration: none; }
-    #themes { background: #1a1a1a; color: #f9f9f7; border-radius: 6px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
-    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; border-bottom: 1px solid #333; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2e2e2e; }
+    footer a:hover { color: #1a1a1a; }
+    #themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
+    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
     .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #f9f9f7; margin-bottom: 0.35rem; line-height: 1.4; }
-    .theme-item .signals { font-size: 1.08rem; color: #777; margin-bottom: 0.5rem; }
-    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #ccc; }
+    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
+    .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
+    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+    .horizon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.45rem;
+    }
+    .horizon-near    { background: #fef3c7; color: #92400e; }
+    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
+    .horizon-long    { background: #dcfce7; color: #166534; }
+    .horizon-insight { background: #f1f5f9; color: #475569; }
+    .opportunity-callout {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #d0d0cc;
+      background: #fafaf8;
+      border-radius: 0 5px 5px 0;
+    }
+    .opportunity-callout .opp-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #aaa;
+      margin-bottom: 0.3rem;
+    }
+    .opportunity-callout.near { border-left-color: #f59e0b; }
+    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
+    .opportunity-callout.long { border-left-color: #22c55e; }
+    .opportunity-callout p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
   <header>
-    <nav><a href="index.html">&larr; Will's Signals</a></nav>
+    <nav><a href="index.html">← Will's Signals</a></nav>
     <h1>Will's Signals</h1>
     <p class="date">Wednesday, March 11, 2026</p>
   </header>
@@ -45,33 +85,58 @@
     <h2>Themes</h2>
 
     <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
       <h3>AI Moves from Hype to Infrastructure</h3>
       <p class="signals">Technological: GPT-5.4 &amp; Agentic Models · Economic: Nscale $2B Raise · Cybersecurity: AI-Native Security</p>
       <p>The AI race is no longer about who can build the biggest model — it's about who can deploy AI most reliably at scale. OpenAI's million-token context window, Alibaba's agentic Qwen 3.5, and Nscale's $2 billion infrastructure raise all point to a market entering its operational phase. Meanwhile, AI-native cybersecurity startups are raising nine-figure rounds to protect the very systems this buildout creates.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Opportunity</div>
+        <p>Companies building middleware and tooling layers between foundation models and enterprise workflows are well-positioned as the market shifts from model capability to deployment reliability.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
       <h3>Markets Hold Their Breath for Inflation Data</h3>
       <p class="signals">Economic: CPI Watch · Oil Above $100 · Fed Rate Pause</p>
       <p>Wall Street is in wait-and-see mode ahead of the February CPI report, with Brent crude above $100 and Middle East disruptions threatening to push energy costs higher. The Fed is expected to hold rates steady at its March meeting, keeping the funds rate at 3.50–3.75%. The interplay between sticky inflation, energy shocks, and a cautious central bank defines the economic mood this week.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Opportunity</div>
+        <p>Energy-adjacent equities and inflation-protected securities may outperform if CPI comes in hot. Conversely, a soft print could spark a broad risk-on rally with tech leading.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-long">Long-term</span>
       <h3>The Authenticity Correction</h3>
       <p class="signals">Social: Return to Real · Digital Fatigue · Community Over Virality</p>
       <p>Across social platforms, users and brands are rejecting performative polish in favor of rawness, intentionality, and depth. The shift from attention economy to intention economy is accelerating — time on social feeds is declining, niche communities are growing, and "cozy" content outperforms rage-bait. This cultural correction has implications for every brand and creator strategy in 2026.</p>
+      <div class="opportunity-callout long">
+        <div class="opp-label">Opportunity</div>
+        <p>Brands that invest in owned communities and depth-first content strategies now will build durable audience relationships as algorithmic reach continues to decline.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-mid">Mid-term</span>
       <h3>Trade Policy in Legal Limbo</h3>
       <p class="signals">Economic: Supreme Court IEEPA Ruling · US-China Tariffs · EU Negotiations</p>
       <p>The Supreme Court's February ruling that the president cannot use IEEPA to impose tariffs has thrown the existing tariff regime into uncertainty. With 20% tariffs on Chinese imports still in flux and EU negotiations stalled over digital regulation, global trade architecture is being rewritten in real time — with courts, not just executives, at the table.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Opportunity</div>
+        <p>Supply chain diversification services and trade compliance platforms stand to benefit as businesses navigate shifting tariff regimes and seek legal clarity on import costs.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
       <h3>Capital Floods Into AI and Health</h3>
       <p class="signals">Economic: Nscale $2B · Decagon $250M · Grow Therapy $150M · Vast $500M</p>
       <p>Venture capital is surging into two categories: AI infrastructure and healthcare platforms. Nscale's $2 billion round is one of Europe's largest-ever tech raises. Decagon tripled its valuation in under a year building AI customer support agents. In health, Grow Therapy and Sage Health collectively raised over $200 million for mental health and primary care platforms, signaling sustained investor appetite for care delivery innovation.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Opportunity</div>
+        <p>Mental health and primary care platforms with strong unit economics are commanding premium valuations. Late-stage private companies in this space may be IPO candidates by late 2026.</p>
+      </div>
     </div>
   </section>
 
