@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will Murphy | AI Product Leader</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --surface: #f8f9fa;
+            --card: #ffffff;
+            --border: #dadce0;
+            --text: #202124;
+            --text-muted: #5f6368;
+            --accent: #1a73e8;
+            --accent-glow: rgba(26, 115, 232, 0.15);
+            --accent2: #1e8e3e;
+            --accent3: #d93025;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.88);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100; padding: 0 2rem;
+        }
+        nav .nav-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center; height: 64px;
+        }
+        nav .logo { font-weight: 700; font-size: 1.2rem; color: var(--accent); letter-spacing: -0.5px; }
+        nav .nav-links { display: flex; gap: 2rem; list-style: none; }
+        nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        nav .nav-links a:hover { color: var(--text); }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 24px; height: 2px; background: var(--text-muted); transition: 0.3s; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 30% 50%, rgba(26,115,232,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 50%, rgba(30,142,62,0.04) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite alternate;
+        }
+        @keyframes drift { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-5%,3%) rotate(3deg); } }
+        .hero-content { position: relative; max-width: 800px; text-align: center; }
+        .hero-badge {
+            display: inline-block; padding: 0.4rem 1rem;
+            background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.2);
+            border-radius: 100px; font-size: 0.85rem; color: var(--accent); margin-bottom: 1.5rem; letter-spacing: 0.5px;
+        }
+        h1 { font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
+        h1 .gradient { background: linear-gradient(135deg, #1a73e8, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-sub { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.8; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2rem; font-weight: 800; color: var(--accent); }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px var(--accent-glow); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--accent); background: rgba(26,115,232,0.03); }
+
+        /* Sections */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
+        .section-title { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
+        .section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-size: 1.05rem; }
+
+        /* Skills */
+        .skills-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+        .skill-pill { padding: 0.5rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; transition: all 0.2s; }
+        .skill-pill:hover { border-color: var(--accent); color: var(--text); background: rgba(26,115,232,0.03); }
+
+        /* Timeline Logo + Company inline */
+        .timeline-logo-row {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin-top: 0.5rem; margin-bottom: 0.75rem;
+        }
+        .timeline-logo {
+            width: 36px; height: 36px; border-radius: 8px; object-fit: cover;
+            border: 1px solid var(--border); flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        .timeline-logo-row .timeline-company { margin-bottom: 0; }
+
+        /* Speaking Logo inline with venue */
+        .speaking-header {
+            display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;
+        }
+        .speaking-logo {
+            width: 28px; height: 28px; border-radius: 6px; object-fit: cover;
+            border: 1px solid var(--border); flex-shrink: 0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .speaking-logos {
+            display: flex; gap: 0.4rem; align-items: center;
+        }
+
+        /* Timeline Blocks */
+        .timeline-block {
+            position: relative;
+            padding-left: 2.5rem;
+            margin-bottom: 4rem;
+            border-left: 2px solid var(--border);
+        }
+        .timeline-block:first-child { border-image: linear-gradient(to bottom, var(--accent), var(--border)) 1; }
+        .timeline-header {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .timeline-header::before {
+            content: ''; position: absolute; left: -2.85rem; top: 8px;
+            width: 12px; height: 12px; background: var(--accent);
+            border-radius: 50%; box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow);
+        }
+        .timeline-header.current::before { animation: pulse-dot 2s ease-in-out infinite; }
+        .showcase-inline {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem; margin-top: 1.5rem;
+        }
+        .showcase-inline .showcase-item { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .showcase-inline .showcase-text .showcase-company { display: none; }
+
+        /* Product list for expanded sections */
+        .product-list-section { margin-top: 1.5rem; }
+        .product-list-section h4 {
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px;
+            color: var(--accent); font-weight: 600; margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+        .product-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem;
+            margin-bottom: 1.25rem;
+        }
+        .product-list-item {
+            font-size: 0.88rem; color: var(--text-muted); padding: 0.2rem 0;
+            display: flex; align-items: baseline; gap: 0.4rem;
+        }
+        .product-list-item::before { content: '\2022'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+        /* ===== PRODUCT SHOWCASE ===== */
+        .showcase-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-bottom: 5rem;
+            padding-bottom: 5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .showcase-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .showcase-item.reverse .showcase-images { order: -1; }
+
+        .showcase-text .showcase-company {
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .showcase-text h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
+        .showcase-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
+        .showcase-metric {
+            display: inline-block; padding: 0.4rem 1rem;
+            background: rgba(30,142,62,0.08); border: 1px solid rgba(30,142,62,0.2);
+            border-radius: 6px; font-size: 0.85rem; color: var(--accent2); font-weight: 600;
+            margin-right: 0.5rem; margin-bottom: 0.5rem;
+        }
+        .showcase-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .tag { padding: 0.3rem 0.75rem; background: rgba(26,115,232,0.06); border: 1px solid rgba(26,115,232,0.15); border-radius: 6px; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
+
+        .showcase-images { display: grid; gap: 0.75rem; }
+        .showcase-images.grid-2 { grid-template-columns: 1fr 1fr; }
+        .showcase-images.grid-stack { grid-template-columns: 1fr; }
+
+        .showcase-img-wrap {
+            border-radius: 12px; overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--surface);
+        }
+        .showcase-img-wrap:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .showcase-img-wrap img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+        }
+        .showcase-img-wrap.tall img { object-fit: contain; padding: 1rem; background: #fff; }
+        .showcase-img-wrap.hero-img { grid-column: 1 / -1; }
+
+        /* Awards */
+        .awards-list { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
+        .award-item {
+            display: flex; align-items: baseline; gap: 0.5rem;
+            font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
+        }
+        .award-item::before { content: '\1F3C6'; flex-shrink: 0; font-size: 0.7rem; }
+        .award-item strong { color: var(--text); font-weight: 600; }
+
+        /* Earlier Work Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
+        }
+        .gallery-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .gallery-card .gallery-img { width: 100%; height: 160px; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--border); }
+        .gallery-card .gallery-info { padding: 1rem; }
+        .gallery-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .gallery-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* Timeline */
+        @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow); } 50% { box-shadow: 0 0 0 4px var(--bg), 0 0 24px var(--accent-glow); } }
+        .timeline-date { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .timeline-role { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.15rem; }
+        .timeline-company { font-size: 1rem; color: var(--accent2); font-weight: 600; margin-bottom: 0.75rem; }
+        .timeline-desc { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        .timeline-highlights { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .tag.green { background: rgba(30,142,62,0.06); border-color: rgba(30,142,62,0.15); color: var(--accent2); }
+
+        /* Speaking */
+        .speaking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+        .speaking-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .speaking-card:hover { border-color: var(--accent); }
+        .speaking-venue { font-size: 0.78rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 0.5rem; }
+        .speaking-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .speaking-card p { color: var(--text-muted); font-size: 0.85rem; }
+
+        /* Patents */
+        .patents-list { display: grid; gap: 1rem; }
+        .patent-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .patent-icon { flex-shrink: 0; width: 36px; height: 36px; background: rgba(26,115,232,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+        .patent-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .patent-item .patent-status { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* Education */
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+        .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .edu-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .edu-card .school { color: var(--accent2); font-size: 0.9rem; font-weight: 600; }
+
+        /* Contact */
+        .contact-section { text-align: center; background: var(--surface); border-top: 1px solid var(--border); }
+        .contact-section .section-desc { margin-left: auto; margin-right: auto; }
+        .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+        footer { padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav .nav-links { display: none; }
+            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
+            .hamburger { display: flex; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .showcase-item, .showcase-item.reverse { grid-template-columns: 1fr; }
+            .showcase-item.reverse .showcase-images { order: 0; }
+            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="nav-inner">
+        <div class="logo">WM</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#earlier">Earlier Work</a></li>
+            <li><a href="#speaking">Speaking</a></li>
+            <li><a href="#patents">Patents</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">AI Product Leader &bull; Builder &bull; Advisor</div>
+        <h1>Will <span class="gradient">Murphy</span></h1>
+        <p class="hero-sub">
+            Building products used by millions -from agentic AI and RAG systems to developer platforms.
+            Pioneering AI product management since 2016 across Fortune 500s and startups.
+        </p>
+        <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <a href="#products" class="btn btn-secondary">View Portfolio</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Years in AI PM</div></div>
+            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Years 0-to-1</div></div>
+            <div class="stat"><div class="stat-number">$1B+</div><div class="stat-label">Revenue Impact</div></div>
+            <div class="stat"><div class="stat-number">6</div><div class="stat-label">Patents</div></div>
+            <div class="stat"><div class="stat-number">18</div><div class="stat-label">Corporate Awards</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section style="padding-top: 0;">
+    <div class="container">
+        <div class="skills-row">
+            <span class="skill-pill">Agentic AI</span>
+            <span class="skill-pill">RAG / GraphRAG</span>
+            <span class="skill-pill">LLMs &amp; SLMs</span>
+            <span class="skill-pill">Neuro-Symbolic AI</span>
+            <span class="skill-pill">Knowledge Graphs</span>
+            <span class="skill-pill">0-to-1 Product</span>
+            <span class="skill-pill">Developer Platforms</span>
+            <span class="skill-pill">IoT</span>
+            <span class="skill-pill">DevRel &amp; APIs</span>
+            <span class="skill-pill">Cross-Functional Leadership</span>
+            <span class="skill-pill">Data Science</span>
+            <span class="skill-pill">Product Strategy</span>
+        </div>
+    </div>
+</section>
+
+<!-- Experience & Products -->
+<section id="experience">
+    <div class="container">
+        <div class="section-label">Career &amp; Products</div>
+        <h2 class="section-title">Experience</h2>
+        <p class="section-desc">A track record of 0-to-1 and scaled product development at Fortune 500 companies and startups.</p>
+
+        <!-- GenLab (Current) -->
+        <div class="timeline-block">
+            <div class="timeline-header current">
+                <div class="timeline-date">Dec 2025 -Present</div>
+                <div class="timeline-role">AI Product Manager, Builder &amp; Strategy Advisor</div>
+                <div class="timeline-logo-row"><img src="logos/GenLab.jpeg" alt="GenLab logo" class="timeline-logo"><div class="timeline-company">GenLab</div></div>
+                <div class="timeline-desc">Advising startups, executives, and VCs on applied AI product strategy. Building prototypes and early-stage products.</div>
+                <div class="timeline-highlights"><span class="tag">AI Strategy</span><span class="tag">Prototyping</span><span class="tag">Advisory</span></div>
+            </div>
+        </div>
+
+        <!-- Intuit -->
+        <div class="timeline-block">
+            <div class="timeline-header">
+                <div class="timeline-date">Jan 2025 -Nov 2025</div>
+                <div class="timeline-role">Principal Product Manager, AI New Products / Futures Team</div>
+                <div class="timeline-logo-row"><img src="logos/intuit_logo.jpeg" alt="Intuit logo" class="timeline-logo"><div class="timeline-company">Intuit</div></div>
+                <div class="timeline-desc">Led 0-to-1 vision and delivery of new product bets within Intuit Futures. Pioneered multiple AI agents including SLMs, GraphRAG, and neuro-symbolic reasoning.</div>
+                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">GraphRAG</span><span class="tag">Neuro-Symbolic</span><span class="tag green">20% MTTR Reduction</span><span class="tag green">25% Triage Reduction</span></div>
+            </div>
+            <div class="showcase-inline">
+                <div class="showcase-item">
+                    <div class="showcase-text">
+                        <h3>Scaffolding AI</h3>
+                        <p>Flagship product announced at Intuit Investor Day 2025. Pitched the original idea, defined market requirements, and initiated development for AI agents that run your small business with an AI control pane. Projected $1B+ ARR opportunity, directly advancing Intuit's "done for you" platform strategy. Integrated neuro-symbolic reasoning and LLM-as-a-Judge for system reliability, securing immediate pilot adoption across three internal teams.</p>
+                        <div>
+                            <span class="showcase-metric">Investor Day 2025</span>
+                            <span class="showcase-metric">$1B+ ARR Opportunity</span>
+                            <span class="showcase-metric">3 Team Pilots</span>
+                        </div>
+                    </div>
+                    <div class="showcase-images grid-stack">
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/Intuit_Scaffolding_AI.jpeg" alt="Scaffolding AI product slide showing next-gen tech for mid-market businesses">
+                        </div>
+                        <div class="showcase-img-wrap">
+                            <img src="images/Intuit_Scaffolding_AI_Investor_Day_2025.jpeg" alt="Intuit Investor Day 2025 presentation">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- data.ai -->
+        <div class="timeline-block">
+            <div class="timeline-header">
+                <div class="timeline-date">Jan 2020 -Jun 2023</div>
+                <div class="timeline-role">Senior Director of Product &amp; Head of AI New Products</div>
+                <div class="timeline-logo-row"><img src="logos/dataai_app_annie_logo.jpeg" alt="data.ai logo" class="timeline-logo"><div class="timeline-company">data.ai (formerly App Annie)</div></div>
+                <div class="timeline-desc">Promoted from Principal PM to Senior Director within 6 months. Owned strategy, vision, and roadmap for new product development. Led and mentored 6 direct reports across a cross-functional org of PMs, engineers, and data scientists. Player-coach for AI innovation across team and company. Collaborated cross-functionally with Engineering, Design, Legal, Sales, GTM, and C-Suite.</div>
+                <div class="timeline-highlights"><span class="tag">GenAI/LLMs</span><span class="tag">Knowledge Graphs</span><span class="tag">DevRel &amp; APIs</span><span class="tag">Snowflake</span><span class="tag green">6 Direct Reports</span><span class="tag green">80% New Product Coverage</span></div>
+            </div>
+            <div class="showcase-inline">
+                <div class="showcase-item reverse">
+                    <div class="showcase-text">
+                        <h3>Mobile Performance Score</h3>
+                        <p>The industry's first app scoring standard -a "credit score" for mobile apps measuring Acquisition, Engagement, Monetization, and Sentiment in a single composite score. Drove upsell and analyst adoption across the platform.</p>
+                        <div>
+                            <span class="showcase-metric">Industry First</span>
+                            <span class="showcase-metric">Drove Upsell &amp; Analyst Adoption</span>
+                        </div>
+                    </div>
+                    <div class="showcase-images grid-stack">
+                        <div class="showcase-img-wrap tall">
+                            <img src="images/App_Annie_Mobile_Performance_Score_2.jpeg" alt="Mobile Performance Score radar chart showing score of 91">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-list-section">
+                    <h4>AI &amp; GenAI Products</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">Copilot Chatbot Assistant (GenAI/LLMs)</div>
+                        <div class="product-list-item">Ad Creative IQ -AI-generated ad optimization</div>
+                        <div class="product-list-item">AI Feedback Loop Service/API (cross-product)</div>
+                        <div class="product-list-item">Recommendation Engine -app similarity &amp; interest</div>
+                        <div class="product-list-item">Consumer Intelligence Knowledge Graph (POC)</div>
+                        <div class="product-list-item">Smart Search</div>
+                    </div>
+                    <h4>Data &amp; Analytics Products</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">Automated Insight Feed</div>
+                        <div class="product-list-item">Automated Newsfeed</div>
+                        <div class="product-list-item">Ad Revenue Estimates</div>
+                        <div class="product-list-item">Podcast Metrics</div>
+                        <div class="product-list-item">Blockchain Intelligence</div>
+                        <div class="product-list-item">Connect Plus -1st party data platform (reset strategy)</div>
+                    </div>
+                    <h4>Data Infrastructure &amp; Privacy</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">Snowflake Data Share &amp; Marketplace</div>
+                        <div class="product-list-item">Synthetic Data &amp; Data Clean Room</div>
+                        <div class="product-list-item">Homomorphic Encryption</div>
+                    </div>
+                    <h4>Developer Relations &amp; API</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">Led global DevRel &amp; API platform -tens of millions in annual revenue</div>
+                        <div class="product-list-item">Re-architected API to overcome design challenges</div>
+                        <div class="product-list-item">Introduced Snowflake for high-value customer data delivery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MessagePath -->
+        <div class="timeline-block">
+            <div class="timeline-header">
+                <div class="timeline-date">Jun 2018 -Dec 2019</div>
+                <div class="timeline-role">CEO &amp; Co-Founder</div>
+                <div class="timeline-logo-row"><img src="logos/MessagePath_logo.jpeg" alt="MessagePath logo" class="timeline-logo"><div class="timeline-company">MessagePath</div></div>
+                <div class="timeline-desc">Built a B2B SaaS AI writing assistant for sales and support teams, scaling to thousands of active users.</div>
+                <div class="timeline-highlights"><span class="tag">NLP</span><span class="tag">B2B SaaS</span><span class="tag green">#5 on G2</span></div>
+            </div>
+            <div class="showcase-inline">
+                <div class="showcase-item">
+                    <div class="showcase-text">
+                        <h3>MessagePath</h3>
+                        <p>B2B SaaS AI writing coach for sales and support teams. Scored and improved business writing using NLP analysis. Described as what you'd get if "Grammarly and Hemingway App had a business-focused baby."</p>
+                        <div>
+                            <span class="showcase-metric">#5 AI Writing on G2</span>
+                            <span class="showcase-metric">Rising Star Award</span>
+                        </div>
+                    </div>
+                    <div class="showcase-images grid-2">
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/MessagePath_Main_Page.png" alt="MessagePath app showing writing score and analysis on a MacBook">
+                        </div>
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/MessagePath_contextual_intelligence.png" alt="MessagePath contextual intelligence across Marketing, Sales, Support, and Press Release categories">
+                        </div>
+                        <div class="showcase-img-wrap">
+                            <img src="images/MessagePath_Awards.png" alt="MessagePath Rising Star and Premium Usability 2019 Awards">
+                        </div>
+                        <div class="showcase-img-wrap tall">
+                            <img src="images/MessagePath_Customer_Feedback.png" alt="MessagePath 5-star G2 Crowd reviews">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Talla -->
+        <div class="timeline-block">
+            <div class="timeline-header">
+                <div class="timeline-date">Jan 2016 -May 2018</div>
+                <div class="timeline-role">Founding Head of Product / VP Product &amp; Business Development</div>
+                <div class="timeline-logo-row"><img src="logos/talla_logo.jpeg" alt="Talla logo" class="timeline-logo"><div class="timeline-company">Talla</div></div>
+                <div class="timeline-desc">Founding executive providing vision and leadership to ideate, prototype, launch, and grow an AI-powered digital employee chatbot for web, Slack, and Microsoft Teams. Led cross-functional team of 30+ (2 PM direct reports, 10 engineers, 4 data scientists, designer). Pioneered advancements in conversational AI and NLP. Drove partnerships with Slack and Microsoft Teams, with business development conversations with Atlassian and Box. Led SOC 2 and GDPR implementations. Acquired by Bloomfire, now 2024 AI-Based Knowledge Management Software Company of the Year (CIO Review).</div>
+                <div class="timeline-highlights"><span class="tag">Conversational AI</span><span class="tag">NLP</span><span class="tag">Slack &amp; Teams</span><span class="tag">SOC 2 / GDPR</span><span class="tag green">2,000+ Users</span><span class="tag green">30+ Cross-Functional Team</span><span class="tag green">Acquired</span></div>
+            </div>
+            <div class="showcase-inline">
+                <div class="showcase-item reverse">
+                    <div class="showcase-text">
+                        <h3>Talla AI Knowledge Bot</h3>
+                        <p>One of the earliest enterprise AI chatbot agents, supporting knowledge management for HR, sales, and support teams. Featured analytics dashboards, knowledge gap detection, intelligent content tagging, and an early vision for AI agentic workflows. Directed the product through its first 2,000 users while working closely with data science to experiment with and plan NLP technology paths.</p>
+                        <div>
+                            <span class="showcase-metric">2,000+ Users</span>
+                            <span class="showcase-metric">Acquired by Bloomfire</span>
+                            <span class="showcase-metric">2024 KM Company of the Year</span>
+                        </div>
+                    </div>
+                    <div class="showcase-images grid-2">
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/Talla_1.png" alt="Talla analytics dashboard with knowledge base quality metrics">
+                        </div>
+                        <div class="showcase-img-wrap">
+                            <img src="images/Talla_2.png" alt="Talla chat interface showing AI answering questions">
+                        </div>
+                        <div class="showcase-img-wrap">
+                            <img src="images/Talla_3.png" alt="Talla knowledge gap information request tracking">
+                        </div>
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/Talla_4.png" alt="Talla knowledge base content with AI tagging">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FedEx -->
+        <div class="timeline-block">
+            <div class="timeline-header">
+                <div class="timeline-date">Jan 2001 -Dec 2015</div>
+                <div class="timeline-role">Principal Product Manager &amp; Program Manager</div>
+                <div class="timeline-logo-row"><img src="logos/fedex_logo.jpeg" alt="FedEx logo" class="timeline-logo"><div class="timeline-company">FedEx</div></div>
+                <div class="timeline-desc">Founding member of FedEx Innovation Labs at a Fortune 50 company. Built the multi-disciplinary team that created FedEx's design thinking, prototyping, open innovation, and startup launch laboratory. Led research, design, development, and launch of first-of-its-kind products. Contributed to the Innovation Imperatives section of strategy presented annually to the FedEx Board of Directors. Pitched the concept that became FedEx Dataworks, FedEx's data science division (launched 2020). Led cross-functional global teams of 100+ and managed executive stakeholder alignment across all phases of product development.</div>
+                <div class="timeline-highlights"><span class="tag">IoT</span><span class="tag">Innovation Labs</span><span class="tag">Design Thinking</span><span class="tag">DevRel / APIs</span><span class="tag">Open Innovation</span><span class="tag green">$1B+ API Revenue</span><span class="tag green">$600M Enterprise Launches</span><span class="tag green">18 Awards</span><span class="tag green">100+ Global Team</span></div>
+            </div>
+            <div class="showcase-inline">
+                <div class="showcase-item">
+                    <div class="showcase-text">
+                        <h3>SenseAware</h3>
+                        <p>Global SaaS IoT platform for real-time shipment tracking with sensor data -temperature, light exposure, location, and barometric pressure. Used for vaccine distribution, pharmaceuticals, and high-value logistics worldwide.</p>
+                        <div>
+                            <span class="showcase-metric">Global Scale IoT</span>
+                            <span class="showcase-metric">COVID Vaccine Delivery</span>
+                        </div>
+                        <div class="awards-list">
+                            <div class="award-item"><strong>InformationWeek 500:</strong> 20 Great Ideas to Steal (2010)</div>
+                            <div class="award-item"><strong>ReadWriteWeb:</strong> Top 10 Internet of Things Products of 2009</div>
+                            <div class="award-item"><strong>Postscapes:</strong> Best Enterprise IoT Implementation (2011 &amp; 2012)</div>
+                            <div class="award-item"><strong>World Mail Awards:</strong> Innovation &amp; Security Categories (2012)</div>
+                            <div class="award-item"><strong>Cool Chain Logistics Europe:</strong> Supply Chain Integrity Innovator of the Year (2013)</div>
+                            <div class="award-item"><strong>SHD Logistics Award:</strong> Innovation Award Highly Commended (2014)</div>
+                            <div class="award-item"><strong>Fast Company:</strong> Top-20 Most Creative People (2010, Rob Carter CIO)</div>
+                        </div>
+                    </div>
+                    <div class="showcase-images grid-2">
+                        <div class="showcase-img-wrap hero-img">
+                            <img src="images/SenseAware_2.png" alt="SenseAware multi-device dashboard showing map tracking">
+                        </div>
+                        <div class="showcase-img-wrap">
+                            <img src="images/SenseAware_1.png" alt="SenseAware platform on laptop with tracking device">
+                        </div>
+                        <div class="showcase-img-wrap tall">
+                            <img src="images/SenseAware_3.webp" alt="SenseAware physical tracking device">
+                        </div>
+                        <div class="showcase-img-wrap tall">
+                            <img src="images/FedEx_SenseAware_Concept_Napkin.png" alt="Original SenseAware concept napkin sketch">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-list-section">
+                    <h4>Innovation Lab &amp; Strategy</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">Fortune 50 Innovation Lab -board-level strategy for emerging tech</div>
+                        <div class="product-list-item">Pitched concept for FedEx Dataworks (data science division, launched 2020)</div>
+                        <div class="product-list-item">Founded EPICenter Logistics Innovation Accelerator</div>
+                        <div class="product-list-item">Design thinking, lean startup &amp; business model innovation workshops</div>
+                    </div>
+                    <h4>Strategic Partnerships &amp; Open Innovation</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">eBay Valet -marketplace consignment via 1,600 FedEx Office locations</div>
+                        <div class="product-list-item">Open innovation with Google, eBay, universities, and startups</div>
+                        <div class="product-list-item">Researched e-commerce, urban mobility, data monetization &amp; blockchain</div>
+                    </div>
+                    <h4>Developer Relations &amp; API</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">First cumulative $1B in API-enabled revenue</div>
+                        <div class="product-list-item">$600M in incremental revenue for enterprise product launches</div>
+                        <div class="product-list-item">API customers: eBay, PayPal, Intuit, Microsoft, Oracle, Stamps.com</div>
+                        <div class="product-list-item">Built API testing app -reduced testing from 1 month to 1 hour</div>
+                    </div>
+                    <h4>18 Corporate Awards</h4>
+                    <div class="product-list">
+                        <div class="product-list-item">8 Leadership, 3 Innovation, 2 E-Commerce Strategy</div>
+                        <div class="product-list-item">1 Research, 1 Prototyping, 1 PM &amp; Business Development</div>
+                        <div class="product-list-item">1 Venture Strategy, 1 Customer Experience Design</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ===== EARLIER WORK GALLERY ===== -->
+<section id="earlier">
+    <div class="container">
+        <div class="section-label">Earlier Work</div>
+        <h2 class="section-title">Founding &amp; Building</h2>
+        <p class="section-desc">Side projects I built -from search engines to social platforms.</p>
+
+        <div class="gallery-grid">
+            <a href="https://ideafeed.com" target="_blank" class="gallery-card" style="text-decoration: none; color: inherit;">
+                <img class="gallery-img" src="images/IdeaFeed.png" alt="IdeaFeed social bookmarking platform">
+                <div class="gallery-info">
+                    <h4>IdeaFeed</h4>
+                    <div style="font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Latest Project (Beta)</div>
+                    <p>Social bookmarking and search reimagined. Save, organize, and discover ideas with community-driven curation.</p>
+                </div>
+            </a>
+            <div class="gallery-card">
+                <img class="gallery-img" src="images/portfolio_surfrate.png" alt="SurfRate search engine">
+                <div class="gallery-info">
+                    <h4>SurfRate</h4>
+                    <p>Web search engine based on user reviews. Founded and acquired.</p>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <img class="gallery-img" src="images/portfolio_webloghub.png" alt="WeblogHub blog aggregator">
+                <div class="gallery-info">
+                    <h4>WeblogHub</h4>
+                    <p>Blog aggregation and discovery platform with RSS feeds and curated content.</p>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <img class="gallery-img" src="images/portfolio_tomorrows_trends.png" alt="Tomorrow's Trends blog">
+                <div class="gallery-info">
+                    <h4>Tomorrow's Trends</h4>
+                    <p>Technology trends blog covering emerging technologies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Speaking -->
+<section id="speaking" style="background: var(--surface);">
+    <div class="container">
+        <div class="section-label">Thought Leadership</div>
+        <h2 class="section-title">Speaking &amp; Advisory</h2>
+        <p class="section-desc">Sharing perspectives on AI, innovation, and the future of product at leading venues.</p>
+        <div class="speaking-grid">
+            <div class="speaking-card">
+                <div class="speaking-header"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" class="speaking-logo"><div class="speaking-venue">Stanford MediaX</div></div>
+                <h3>Rights, Revenues, and Responsibilities in the Supply Chain of Data</h3>
+                <p>Exploring data ethics, AI, and the rules for creating intelligent systems.</p>
+            </div>
+            <div class="speaking-card">
+                <div class="speaking-header"><img src="logos/mit_logo.png" alt="MIT logo" class="speaking-logo"><div class="speaking-venue">MIT VLAB</div></div>
+                <h3>The Machines are Talking Back</h3>
+                <p>On the evolution of conversational AI and its enterprise implications.</p>
+            </div>
+            <div class="speaking-card">
+                <div class="speaking-header"><img src="logos/AI_Conference_logo.webp" alt="The AI Conference logo" class="speaking-logo"><div class="speaking-venue">The AI Conference</div></div>
+                <h3>Beyond Chatbots: The Future of AI</h3>
+                <p>Moving past simple chatbots toward autonomous agents and intelligent systems.</p>
+            </div>
+            <div class="speaking-card">
+                <div class="speaking-header"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" class="speaking-logo"><div class="speaking-venue">Stanford Leadership Garage</div></div>
+                <h3>Guest Speaker</h3>
+                <p>Innovation leadership and building products at the frontier of technology.</p>
+            </div>
+            <div class="speaking-card">
+                <div class="speaking-header"><img src="logos/monage_logo" alt="MoNage logo" class="speaking-logo"><div class="speaking-venue">MoNage Conference</div></div>
+                <h3>Convergence of Computing, Crypto, AI &amp; Messaging</h3>
+                <p>The intersection of emerging technologies and new business ecosystems.</p>
+            </div>
+            <div class="speaking-card">
+                <div class="speaking-header">
+                    <div class="speaking-logos">
+                        <img src="logos/ondeck_logo.jpeg" alt="On Deck logo" class="speaking-logo">
+                        <img src="logos/Plug_and_Play_logo.jpeg" alt="Plug and Play logo" class="speaking-logo">
+                        <img src="logos/singularity_university_logo.jpeg" alt="Singularity University logo" class="speaking-logo">
+                    </div>
+                    <div class="speaking-venue">Advisory</div>
+                </div>
+                <h3>Fellowships &amp; Mentorship</h3>
+                <p>On Deck Fellow (ODCI01, ODF18). Advisor at Plug and Play Tech Center &amp; Singularity University.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Patents -->
+<section id="patents">
+    <div class="container">
+        <div class="section-label">Intellectual Property</div>
+        <h2 class="section-title">Patents</h2>
+        <p class="section-desc">Inventions spanning AI, knowledge graphs, IoT, and digital commerce.</p>
+        <div class="patents-list">
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Graph Augmentation for New Applications Using Machine Learning Techniques</h4><div class="patent-status">Pending</div></div></div>
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>State Machine Methods for Natural Language Communications and AI Agents</h4><div class="patent-status">Granted</div></div></div>
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Sensor-Based Logistics System</h4><div class="patent-status">Granted</div></div></div>
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Trip Management</h4><div class="patent-status">Granted</div></div></div>
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Digital Advertisements in Delivery Networks</h4><div class="patent-status">Granted</div></div></div>
+            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Creating and Delivering Digital Assets</h4><div class="patent-status">Granted</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Education -->
+<section style="background: var(--surface);">
+    <div class="container">
+        <div class="section-label">Education</div>
+        <h2 class="section-title">Education</h2>
+        <div class="edu-grid">
+            <div class="edu-card"><h3>M.S. Information Systems</h3><div class="school">University of Memphis</div></div>
+            <div class="edu-card"><h3>B.S. Economics &amp; Finance</h3><div class="school">Christian Brothers University</div></div>
+            <div class="edu-card"><h3>Innovation &amp; Entrepreneurship: Prototyping</h3><div class="school">Stanford University -Executive Education</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-label">Connect</div>
+        <h2 class="section-title">Let's Talk</h2>
+        <p class="section-desc">Interested in AI product strategy, advisory, or collaboration? Reach out.</p>
+        <div class="contact-links">
+            <a href="https://www.linkedin.com/in/willmurphy" target="_blank" class="contact-link">&#x1F517; LinkedIn</a>
+            <a href="https://willmurphy.net" target="_blank" class="contact-link">&#x1F310; willmurphy.net</a>
+        </div>
+    </div>
+</section>
+
+<footer><div class="container">&copy; 2026 Will Murphy. San Mateo, CA.</div></footer>
+
+</body>
+</html>
