@@ -157,6 +157,9 @@
             display: flex; align-items: baseline; gap: 0.4rem;
         }
         .product-list-item::before { content: '\2022'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+        .product-list-item .zero-to-one-badge {
+            flex-shrink: 0; margin-bottom: 0; white-space: nowrap; align-self: flex-start; margin-top: 0.1rem;
+        }
 
         /* ===== PRODUCT SHOWCASE ===== */
         .showcase-item {
@@ -182,6 +185,18 @@
             background: rgba(30,142,62,0.08); border: 1px solid rgba(30,142,62,0.2);
             border-radius: 6px; font-size: 0.85rem; color: var(--accent2); font-weight: 600;
             margin-right: 0.5rem; margin-bottom: 0.5rem;
+        }
+        .industry-first-badge {
+            display: inline-block; padding: 0.35rem 0.9rem;
+            background: rgba(255,152,0,0.1); border: 1px solid rgba(255,152,0,0.25);
+            border-radius: 6px; font-size: 0.8rem; color: #e68a00; font-weight: 600;
+            margin-bottom: 0.75rem; letter-spacing: 0.3px;
+        }
+        .zero-to-one-badge {
+            display: inline-block; padding: 0.35rem 0.9rem;
+            background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.2);
+            border-radius: 6px; font-size: 0.8rem; color: var(--accent); font-weight: 600;
+            margin-bottom: 0.75rem; letter-spacing: 0.3px;
         }
         .showcase-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
         .tag { padding: 0.3rem 0.75rem; background: rgba(26,115,232,0.06); border: 1px solid rgba(26,115,232,0.15); border-radius: 6px; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
@@ -372,7 +387,7 @@
                 <div class="timeline-role">Principal Product Manager, AI New Products / Futures Team</div>
                 <div class="timeline-logo-row"><img src="logos/intuit_logo.jpeg" alt="Intuit logo" class="timeline-logo"><div class="timeline-company">Intuit</div></div>
                 <div class="timeline-desc">Led 0-to-1 vision and delivery of new product bets within Intuit Futures. Pioneered multiple AI agents including SLMs, GraphRAG, and neuro-symbolic reasoning.</div>
-                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">GraphRAG</span><span class="tag">Neuro-Symbolic</span><span class="tag green">20% MTTR Reduction</span><span class="tag green">25% Triage Reduction</span></div>
+                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">GraphRAG</span><span class="tag">Neuro-Symbolic</span><span class="zero-to-one-badge" style="margin-bottom:0">Zero-to-One</span><span class="tag green">20% MTTR Reduction</span><span class="tag green">25% Triage Reduction</span></div>
             </div>
             <div class="showcase-inline">
                 <div class="showcase-item">
@@ -410,7 +425,9 @@
                 <div class="showcase-item reverse">
                     <div class="showcase-text">
                         <h3>Mobile Performance Score</h3>
-                        <p>The industry's first app scoring standard -a "credit score" for mobile apps measuring Acquisition, Engagement, Monetization, and Sentiment in a single composite score. Drove upsell and analyst adoption across the platform.</p>
+                        <span class="industry-first-badge">Industry First</span>
+                        <span class="zero-to-one-badge">Zero-to-One</span>
+                        <p>Labs team launched the first Mobile Performance Score (MPS) -a "credit score" for mobile apps measuring Acquisition, Engagement, Monetization, and Sentiment in a single composite score. Drove upsell and analyst adoption across the platform.</p>
                         <div>
                             <span class="showcase-metric">Industry First</span>
                             <span class="showcase-metric">Drove Upsell &amp; Analyst Adoption</span>
@@ -470,7 +487,9 @@
                 <div class="showcase-item">
                     <div class="showcase-text">
                         <h3>MessagePath</h3>
-                        <p>B2B SaaS AI writing coach for sales and support teams. Scored and improved business writing using NLP analysis. Described as what you'd get if "Grammarly and Hemingway App had a business-focused baby."</p>
+                        <span class="industry-first-badge">Industry First</span>
+                        <span class="zero-to-one-badge">Zero-to-One</span>
+                        <p>Industry-first business-focused AI writing co-pilot. B2B SaaS AI writing coach for sales and support teams. Scored and improved business writing using NLP analysis. Described as what you'd get if "Grammarly and Hemingway App had a business-focused baby."</p>
                         <div>
                             <span class="showcase-metric">#5 AI Writing on G2</span>
                             <span class="showcase-metric">Rising Star Award</span>
@@ -507,7 +526,9 @@
                 <div class="showcase-item reverse">
                     <div class="showcase-text">
                         <h3>Talla AI Knowledge Bot</h3>
-                        <p>One of the earliest enterprise AI chatbot agents, supporting knowledge management for HR, sales, and support teams. Featured analytics dashboards, knowledge gap detection, intelligent content tagging, and an early vision for AI agentic workflows. Directed the product through its first 2,000 users while working closely with data science to experiment with and plan NLP technology paths.</p>
+                        <span class="industry-first-badge">Industry First</span>
+                        <span class="zero-to-one-badge">Zero-to-One</span>
+                        <p>Head of product for one of the first commercial B2B AI agent platforms. Enterprise AI chatbot agent supporting knowledge management for HR, sales, and support teams. Featured analytics dashboards, knowledge gap detection, intelligent content tagging, and an early vision for AI agentic workflows. Directed the product through its first 2,000 users while working closely with data science to experiment with and plan NLP technology paths.</p>
                         <div>
                             <span class="showcase-metric">2,000+ Users</span>
                             <span class="showcase-metric">Acquired by Bloomfire</span>
@@ -545,7 +566,9 @@
                 <div class="showcase-item">
                     <div class="showcase-text">
                         <h3>SenseAware, Co-Founder</h3>
-                        <p>Global SaaS IoT platform for real-time shipment tracking with sensor data -temperature, light exposure, location, and barometric pressure. Used for vaccine distribution, pharmaceuticals, and high-value logistics worldwide.</p>
+                        <span class="industry-first-badge">Industry First</span>
+                        <span class="zero-to-one-badge">Zero-to-One</span>
+                        <p>Launched the first integrated remote-sensor IoT platform at FedEx. Global SaaS IoT platform for real-time shipment tracking with sensor data -temperature, light exposure, location, and barometric pressure. Used for vaccine distribution, pharmaceuticals, and high-value logistics worldwide.</p>
                         <div>
                             <span class="showcase-metric">Global Scale IoT</span>
                             <span class="showcase-metric">COVID Vaccine Delivery</span>
@@ -580,18 +603,18 @@
                     <div class="product-list">
                         <div class="product-list-item">Fortune 50 Innovation Lab -board-level strategy for emerging tech</div>
                         <div class="product-list-item">Pitched concept for FedEx Dataworks (data science division, launched 2020)</div>
-                        <div class="product-list-item">Founded EPICenter Logistics Innovation Accelerator</div>
+                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> Founded EPICenter Logistics Innovation Accelerator</div>
                         <div class="product-list-item">Design thinking, lean startup &amp; business model innovation workshops</div>
                     </div>
                     <h4>Strategic Partnerships &amp; Open Innovation</h4>
                     <div class="product-list">
-                        <div class="product-list-item">eBay Valet -marketplace consignment via 1,600 FedEx Office locations</div>
+                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> eBay Valet -marketplace consignment via 1,600 FedEx Office locations</div>
                         <div class="product-list-item">Open innovation with Google, eBay, universities, and startups</div>
                         <div class="product-list-item">Researched e-commerce, urban mobility, data monetization &amp; blockchain</div>
                     </div>
                     <h4>Developer Relations &amp; API</h4>
                     <div class="product-list">
-                        <div class="product-list-item">First cumulative $1B in API-enabled revenue</div>
+                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> DevRel team accumulated the first $1B+ in API revenue for FedEx</div>
                         <div class="product-list-item">$600M in incremental revenue for enterprise product launches</div>
                         <div class="product-list-item">API customers: eBay, PayPal, Intuit, Microsoft, Oracle, Stamps.com</div>
                         <div class="product-list-item">Built API testing app -reduced testing from 1 month to 1 hour</div>
