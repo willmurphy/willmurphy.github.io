@@ -27,13 +27,51 @@
     footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
     footer a { color: #888; text-decoration: none; }
     footer a:hover { color: #1a1a1a; }
-    #themes { background: #1a1a1a; color: #f9f9f7; border-radius: 6px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
-    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #aaa; border-bottom: 1px solid #333; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #2e2e2e; }
+    #themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
+    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
     .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #f9f9f7; margin-bottom: 0.35rem; line-height: 1.4; }
-    .theme-item .signals { font-size: 1.08rem; color: #777; margin-bottom: 0.5rem; }
-    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #ccc; }
+    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
+    .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
+    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+    .horizon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.45rem;
+    }
+    .horizon-near    { background: #fef3c7; color: #92400e; }
+    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
+    .horizon-long    { background: #dcfce7; color: #166534; }
+    .horizon-insight { background: #f1f5f9; color: #475569; }
+    .opportunity-callout {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #d0d0cc;
+      background: #fafaf8;
+      border-radius: 0 5px 5px 0;
+    }
+    .opportunity-callout .opp-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #aaa;
+      margin-bottom: 0.3rem;
+    }
+    .opportunity-callout.near { border-left-color: #f59e0b; }
+    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
+    .opportunity-callout.long { border-left-color: #22c55e; }
+    .opportunity-callout p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -47,33 +85,58 @@
     <h2>Themes</h2>
 
     <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
       <h3>The Energy Shock's Long Reach</h3>
       <p class="signals">Signals: Strait of Hormuz Crisis · Fed Rate Hold · Goldman Stagflation Warning · ECB Postpones Cuts · OpenAI Sora Shutdown</p>
       <p>The 2026 Iran conflict and threatened Hormuz closure has become the connective tissue linking rising inflation, frozen rate cuts, and stagflation fears from the US to Europe and East Asia. Brent crude peaked at $126 per barrel before settling around $111. The ripple effects run deeper than energy bills: compute costs for AI companies, ECB policy reversals, and household purchasing power are all being reshaped by what happens at a 35-mile strait in the Persian Gulf — and AI companies like OpenAI are now making product decisions based in part on compute economics the oil shock is worsening.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Companies with hedged energy exposure, domestic production assets, or fuel-efficient supply chains are structurally advantaged — this shock will outlast the immediate conflict and rewire procurement strategies for years.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
       <h3>AI at a Strategic Inflection</h3>
       <p class="signals">Signals: Arm Launches AGI CPU · OpenAI Shuts Sora · SpaceX IPO Filing · Mechanistic Interpretability · AI Cybersecurity Threats</p>
       <p>The AI industry is entering a phase of hard resource choices. Arm is building its own chips, OpenAI is shutting costly consumer products to focus compute on research, and SpaceX is raising up to $75 billion partly to develop orbital data centers. Meanwhile, mechanistic interpretability — reverse-engineering what happens inside AI models — is advancing quickly enough for MIT to name it one of 2026's defining breakthroughs. The era of unbounded AI expansion is giving way to disciplined prioritization; which bets companies make now will determine their competitive positions for the rest of the decade.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Enterprises that treat AI spend as capital allocation — not R&amp;D exploration — and tie deployments to measurable efficiency gains will outcompete peers who are still running undifferentiated pilots with no clear ROI mandate.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-mid">Mid-term</span>
       <h3>The Authenticity Backlash</h3>
       <p class="signals">Signals: Social Media Engagement Decline · Gen Z Platform Breaks · Fragmented Phone Use Study · Gen Z Brand Authenticity Demand · Pokémon Nostalgia Wave</p>
       <p>A broad social signal is building that optimized, AI-polished performance is losing ground to genuine human expression. Global social media engagement is declining — especially among younger Europeans — linked to low-quality AI-generated content and mental health concerns. New Aalto University research shows it is not total screen time but compulsive, fragmented checking that causes the most cognitive strain. Simultaneously, audiences are rewarding brands and creators that are honest, imperfect, and direct. The wave of Pokémon anniversary nostalgia shows the power of authentic emotional connection that transcends demographics.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Brands that shift content budgets toward lower-production, higher-honesty formats — and invest in genuine community over broadcast reach — will build the trust premium that high-gloss AI content is systematically eroding.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-mid">Mid-term</span>
       <h3>The Post-Lithium Future Arrives</h3>
       <p class="signals">Signals: CATL Naxtra Commercial Sodium-Ion Batteries · MIT Breakthrough Tech 2026 · Grid Storage Expansion · China EV Deployment · US Startup Funding</p>
       <p>Sodium-ion batteries are crossing from laboratory curiosity to commercial deployment. CATL's Naxtra marks the first mass-producible sodium-ion family; Chinese scooters, buses, and grid infrastructure are already running on the technology. Made from abundant salt rather than scarce lithium and cobalt, they represent a structural shift in who can manufacture and afford battery storage. As the Hormuz crisis reminds everyone how geopolitically exposed fossil energy supply chains are, the energy transition is quietly building on new foundations less vulnerable to disruption.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Grid storage developers and EV manufacturers outside China that lock in sodium-ion supply agreements now will reduce critical mineral dependency before Western governments formalize regulations around lithium supply chains.</p>
+      </div>
     </div>
 
     <div class="theme-item">
+      <span class="horizon horizon-insight">Insight</span>
       <h3>Growth's Uneven Geography</h3>
       <p class="signals">Signals: India 6.5% GDP Growth · China 4.5% · IMF Global Outlook · ILO Job Quality Warning · 2.1 Billion Informal Workers</p>
       <p>India and China together are projected to generate 43% of global GDP growth in 2026, shifting the world's economic center of gravity south and east. But the ILO's latest Employment and Social Trends report is a sharp counterpoint: 2.1 billion workers hold informal jobs, 300 million remain in extreme poverty, and youth unemployment is climbing to 12.4% globally. Strong headline numbers conceal a widening gap between aggregate growth and decent work at the individual level — a tension that will shape political instability and policy demands across developing economies for years to come.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Multinationals that invest in formalization — digital payment infrastructure, worker training, supply chain transparency — in high-growth EMDE markets will build durable local trust advantages that late-arriving competitors cannot quickly replicate.</p>
+      </div>
     </div>
   </section>
 
