@@ -50,7 +50,7 @@
         /* Hero */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 6rem 2rem 4rem; position: relative; overflow: hidden;
+            padding: 6rem 2rem 2rem; position: relative; overflow: hidden;
         }
         .hero::before {
             content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
@@ -68,7 +68,7 @@
         h1 { font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
         h1 .gradient { background: linear-gradient(135deg, #1a73e8, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .hero-sub { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.8; }
-        .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 3rem; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
         .stat { text-align: center; }
         .stat-number { font-size: 2rem; font-weight: 800; color: var(--accent); }
         .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
@@ -327,6 +327,7 @@
         <p class="hero-sub">
             Building products used by millions -from agentic AI and RAG systems to developer platforms.
             Pioneering AI product management since 2016 across Fortune 500s and startups.
+            A track record of 0-to-1 and scaled product development at Fortune 500 companies and startups.
         </p>
         <div class="hero-buttons">
             <a href="#contact" class="btn btn-primary">Get in Touch</a>
@@ -343,7 +344,7 @@
 </section>
 
 <!-- Skills -->
-<section style="padding-top: 0;">
+<section style="padding-top: 0; padding-bottom: 1.5rem;">
     <div class="container">
         <div class="skills-row">
             <span class="skill-pill">Agentic AI</span>
@@ -363,22 +364,10 @@
 </section>
 
 <!-- Experience & Products -->
-<section id="experience">
+<section id="experience" style="padding-top: 2rem;">
     <div class="container">
         <div class="section-label">Career &amp; Products</div>
         <h2 class="section-title">Experience</h2>
-        <p class="section-desc">A track record of 0-to-1 and scaled product development at Fortune 500 companies and startups.</p>
-
-        <!-- GenLab (Current) -->
-        <div class="timeline-block">
-            <div class="timeline-header current">
-                <div class="timeline-date">Dec 2025 -Present</div>
-                <div class="timeline-role">AI Product Manager, Builder &amp; Strategy Advisor</div>
-                <div class="timeline-logo-row"><img src="logos/GenLab.jpeg" alt="GenLab logo" class="timeline-logo"><div class="timeline-company">GenLab</div></div>
-                <div class="timeline-desc">Advising startups, executives, and VCs on applied AI product strategy. Building prototypes and early-stage products.</div>
-                <div class="timeline-highlights"><span class="tag">AI Strategy</span><span class="tag">Prototyping</span><span class="tag">Advisory</span></div>
-            </div>
-        </div>
 
         <!-- Intuit -->
         <div class="timeline-block">
@@ -666,7 +655,7 @@
                 <img class="gallery-img" src="images/portfolio_tomorrows_trends.png" alt="Tomorrow's Trends blog">
                 <div class="gallery-info">
                     <h4>Tomorrow's Trends</h4>
-                    <p>Technology trends blog covering emerging technologies.</p>
+                    <p>Technology trends blog covering emerging technologies. Acquired.</p>
                 </div>
             </div>
         </div>
