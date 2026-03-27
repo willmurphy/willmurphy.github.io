@@ -1,57 +1,97 @@
-# Signals – Skills & Templates
+# Signals – Design & Style Reference
 
-This file documents the tools, templates, and conventions Claude uses when generating the daily Signals report.
-
----
-
-## Skills Available
-
-### 🔍 Web Search
-Used in Step 1 to research current trends.
-
-- Use the `WebSearch` tool with targeted queries per domain.
-- Query examples:
-  - `"top social trends today 2026"`
-  - `"AI technology news this week"`
-  - `"economic market news today"`
-- Cross-reference at least 2–3 sources per trend item.
-- Prefer: Reuters, Bloomberg, AP News, The Verge, TechCrunch, WSJ, FT.
-- Each trend must include at least one source URL.
+This file documents the exact HTML template, CSS, and content conventions for daily Signals reports. Every generated report **must** match these specs precisely. When in doubt, diff against `2026-03-24.html` as the canonical reference.
 
 ---
 
-### 📄 HTML Report Generation
-Used in Step 2 to generate `signals/YYYY-MM-DD.html`.
+## File Naming
 
-**Page structure (in order):**
-1. Header (title, date, back-link)
-2. **Themes** — cross-reference all trends and group into 3–5 connected themes. Each theme has:
-   - A name
-   - A **horizon badge** classifying the theme's time horizon (see badge types below)
-   - A "signals" attribution line showing which domain trends connect to it
-   - A rich analytical paragraph (4–8 sentences) on the larger change happening in the world
-   - An **opportunity callout** (for all themes except those tagged "Insight") describing a concrete, actionable opportunity
-3. **Technological** section (4–5 trends, each with a detailed paragraph of 4–8 sentences)
-4. **Economic** section (4–5 trends, each with a detailed paragraph of 4–8 sentences)
-5. **Social** section (4–5 trends, each with a detailed paragraph of 4–8 sentences)
-6. Footer
+- Daily report: `signals/YYYY-MM-DD.html`
+- Calendar index: `signals/index.html`
 
-**Horizon badge types:**
-- `horizon-near` — "Near-term Opportunity · 1 yr" (yellow)
-- `horizon-mid` — "Mid-term Opportunity · 2–3 yrs" (purple)
-- `horizon-long` — "Long-term Opportunity · 5+ yrs" (green)
-- `horizon-insight` — "Insight" (gray) — used for themes that are analytical observations rather than opportunities; these do NOT get an opportunity callout
+---
 
-**Opportunity callout color coding:**
-- `.near` — amber left border (matches near-term horizon)
-- `.mid` — purple left border (matches mid-term horizon)
-- `.long` — green left border (matches long-term horizon)
+## Full CSS Block (copy exactly)
 
-**Source link format:**
-- Include the source name AND a descriptive title in the link text
-- Example: `↗ Washington Post – Pentagon Declares Anthropic a Threat to National Security`
+```css
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  background: #f9f9f7; color: #1a1a1a;
+  max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+}
+header { border-bottom: 2px solid #1a1a1a; padding-bottom: 1rem; margin-bottom: 2.5rem; }
+header nav a { font-size: 0.85rem; color: #555; text-decoration: none; }
+header nav a:hover { color: #1a1a1a; }
+header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-top: 0.5rem; }
+header .date { font-size: 1rem; color: #555; margin-top: 0.25rem; }
+section { margin-bottom: 3rem; }
+section h2 { font-size: 1.15rem; font-weight: 700; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+.trend { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid #efefed; }
+.trend:last-child { border-bottom: none; padding-bottom: 0; }
+.trend h3 { font-size: 1.44rem; font-weight: 600; margin-bottom: 0.4rem; line-height: 1.4; }
+.trend p { font-size: 1.34rem; line-height: 1.7; color: #333; }
+.trend .source { display: inline-block; margin-top: 0.5rem; font-size: 1.15rem; color: #888; text-decoration: none; }
+.trend .source:hover { color: #0066cc; }
+footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
+footer a { color: #888; text-decoration: none; }
+footer a:hover { color: #1a1a1a; }
 
-**Full page template:**
+/* ── Themes section — WHITE box with border, NOT dark/inverted ── */
+#themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
+#themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+.theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
+.theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
+.theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
+.theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+
+/* ── Horizon tags ── */
+.horizon {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  border-radius: 4px;
+  padding: 0.2rem 0.55rem;
+  margin-bottom: 0.45rem;
+}
+.horizon-near    { background: #fef3c7; color: #92400e; }
+.horizon-mid     { background: #ede9fe; color: #5b21b6; }
+.horizon-long    { background: #dcfce7; color: #166534; }
+.horizon-insight { background: #f1f5f9; color: #475569; }
+
+/* ── Opportunity callout ── */
+.opportunity-callout {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #d0d0cc;
+  background: #fafaf8;
+  border-radius: 0 5px 5px 0;
+}
+.opportunity-callout .opp-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #aaa;
+  margin-bottom: 0.3rem;
+}
+.opportunity-callout.near { border-left-color: #f59e0b; }
+.opportunity-callout.mid  { border-left-color: #8b5cf6; }
+.opportunity-callout.long { border-left-color: #22c55e; }
+.opportunity-callout p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 0;
+}
+```
+
+---
+
+## Page Structure
 
 ```html
 <!DOCTYPE html>
@@ -60,226 +100,182 @@ Used in Step 2 to generate `signals/YYYY-MM-DD.html`.
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Will's Signals – [Full Date]</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-      background: #f9f9f7; color: #1a1a1a;
-      max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
-    }
-    header { border-bottom: 2px solid #1a1a1a; padding-bottom: 1rem; margin-bottom: 2.5rem; }
-    header nav a { font-size: 0.85rem; color: #555; text-decoration: none; }
-    header nav a:hover { color: #1a1a1a; }
-    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-top: 0.5rem; }
-    header .date { font-size: 1rem; color: #555; margin-top: 0.25rem; }
-    section { margin-bottom: 3rem; }
-    section h2 { font-size: 1.15rem; font-weight: 700; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-    .trend { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid #efefed; }
-    .trend:last-child { border-bottom: none; padding-bottom: 0; }
-    .trend h3 { font-size: 1.44rem; font-weight: 600; margin-bottom: 0.4rem; line-height: 1.4; }
-    .trend p { font-size: 1.34rem; line-height: 1.7; color: #333; }
-    .trend .source { display: inline-block; margin-top: 0.5rem; font-size: 1.15rem; color: #888; text-decoration: none; }
-    .trend .source:hover { color: #0066cc; }
-    footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
-    footer a { color: #888; text-decoration: none; }
-    footer a:hover { color: #1a1a1a; }
-    #themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
-    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
-    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
-    .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
-    .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
-    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
-    .horizon {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-      margin-bottom: 0.45rem;
-    }
-    .horizon-near    { background: #fef3c7; color: #92400e; }
-    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
-    .horizon-long    { background: #dcfce7; color: #166534; }
-    .horizon-insight { background: #f1f5f9; color: #475569; }
-    .opportunity-callout {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      border-left: 3px solid #d0d0cc;
-      background: #fafaf8;
-      border-radius: 0 5px 5px 0;
-    }
-    .opportunity-callout .opp-label {
-      font-size: 0.68rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-      color: #aaa;
-      margin-bottom: 0.3rem;
-    }
-    .opportunity-callout.near { border-left-color: #f59e0b; }
-    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
-    .opportunity-callout.long { border-left-color: #22c55e; }
-    .opportunity-callout p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      color: #444;
-      margin: 0;
-    }
-  </style>
+  <style>/* full CSS block above */</style>
 </head>
 <body>
   <header>
     <nav><a href="index.html">← Will's Signals</a></nav>
     <h1>Will's Signals</h1>
-    <p class="date">[Full Date, e.g. Friday, February 27, 2026]</p>
+    <p class="date">[Full Date, e.g. Thursday, March 26, 2026]</p>
   </header>
 
-  <!-- THEMES: Cross-reference all trends and group into 3–5 connected themes.
-       Each theme should name the forces in play, cite which domain signals connect to it,
-       include a horizon badge, a rich analytical paragraph, and an opportunity callout
-       (except for "Insight" themes which omit the callout). -->
-  <section id="themes">
-    <h2>Themes</h2>
+  <section id="themes">...</section>
+  <section id="technological">...</section>
+  <section id="economic">...</section>
+  <section id="social">...</section>
 
-    <div class="theme-item">
-      <h3>[Theme Name]</h3>
-      <div><span class="horizon horizon-near">Near-term Opportunity · 1 yr</span></div>
-      <div class="signals">[Domain]: [signal], [signal] · [Domain]: [signal]</div>
-      <p>[4–8 sentences of rich analysis on what these signals have in common, what larger shift they point to, and why it matters. Be specific, cite data points from the trends, and connect the dots across domains.]</p>
-      <div class="opportunity-callout near">
-        <div class="opp-label">Top Opportunity</div>
-        <p>[2–4 sentences describing a concrete, actionable opportunity. Be specific about what to build/invest in, who the target customer is, why the timing is right, and what the competitive moat looks like.]</p>
-      </div>
-    </div>
-
-    <div class="theme-item">
-      <h3>[Insight Theme Name]</h3>
-      <div><span class="horizon horizon-insight">Insight</span></div>
-      <div class="signals">[Domain]: [signal], [signal] · [Domain]: [signal]</div>
-      <p>[4–8 sentences of analytical observation. No opportunity callout for Insight themes.]</p>
-    </div>
-
-    <!-- Repeat for 3–5 themes total. Aim for 3–4 opportunity themes + 1 insight theme. -->
-  </section>
-
-  <section id="technological">
-    <h2>💡 Technological</h2>
-
-    <div class="trend">
-      <h3>[Trend Title]</h3>
-      <p>[4–8 sentences: what the trend is, specific data points, why it matters, second-order effects, what to watch.]</p>
-      <a class="source" href="[URL]" target="_blank">↗ [Source Name] – [Article Title or Description]</a>
-    </div>
-
-    <!-- Repeat for 4–5 trends -->
-  </section>
-
-  <section id="economic">
-    <h2>📈 Economic</h2>
-
-    <div class="trend">
-      <h3>[Trend Title]</h3>
-      <p>[4–8 sentences: what the trend is, specific data points, why it matters, second-order effects, what to watch.]</p>
-      <a class="source" href="[URL]" target="_blank">↗ [Source Name] – [Article Title or Description]</a>
-    </div>
-
-    <!-- Repeat for 4–5 trends -->
-  </section>
-
-  <section id="social">
-    <h2>📱 Social</h2>
-
-    <div class="trend">
-      <h3>[Trend Title]</h3>
-      <p>[4–8 sentences: what the trend is, specific data points, why it matters, second-order effects, what to watch.]</p>
-      <a class="source" href="[URL]" target="_blank">↗ [Source Name] – [Article Title or Description]</a>
-    </div>
-
-    <!-- Repeat for 4–5 trends -->
-  </section>
-
-  <footer>
-    <p>Generated by Claude · <a href="index.html">Back to Calendar</a></p>
-  </footer>
-
+  <footer><p>Generated by Claude · <a href="index.html">Back to Calendar</a></p></footer>
 </body>
 </html>
 ```
 
-**Content rules:**
-- Tone: professional, analytical, factual — informed perspective without being editorial
-- Each trend: 4–8 sentences covering what it is, specific data points, why it matters, second-order effects, what to watch
-- 4–5 trends per section (aim for 5)
-- Themes should have 4–8 sentence analytical paragraphs that connect dots across domains
-- Opportunity callouts should be concrete and actionable — name what to build/invest in, who the customer is, why the timing is right
-- Source links should include the source name AND a descriptive article title
-- No external CSS/JS — file must be fully self-contained
-
-**Common mistakes to avoid (critical — follow the template exactly):**
-- **Themes box styling**: Use `background: #fff; border: 1.5px solid #d0d0cc; border-radius: 10px` (light card). NEVER use a dark background (`#1a1a1a`) — that is not the correct design.
-- **Horizon badges are required**: Every theme MUST have a `<div><span class="horizon horizon-near">Near-term Opportunity · 1 yr</span></div>` (or `-mid`, `-long`, `-insight`) badge. Never omit these.
-- **Opportunity callouts are required**: Every theme MUST have an opportunity callout block EXCEPT themes tagged `horizon-insight`. Never omit these.
-- **Signals line format**: Use domain prefixes — `Technological: [signal] · Economic: [signal]`. Do NOT use bare keyword lists.
-- **Source link format**: Use `↗ Source Name – Article Title` with `target="_blank"`. Do NOT use bare source names.
-- **Include ALL CSS from the template**: The stylesheet MUST include `.horizon`, `.horizon-near/mid/long/insight`, `.opportunity-callout`, `header nav a:hover`, and `footer a:hover` rules. Copy the full `<style>` block from the template — do not write it from memory.
-- **Paragraph depth**: Trend paragraphs must be 4–8 substantive sentences with specific data points, second-order effects, and "what to watch." Theme paragraphs must also be 4–8 sentences of rich cross-domain analysis. Short 2–3 sentence summaries are NOT acceptable.
-- **Use `←` entity**: Use `←` (not `&larr;`) for the back-link arrow to match the established reports.
+**Section order:** Themes → Technological → Economic → Social
 
 ---
 
-### 📅 Calendar Page Update
-Used in Step 3 to update `signals/index.html`.
+## Theme Item Format (FULL — required structure)
 
-The calendar is a JavaScript-driven interactive grid. To add a new report, add a new entry to the `REPORTS` object in the `<script>` block:
+Every theme item needs THREE parts: horizon tag, content, opportunity callout.
 
-```javascript
+```html
+<div class="theme-item">
+  <span class="horizon horizon-near">Near-term</span>   <!-- or mid / long / insight -->
+  <h3>Theme Name</h3>
+  <p class="signals">Signals: Story One · Story Two · Story Three · Story Four</p>
+  <p>2–4 sentences on the larger world shift this theme represents.</p>
+  <div class="opportunity-callout near">               <!-- match class to horizon: near/mid/long -->
+    <div class="opp-label">Top Opportunity</div>
+    <p>1–2 sentences on the specific actionable opportunity this theme creates.</p>
+  </div>
+</div>
+```
+
+**Horizon tag rules:**
+- `horizon-near` / `Near-term` — active right now, weeks to months
+- `horizon-mid` / `Mid-term` — 6–18 months out
+- `horizon-long` / `Long-term` — structural, multi-year
+- `horizon-insight` / `Insight` — analytical observation without a clear horizon; use for cultural/demographic themes
+
+**`.signals` attribution line rules:**
+- Must start with `Signals: ` (capital S, colon, space)
+- List 3–5 specific trend headlines that feed this theme, separated by ` · `
+- Use title case for each item
+
+**Opportunity callout class must match horizon:**
+- `horizon-near` → `<div class="opportunity-callout near">`
+- `horizon-mid` → `<div class="opportunity-callout mid">`
+- `horizon-long` → `<div class="opportunity-callout long">`
+- `horizon-insight` → `<div class="opportunity-callout mid">` (use mid as default for insight)
+
+---
+
+## Trend Item Format
+
+```html
+<div class="trend">
+  <h3>Trend Headline</h3>
+  <p>2–4 sentences: what it is, why it matters, what to watch.</p>
+  <a href="https://source-url.com/article" class="source" target="_blank">Source Name →</a>
+</div>
+```
+
+Source link attribute order: `href` first, then `class="source"`, then `target="_blank"`.
+
+---
+
+## ⚠️ Common Mistakes (things that have broken in the past)
+
+| What broke | Wrong | Correct |
+|---|---|---|
+| Themes background | `background: #1a1a1a` (dark) | `background: #fff` (white) |
+| Themes border | none | `border: 1.5px solid #d0d0cc; border-radius: 10px` |
+| Theme text color | `color: #f9f9f7` or `#ccc` | `color: #1a1a1a` / `#333` |
+| Theme divider | `border-bottom: 1px solid #2e2e2e` | `border-bottom: 1px solid #efefed` |
+| Signals prefix | missing or lowercase | Must start with `Signals: ` |
+| Missing horizon tag | no `<span class="horizon ...">` | Required on every theme item |
+| Missing opportunity callout | no `.opportunity-callout` | Required on every theme item |
+| Nav hover | no `:hover` rule | `header nav a:hover { color: #1a1a1a }` |
+| Footer hover | no `:hover` rule | `footer a:hover { color: #1a1a1a }` |
+| Arrow character | `>` or `▶` | `→` |
+| Title dash | `-` | `–` (en dash) |
+
+---
+
+## Calendar Index Update
+
+File: `signals/index.html` — add a new entry at the **top** of the `REPORTS` object:
+
+```js
 const REPORTS = {
-  'YYYY-MM-DD': 'YYYY-MM-DD.html',  // ← add new entries at the top
-  // ... existing entries
+  'YYYY-MM-DD': 'YYYY-MM-DD.html',  // ← insert here
+  '2026-03-26': '2026-03-26.html',
+  ...
 };
 ```
 
-**Update rule:** Add the new date entry at the **top** of the `REPORTS` object, most recent first.
+On Fridays, also add a new entry at the **top** of the `DEEP_DIVES` object:
 
-**Do NOT replace the full index.html template** — only edit the `REPORTS` object inside the existing `<script>` block.
-
----
-
-### 🐙 GitHub Publishing
-Used in Step 4 to commit and push the report.
-
-**Commands:**
-```bash
-cd ~/willmurphy.github.io
-git add signals/
-git commit -m "Signals report: YYYY-MM-DD"
-git push origin main
-```
-
-**Requirements:**
-- The `willmurphy.github.io` repo must be cloned locally at `~/willmurphy.github.io`
-- Git must be configured with credentials (SSH key or credential helper) to push without a password prompt
-- GitHub Pages must be enabled on the `main` branch
-
-**Verify the live URL:**
-```
-https://willmurphy.github.io/signals/YYYY-MM-DD.html
+```js
+const DEEP_DIVES = {
+  'YYYY-MM-DD': { file: 'deep-dives/YYYY-MM-DD-slug.pdf', title: 'Theme Name' },  // ← insert here
+  ...
+};
 ```
 
 ---
 
-## Folder Structure
+## Weekly Deep-Dive (Fridays only)
 
-```
-Signals/                          ← This project root (local workspace)
-├── CLAUDE.md                     ← Task instructions for Claude
-├── SKILLS.md                     ← This file: templates & tool reference
-└── signals/                      ← Output folder → willmurphy.github.io/signals/
-    ├── index.html                ← Calendar page (updated daily)
-    └── YYYY-MM-DD.html           ← Daily report pages (generated each morning)
+Every Friday, after generating the daily report, create a deep-dive PDF on the most important synthesized theme of the week.
+
+### File path
+`signals/deep-dives/YYYY-MM-DD-theme-slug.pdf`
+(date = the Friday, slug = 2–4 word kebab-case theme name)
+
+### Generation approach
+Use Python + reportlab (Platypus) to generate a polished, multi-section PDF. Reference the Python script at `generate_deep_dive.py` in the session root as a structural template.
+
+### Structure
+1. **Masthead** — "WILL'S SIGNALS · DEEP-DIVE" label + "WEEK OF [Date] · ISSUE #N" right-aligned
+2. **Title** — Theme name (large, bold)
+3. **Subtitle** — 1–2 sentence framing of the theme's significance
+4. **Horizon tag** — Near-term / Mid-term / Long-term pill
+5. **Executive Brief** — 4–6 bullet points (key facts, numbers, named actors)
+6. **The Signal Landscape** — 3–4 subsections, each with: subheader + 2–3 paragraphs of analysis + source line
+7. **What to Watch** — 4–5 forward-looking indicators with arrow bullets (→)
+8. **The Opportunity** — callout box with a specific, actionable insight for readers
+
+### Selecting the theme
+Choose the most important cross-domain theme from the week's reports — the one with:
+- The most signals pointing to it across all three domains
+- The clearest near-term consequence or opportunity
+- The best underlying source material for a 3–5 page analysis
+
+### Python dependencies
+`reportlab` (already installed). Do not use PyPDF or pdfplumber for creation.
+
+### Colors (use these exactly)
+```python
+INK       = "#1a1a1a"
+MID_GRAY  = "#555555"
+LIGHT     = "#888888"
+RULE      = "#e0e0dc"
+NEAR_BG   = "#fef3c7"   # Near-term tag background
+NEAR_FG   = "#92400e"   # Near-term tag text
+NEAR_RULE = "#f59e0b"   # Near-term callout left border
+OPP_BG    = "#fafaf8"   # Opportunity callout background
+BOX_BOR   = "#d0d0cc"   # Box border
 ```
 
-The contents of `signals/` mirror what gets pushed to `willmurphy.github.io/signals/`.
+---
+
+## Content Rules
+
+- Tone: professional, neutral, factual
+- Each trend: 2–4 sentences (what it is / why it matters / what to watch) + source link
+- Max 2 US-only stories per section; at least 1 international story per section
+- At least 1 specialist or non-mainstream source per section
+- Escape ampersands in body text as `&amp;`
+
+---
+
+## Preferred Sources by Domain
+
+**Social:** Pew Research, Morning Consult, Nielsen, Axios, The Atlantic, Vox, BBC Culture, Guardian, Al Jazeera, Nikkei Asia, Quartz, Digiday, Variety, Pitchfork, Deloitte, Hootsuite, Ogilvy, YPulse
+
+**Technological — prioritized in this order:**
+- *Primary — AI Lab Publications:* OpenAI Blog, Anthropic Blog, Google DeepMind Blog, Meta AI Blog, Mistral Blog, NVIDIA Developer Blog, AWS Machine Learning Blog, Hugging Face Blog, arXiv (cs.AI / cs.LG)
+- *High-Signal Newsletters:* The Decoder, TLDR AI, The Neuron, Fast Company AI
+- *Strategic Press:* Financial Times AI, MIT Technology Review, TechCrunch, The Verge, Wired, Ars Technica, IEEE Spectrum, Nature, New Scientist, 404 Media, Rest of World, Nikkei Asia Tech, OpenSSF, GitHub Blog
+
+**Economic:** The Economist, FT, Bloomberg, Project Syndicate, IMF Blog, World Bank Blog, Brookings, McKinsey Global Institute, Quartz, Rest of World, UNCTAD, Federal Reserve, OECD, ILO, ABA, Oxford Economics, Morgan Stanley, Dallas Fed, St. Louis Fed
