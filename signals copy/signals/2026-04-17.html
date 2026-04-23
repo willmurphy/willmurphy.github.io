@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will's Signals – Friday, April 17, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f9f9f7; color: #1a1a1a;
+      max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+    }
+    header { border-bottom: 2px solid #1a1a1a; padding-bottom: 1rem; margin-bottom: 2.5rem; }
+    header nav a { font-size: 0.85rem; color: #555; text-decoration: none; }
+    header nav a:hover { color: #1a1a1a; }
+    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-top: 0.5rem; }
+    header .date { font-size: 1rem; color: #555; margin-top: 0.25rem; }
+    section { margin-bottom: 3rem; }
+    section h2 { font-size: 1.15rem; font-weight: 700; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .trend { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid #efefed; }
+    .trend:last-child { border-bottom: none; padding-bottom: 0; }
+    .trend h3 { font-size: 1.44rem; font-weight: 600; margin-bottom: 0.4rem; line-height: 1.4; }
+    .trend p { font-size: 1.34rem; line-height: 1.7; color: #333; }
+    .trend .source { display: inline-block; margin-top: 0.5rem; font-size: 1.15rem; color: #888; text-decoration: none; }
+    .trend .source:hover { color: #0066cc; }
+    footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
+    footer a { color: #888; text-decoration: none; }
+    footer a:hover { color: #1a1a1a; }
+
+    /* ── Themes section — WHITE box with border, NOT dark/inverted ── */
+    #themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
+    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
+    .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
+    .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
+    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+
+    /* ── Horizon tags ── */
+    .horizon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.45rem;
+    }
+    .horizon-near    { background: #fef3c7; color: #92400e; }
+    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
+    .horizon-long    { background: #dcfce7; color: #166534; }
+    .horizon-insight { background: #f1f5f9; color: #475569; }
+
+    /* ── Opportunity callout ── */
+    .opportunity-callout {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #d0d0cc;
+      background: #fafaf8;
+      border-radius: 0 5px 5px 0;
+    }
+    .opportunity-callout .opp-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #aaa;
+      margin-bottom: 0.3rem;
+    }
+    .opportunity-callout.near { border-left-color: #f59e0b; }
+    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
+    .opportunity-callout.long { border-left-color: #22c55e; }
+    .opportunity-callout p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav><a href="index.html">← Will's Signals</a></nav>
+    <h1>Will's Signals</h1>
+    <p class="date">Friday, April 17, 2026</p>
+  </header>
+
+  <!-- ── THEMES ─────────────────────────────────────────────────── -->
+  <section id="themes">
+    <h2>Today's Themes</h2>
+
+    <div class="theme-item">
+      <span class="horizon horizon-mid">Mid-term</span>
+      <h3>The Open-Source AI Inflection</h3>
+      <p class="signals">Signals: Zhipu GLM-5.1 Tops SWE-Bench Pro · Google Gemma 4 Beats 400B Proprietary Rivals · Trained Entirely on Huawei Ascend Chips · Hugging Face Downloads Surge for Open Weights · AI Mega-Rounds Still Flow to Closed Labs</p>
+      <p>For the first time, an open-weight model sits at the top of a frontier coding benchmark. Zhipu's GLM-5.1, released under MIT license and trained without a single Nvidia chip, beats Claude Opus 4.6 on SWE-Bench Pro — a result that would have been dismissed as improbable six months ago. Combined with Gemma 4's dominance on the text Arena, the narrative that closed-weight labs hold a permanent capability lead is collapsing in real time. Meanwhile, Q1 venture capital concentrated 80% of its record $300B into a handful of closed-source mega-rounds, setting up a dangerous mismatch between where capital sits and where capability is compounding.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Enterprises and governments anxious about vendor lock-in, data sovereignty, or export controls now have a credible frontier-grade alternative to license. The next 12 months favor infrastructure players (inference serving, fine-tuning tooling, safety harnesses) built to run on open weights at the edge of both geopolitical blocs.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
+      <h3>Markets Reprice the War</h3>
+      <p class="signals">Signals: S&amp;P 500 Breaks January Record · Oil Slides to $97 on Ceasefire Hopes · Gold Rallies to $4,850 · IMF Cuts Global Growth to 3.1% · Emerging Markets Still Squeezed</p>
+      <p>Risk assets are racing ahead of the diplomats. U.S. equities have climbed through their January peak on thin evidence of actual de-escalation, while oil has slid nearly 10% this week on reports of a short ceasefire window. The IMF's formal downgrade to 3.1% global growth — its sharpest cut since the pandemic — barely dented the rally, suggesting markets are pricing a best-case outcome even as the underlying conflict remains unresolved. The disconnect between Wall Street optimism and the granular economic damage in emerging markets is the widest in two decades.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Asymmetry is setting up: if the ceasefire holds, current equity pricing looks reasonable; if it breaks, oil will retrace instantly and dollar-funded emerging market debt comes back under stress. Hedging instruments on EM currencies and short-dated oil options are cheaper than they should be.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-long">Long-term</span>
+      <h3>AI Labs Annex Biology</h3>
+      <p class="signals">Signals: Anthropic Acquires Coefficient Bio for $400M · NASA Greenlights Nuclear-Powered Mars Probe · Protein Design Models Enter Clinical Pipeline · AI-Generated Drug Candidates Hit Phase 2 · Frontier Labs Hire Chief Science Officers</p>
+      <p>A frontier AI lab has bought a wet-lab biotech at acquisition scale for the first time. Anthropic's $400M all-stock purchase of Coefficient Bio signals that the boundary between "AI company" and "science company" is dissolving — a shift that the big labs now treat as strategic rather than experimental. The adjacent news of NASA's nuclear-propulsion Mars probe fits the same pattern: compute-heavy design and simulation is pulling the physical sciences into a tighter loop with software. The net effect over five years will be a reordering of who funds, runs, and commercializes deep R&amp;D.</p>
+      <div class="opportunity-callout long">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Service layers for bio-AI — lab automation, high-throughput assay design, synthetic data for biology, clinical-grade model evaluation — are underbuilt relative to the capital now pouring in. Scientific tools companies with AI-native workflows have a multi-year tailwind.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-insight">Insight</span>
+      <h3>Youth Culture Searches for Pre-Algorithm Space</h3>
+      <p class="signals">Signals: Pew Confirms TikTok-Instagram-Snapchat Teen Dominance · MySpace Revival Petition Tops 2K Comments · Y2K Fashion Returns at Coachella 2026 · Gen Z Screen-Time Regret at 76% · BeReal and Private Communities Gain Share</p>
+      <p>The performative feed is losing its grip on the generation that grew up inside it. New Pew data shows TikTok, Instagram, and Snapchat are still where teens live — but the same cohort is registering record levels of screen-time regret, nostalgia for pre-algorithmic platforms, and appetite for the 2010s aesthetics they barely remember. It is not a mass exit; it is a slow, deliberate decoupling from the dominant social architecture of the 2020s. Brands and platforms that read this as a passing mood rather than a structural reset will end the decade looking like Blockbuster did in 2008.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Small private communities, non-algorithmic chronological feeds, and identity-light social formats are the white space. The next winning consumer social product likely looks more like 2008 MySpace than 2022 TikTok — and the Y2K fashion cycle suggests the cultural appetite is already there.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── TECHNOLOGICAL ───────────────────────────────────────────── -->
+  <section id="technological">
+    <h2>💡 Technological</h2>
+
+    <div class="trend">
+      <h3>Zhipu's GLM-5.1 Becomes First Open-Weight Model to Top SWE-Bench Pro</h3>
+      <p>Chinese AI company Zhipu released GLM-5.1 under an MIT license, a 744B-parameter Mixture-of-Experts model that scored 58.4 on SWE-Bench Pro — edging out Claude Opus 4.6 at 57.3 and becoming the first open-weight model to lead a frontier coding benchmark. Crucially, Zhipu trained the model entirely on Huawei Ascend 910B chips with no Nvidia hardware in the loop, which undercuts the implicit assumption behind U.S. semiconductor export controls. Enterprises looking for frontier-grade reasoning without API dependencies now have an on-premise option; geopolitically, it marks a real decoupling of the global AI supply chain. Watch for Anthropic, OpenAI, and Google benchmark counter-releases over the next two weeks.</p>
+      <a href="https://huggingface.co/zai-org/GLM-4.6" class="source" target="_blank">Hugging Face →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Anthropic Acquires Coefficient Bio in $400M Push Into Drug Discovery</h3>
+      <p>Anthropic announced its first wet-lab biotech acquisition, paying $400M in stock for eight-month-old Coefficient Bio — a computational biology startup founded by former Genentech and Prescient Design researchers. The deal embeds a protein-design and molecular-simulation team directly inside a frontier AI lab, a structure that until now was confined to drug-discovery specialists like Isomorphic Labs. Anthropic signals it intends to operate Coefficient as an in-house research group rather than spin it out, positioning the company to train domain models on proprietary experimental data. Expect a wave of similar acquisitions from OpenAI, xAI, and Google DeepMind as frontier labs extend beyond software into lab-scale science.</p>
+      <a href="https://www.anthropic.com/news" class="source" target="_blank">Anthropic →</a>
+    </div>
+
+    <div class="trend">
+      <h3>NASA Greenlights Nuclear-Powered Mars Scout for 2028 Launch</h3>
+      <p>NASA announced formal development of Space Reactor-1 "Freedom," a 20+ kW fission-powered spacecraft targeted for a December 2028 launch to Mars. The probe will carry three Ingenuity-class helicopters to scout landing sites and search for subsurface water, and it represents the first serious fielding of nuclear fission for interplanetary propulsion since the concept was studied and shelved in the 1960s. Nuclear electric propulsion cuts Mars transit time from 6–9 months to roughly three, which is the threshold at which crewed missions become medically feasible. The White House has separately directed an accelerated timeline on a lunar-surface reactor, suggesting U.S. space policy is committing in earnest to nuclear-in-space as the dominant power architecture for the 2030s.</p>
+      <a href="https://www.technologyreview.com/2026/04/14/1135848/nasa-nuclear-powered-spacecraft/" class="source" target="_blank">MIT Technology Review →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Google Reveals TurboQuant, Cutting KV-Cache Memory by Orders of Magnitude</h3>
+      <p>A Google Research paper presented at ICLR 2026 introduces TurboQuant, an efficiency technique that pairs PolarQuant vector rotation with Quantized Johnson-Lindenstrauss compression to shrink the KV cache — one of the largest memory costs in long-context LLM inference. Early benchmarks suggest 200K+ token contexts can run at a fraction of current GPU memory footprints with minimal quality degradation. If the results hold up under independent replication, the economics of serving long-context and agentic workloads change materially: inference costs that limit agentic AI deployment today could compress by mid-2027. The paper is also a notable signal that Google is publishing more openly again after two years of closed-weight model releases.</p>
+      <a href="https://research.google/pubs/" class="source" target="_blank">Google Research →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Anthropic's Claude Mythos Rolls Out in Phased Enterprise Access</h3>
+      <p>Following last month's data leak confirming Claude Mythos, Anthropic has begun distributing the model to a narrow set of cybersecurity research partners under Project Glasswing, with a staged expansion to API and enterprise tiers pending additional safety evaluation. The company has declined to specify a public release date and has explicitly cited capability-driven cyber-offensive risk as the reason — a first for a frontier lab publicly holding back a commercial release on that basis. Anthropic's annualized revenue is reported near $19B, which makes the decision to withhold a flagship model commercially costly and therefore informative about how seriously the company views the risk envelope.</p>
+      <a href="https://www.anthropic.com/news" class="source" target="_blank">Anthropic →</a>
+    </div>
+
+  </section>
+
+  <!-- ── ECONOMIC ────────────────────────────────────────────────── -->
+  <section id="economic">
+    <h2>📈 Economic</h2>
+
+    <div class="trend">
+      <h3>IMF Cuts 2026 Global Growth to 3.1% Citing Middle East War</h3>
+      <p>The IMF's April World Economic Outlook, released at the Spring Meetings on Tuesday, reduced the 2026 global growth forecast to 3.1% — down from 3.3% in January — and raised its inflation projection to 4.4%. In the Fund's adverse scenario, growth falls to 2.5% and inflation climbs past 5.4%. Emerging-market growth was revised down from 4.2% to 3.9%, with Iran facing a 6.1% contraction and the wider Middle East–Central Asia region cut to 1.9%. The downgrade formalizes what markets had largely assumed, but the granular country-level numbers illustrate how unevenly the war's economic damage is falling.</p>
+      <a href="https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026" class="source" target="_blank">IMF World Economic Outlook →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Oil Tumbles Nearly 10% on Ceasefire Reports; Gold Holds at Record</h3>
+      <p>Brent crude fell from $103.72 on April 13 to about $97.06 by Thursday's close as reports of a short Israel–Lebanon ceasefire and de-escalation talks moved prices sharply. The repricing partly offset the 10.1 mb/d supply loss recorded in March — the largest monthly disruption in the history of the oil market. Gold held above $4,850/oz, up roughly 41.6% year over year, as investors retained a safe-haven bid even while bidding up equities. The split signals that markets see a ceiling on inflation risk but are unwilling to dismiss the tail where the ceasefire collapses.</p>
+      <a href="https://fortune.com/article/price-of-oil-04-16-2026/" class="source" target="_blank">Fortune →</a>
+    </div>
+
+    <div class="trend">
+      <h3>S&amp;P 500 Breaks Through January Record on Earnings and De-Escalation Bets</h3>
+      <p>The S&amp;P 500 rose 0.8% on April 15 to close above its January 2026 peak, extending a two-week rally driven by a solid start to Q1 earnings and growing conviction that the Iran conflict will not trigger a severe recessionary shock. Bank of America CEO Brian Moynihan flagged resilient consumer spending as the core underpinning, and Treasury yields stayed steady with the 10-year at 4.26%. The strength of the U.S. market contrasts with the IMF's downgrade for the rest of the world — a divergence that has historically preceded either a broad catch-up or a sharp mean-reversion in U.S. equity valuations.</p>
+      <a href="https://spectrumlocalnews.com/nc/mountain/business/2026/04/15/wall-street-april-15-2026" class="source" target="_blank">Spectrum News →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Q1 Venture Funding Hits Record $300B With 80% Flowing to AI</h3>
+      <p>Crunchbase reports that global venture investment reached an all-time Q1 high of $300 billion across roughly 6,000 deals, up 150% quarter-over-quarter. Four mega-rounds — OpenAI at $122B, Anthropic at $30B, xAI at $20B, and Waymo at $16B — accounted for $188B, or 63% of total quarterly volume. Deal count in North America fell 26% even as dollar volume surged 190%, and the U.S. captured 83% of global investment. The concentration leaves the venture market unusually exposed to the outlook for a small number of frontier labs, and raises the question of what happens to Series A and B funding for non-AI companies if the mega-rounds cool.</p>
+      <a href="https://news.crunchbase.com/venture/record-breaking-funding-ai-global-q1-2026/" class="source" target="_blank">Crunchbase News →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Tariff Aftershocks One Year After Liberation Day</h3>
+      <p>One year after the April 2, 2025 "Liberation Day" tariffs pushed the U.S. average effective rate to 22.5% — the highest since 1909 — the policy has fallen short of its stated goals: manufacturing employment is down 89,000 since, the goods trade deficit rose 2% to $1.24 trillion, and food prices climbed 1.6%. The Supreme Court ruled the original regime illegal in February, but the administration responded in March by opening fresh Section 301 investigations into China, the EU, Japan, Switzerland, and India. Trade policy uncertainty continues to chill capital expenditure decisions among manufacturers on both sides of the Atlantic.</p>
+      <a href="https://www.cfr.org/article/year-after-liberation-day-experts-review-costs-trumps-tariffs" class="source" target="_blank">Council on Foreign Relations →</a>
+    </div>
+
+  </section>
+
+  <!-- ── SOCIAL ──────────────────────────────────────────────────── -->
+  <section id="social">
+    <h2>📱 Social</h2>
+
+    <div class="trend">
+      <h3>Pew: Teens Still Live on TikTok, Instagram, and Snapchat — But Parents Worry Twice as Much</h3>
+      <p>A new Pew Research Center study released April 15 maps how U.S. teens actually use TikTok, Instagram, and Snapchat. Nine in ten teens cite entertainment as their primary motivation, and the platforms remain central to identity, friendship maintenance, and discovery. But a gap persists in perception: 28% of teen TikTok users say they spend too much time on the app, while 44% of parents say their teen does. The mismatch — combined with steady platform dominance — suggests policy debates about teen screen time will continue to be driven more by parental anxiety than by teens' own stated experience.</p>
+      <a href="https://www.pewresearch.org/internet/2026/04/15/teens-experiences-on-tiktok-instagram-and-snapchat/" class="source" target="_blank">Pew Research Center →</a>
+    </div>
+
+    <div class="trend">
+      <h3>MySpace Revival Talk Ignites Millennial Nostalgia for the Pre-Algorithm Web</h3>
+      <p>MySpace co-founder Tom Anderson triggered an outsized cultural moment on Threads this month by floating the idea of reviving the platform if a post reached a million followers. The thread pulled nearly 15,000 likes and 2,000+ comments, dominated by requests for "OG MySpace" — a timeline-only, friend-first, non-algorithmic feed. The response matters less as a business plan than as a signal: a generation that grew up inside algorithmic feeds is now articulating a taste for chronological, identity-forward social formats. Any founder who can ship something that feels like 2006 and runs on 2026 infrastructure has a real opening.</p>
+      <a href="https://tech.yahoo.com/social-media/articles/myspace-founder-tom-anderson-responds-173753421.html" class="source" target="_blank">Yahoo Tech →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Y2K Aesthetics Stage a Full Revival at Coachella 2026</h3>
+      <p>Coachella and spring collections from Stella McCartney, Tom Ford, and Versace have surfaced a coordinated Y2K revival — sculptural chokers, UGG boots in rotation, bomber jackets paired with tailored separates, lingerie-inspired layering, and muted Mediterranean palettes. The cycle is predictable on a 20-year lag, but the twist in 2026 is that the cohort driving it (late Gen Z) is adopting 2016 aesthetics as a novelty, not as revival. That compression of nostalgia cycles from 20 years to 10 has downstream effects for retail planning, archive-driven luxury strategy, and the vintage resale market.</p>
+      <a href="https://elle.in/trending/2026s-biggest-fashion-trends-11731733" class="source" target="_blank">Elle India →</a>
+    </div>
+
+    <div class="trend">
+      <h3>The "Checked-Out Generation": 76% of Gen Z Report Screen-Time Regret</h3>
+      <p>The Robin Report's spring 2026 analysis, drawing on the VML Future 100 dataset, describes Gen Z as "the checked-out generation": 76% say they spend too much time on their phones (the highest of any generation), and 44% of Gen Z workers report workplace burnout against a 34% cross-generational average. The data also shows accelerating migration from algorithm-driven feeds toward niche community platforms and non-public messaging. The behavior pattern is now consistent enough across surveys, platforms, and regions that it should be treated as a structural shift in how the next consumer cohort relates to digital media, not a passing mood.</p>
+      <a href="https://therobinreport.com/the-state-of-gen-z-in-2026-the-checked-out-generation/" class="source" target="_blank">The Robin Report →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Women's Basketball Treated as Premium Media Inventory for the First Time</h3>
+      <p>A new multi-platform media-rights deal that begins in 2026 treats women's basketball as premium inventory — a first for the sport and a concrete marker of a decade-long shift in how women's athletics are valued. Streaming partners, sponsors, and traditional broadcasters are all pricing the coverage closer to men's equivalents, and the shift is reinforced by cross-cultural attention around the Boston Marathon (April 20) and the Chevron Championship women's golf major (April 23–26). Women's sports have moved from a philanthropy and ESG narrative to a core commercial one inside the last three years.</p>
+      <a href="https://www.wokewaves.com/posts/why-womens-basketball-is-having-a-bigger-cultural-moment-than-ever-in-2026" class="source" target="_blank">Woke Waves →</a>
+    </div>
+
+  </section>
+
+  <footer><p>Generated by Claude · <a href="index.html">Back to Calendar</a></p></footer>
+</body>
+</html>
