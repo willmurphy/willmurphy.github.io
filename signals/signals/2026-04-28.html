@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Will's Signals – Tuesday, April 28, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #f9f9f7; color: #1a1a1a;
+      max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 4rem;
+    }
+    header { border-bottom: 2px solid #1a1a1a; padding-bottom: 1rem; margin-bottom: 2.5rem; }
+    header nav a { font-size: 0.85rem; color: #555; text-decoration: none; }
+    header nav a:hover { color: #1a1a1a; }
+    header h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.5px; margin-top: 0.5rem; }
+    header .date { font-size: 1rem; color: #555; margin-top: 0.25rem; }
+    section { margin-bottom: 3rem; }
+    section h2 { font-size: 1.15rem; font-weight: 700; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .trend { margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid #efefed; }
+    .trend:last-child { border-bottom: none; padding-bottom: 0; }
+    .trend h3 { font-size: 1.44rem; font-weight: 600; margin-bottom: 0.4rem; line-height: 1.4; }
+    .trend p { font-size: 1.34rem; line-height: 1.7; color: #333; }
+    .trend .source { display: inline-block; margin-top: 0.5rem; font-size: 1.15rem; color: #888; text-decoration: none; }
+    .trend .source:hover { color: #0066cc; }
+    footer { border-top: 1px solid #ddd; padding-top: 1rem; margin-top: 1rem; font-size: 1.18rem; color: #aaa; }
+    footer a { color: #888; text-decoration: none; }
+    footer a:hover { color: #1a1a1a; }
+
+    /* ── Themes section — WHITE box with border, NOT dark/inverted ── */
+    #themes { background: #fff; color: #1a1a1a; border: 1.5px solid #d0d0cc; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 3rem; }
+    #themes h2 { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; border-bottom: 1px solid #e0e0dc; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+    .theme-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #efefed; }
+    .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .theme-item h3 { font-size: 1.37rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.35rem; line-height: 1.4; }
+    .theme-item .signals { font-size: 1.08rem; color: #888; margin-bottom: 0.5rem; }
+    .theme-item p { font-size: 1.27rem; line-height: 1.65; color: #333; }
+
+    /* ── Horizon tags ── */
+    .horizon {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      margin-bottom: 0.45rem;
+    }
+    .horizon-near    { background: #fef3c7; color: #92400e; }
+    .horizon-mid     { background: #ede9fe; color: #5b21b6; }
+    .horizon-long    { background: #dcfce7; color: #166534; }
+    .horizon-insight { background: #f1f5f9; color: #475569; }
+
+    /* ── Opportunity callout ── */
+    .opportunity-callout {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-left: 3px solid #d0d0cc;
+      background: #fafaf8;
+      border-radius: 0 5px 5px 0;
+    }
+    .opportunity-callout .opp-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #aaa;
+      margin-bottom: 0.3rem;
+    }
+    .opportunity-callout.near { border-left-color: #f59e0b; }
+    .opportunity-callout.mid  { border-left-color: #8b5cf6; }
+    .opportunity-callout.long { border-left-color: #22c55e; }
+    .opportunity-callout p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav><a href="index.html">← Will's Signals</a></nav>
+    <h1>Will's Signals</h1>
+    <p class="date">Tuesday, April 28, 2026</p>
+  </header>
+
+  <section id="themes">
+    <h2>Themes</h2>
+
+    <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
+      <h3>Inference Becomes the Battleground</h3>
+      <p class="signals">Signals: Google TPU 8t/8i Split · Alphabet's $40B Anthropic Commitment · GPT-5.5 Emphasizes Computer Use · DeepSeek V4 On Huawei Ascend</p>
+      <p>The frontier-model arms race is bifurcating. Hyperscalers are now designing distinct silicon for training versus inference, and the largest new capex commitments are anchored to inference-heavy product surfaces — agents, coding copilots, computer use. Inference economics, not parameter count, are becoming the variable that decides who wins the next 18 months.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Vendors and operators who can shave latency or cost off agentic inference workloads — through routing, caching, distillation, or on-prem inference appliances — will find unusually receptive enterprise budgets this quarter.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-near">Near-term</span>
+      <h3>The Shadow-of-War Economy</h3>
+      <p class="signals">Signals: IMF Cuts Global Growth To 3.1% · Brent Crude Tops $108 · Hormuz "Largest Oil Disruption In History" · Copper Hits 22-Year Deficit</p>
+      <p>The IMF's April Outlook formally re-prices the world economy around the Middle East conflict, and the commodity tape is confirming it: oil, copper, fertilizer, and aluminium are all showing strain channelled through the Strait of Hormuz. Emerging-market commodity importers with thin fiscal buffers are absorbing the brunt — exactly the cohort least able to spend their way out.</p>
+      <div class="opportunity-callout near">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Hedging exposures via grain, fertilizer, and base-metal substitutes — and stress-testing supplier contracts against a 6-month Hormuz tail — is now table stakes for any business with physical inventory or import dependence.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-mid">Mid-term</span>
+      <h3>Sovereign AI Stacks Take Shape</h3>
+      <p class="signals">Signals: DeepSeek V4 Optimized For Huawei Ascend · EU Cyber Resilience Act Deadline Looms · Anthropic Withholds Top Model · OpenSSF CRA Readiness Push</p>
+      <p>The compute supply chain is splitting along jurisdictional lines. China's leading open-weights lab now ships a flagship tuned for domestic silicon; the EU's CRA forces software bills-of-materials and vulnerability disclosure on every connected product by September; and Western labs are increasingly gating their most capable models. Buyers are no longer choosing a model — they're choosing a stack with embedded geopolitics.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Vendors that can credibly offer an "all-of-stack" sovereignty story — model, chip, and compliance posture pinned to a specific jurisdiction — will win regulated-industry deals that pure-play model providers can't touch.</p>
+      </div>
+    </div>
+
+    <div class="theme-item">
+      <span class="horizon horizon-insight">Insight</span>
+      <h3>Re-Anchoring: The Quiet Exit From The Feed</h3>
+      <p class="signals">Signals: Young Men Now More Religious Than Young Women · Gen Z Holding Onto Faith · "Social Exit" Goes Mainstream · Books-As-Handbag Aesthetic</p>
+      <p>The cultural through-line of 2026 is a retreat from algorithmic saturation toward depth, tradition, and embodied community. Gallup's flip on young-male religiosity, Gen Z's anomalous retention of faith, and the rise of newsletter and reading-ritual subcultures all point the same way. This is not a left-right story — it's a digital-saturation story.</p>
+      <div class="opportunity-callout mid">
+        <div class="opp-label">Top Opportunity</div>
+        <p>Brands, media, and product builders should design for "re-anchoring" cohorts — long-form, in-person, ritualized, identity-affirming — and stop optimizing exclusively for feed-native attention that this audience is actively walking away from.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="technological">
+    <h2>Technological</h2>
+
+    <div class="trend">
+      <h3>Google Cloud Splits TPU Into Training and Inference Chips</h3>
+      <p>Google Cloud rolled out its eighth-generation Tensor Processing Units, splitting the line into the TPU 8t for large-scale training and the TPU 8i purpose-built for high-volume inference. The bifurcation is a clear bet that inference workloads — driven by agentic and computer-use applications — will dominate AI compute spend, and that specialized silicon will beat general-purpose accelerators on cost and energy per token.</p>
+      <a href="https://techstartups.com/2026/04/27/top-tech-news-today-april-27-2026/" class="source" target="_blank">Tech Startups →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Alphabet Commits Up To $40B To Anthropic</h3>
+      <p>Alphabet announced an investment of up to $40 billion in Anthropic, with a $10 billion cash commitment up front and the remaining $30 billion contingent on performance milestones. The deal cements Anthropic's place in the Google Cloud and TPU ecosystem and signals that hyperscalers now view frontier-lab partnerships as the highest-leverage way to lock in long-duration inference revenue.</p>
+      <a href="https://techstartups.com/2026/04/27/top-tech-news-today-april-27-2026/" class="source" target="_blank">Tech Startups →</a>
+    </div>
+
+    <div class="trend">
+      <h3>DeepSeek V4 Lands Open Source — On Huawei Silicon</h3>
+      <p>Chinese lab DeepSeek released a preview of its V4 flagship, introducing a "Hybrid Attention Architecture" that handles much longer contexts efficiently. The model matches closed-source rivals on coding benchmarks and is the lab's first release optimized for Huawei's Ascend chips — a deliberate statement of independence from Nvidia and a real-world test of the Chinese AI stack.</p>
+      <a href="https://www.technologyreview.com/2026/04/27/1136438/the-download-deepseek-v4-ai-world-models/" class="source" target="_blank">MIT Technology Review →</a>
+    </div>
+
+    <div class="trend">
+      <h3>OpenAI Ships GPT-5.5 With Sharper Computer-Use Skills</h3>
+      <p>OpenAI rolled out GPT-5.5 to its Plus, Pro, Business, and Enterprise tiers across ChatGPT and Codex, emphasizing improvements in coding, computer use, and deeper research workflows. The release continues the industry shift away from headline benchmarks toward agent-grade reliability, where every percentage-point gain in tool-use success rates translates into real enterprise deployment.</p>
+      <a href="https://www.cnbc.com/2026/04/23/openai-announces-latest-artificial-intelligence-model.html" class="source" target="_blank">CNBC →</a>
+    </div>
+
+    <div class="trend">
+      <h3>EU Cyber Resilience Act Countdown Hits Open Source</h3>
+      <p>The OpenSSF April newsletter highlights mounting pressure on maintainers and vendors as the EU Cyber Resilience Act's vulnerability-disclosure obligations become applicable on September 11, 2026. Working groups are racing to publish a CRA Readiness Guide and finalize Layer 2 controls schemas; companies shipping connected products into the EU need software bills-of-materials, coordinated disclosure processes, and audit trails in place by then.</p>
+      <a href="https://openssf.org/newsletter/2026/04/21/openssf-newsletter-april-2026/" class="source" target="_blank">OpenSSF Newsletter →</a>
+    </div>
+  </section>
+
+  <section id="economic">
+    <h2>Economic</h2>
+
+    <div class="trend">
+      <h3>IMF Cuts Global Growth, Calls It "The Shadow Of War"</h3>
+      <p>The IMF's April World Economic Outlook downgrades global growth to 3.1% for 2026 and 3.2% for 2027, citing the Middle East war as the dominant transmission channel through energy prices, inflation expectations, and tighter financial conditions. Emerging-market growth was cut to 3.9% from 4.2%, with commodity-importing low-income countries flagged as most exposed.</p>
+      <a href="https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026" class="source" target="_blank">IMF World Economic Outlook →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Brent Crude Pushes $108 As Hormuz Disruption Widens</h3>
+      <p>Brent crude rose nearly 3% to around $108 per barrel as shipments through the Strait of Hormuz remained constrained and the US blockade of Iranian ports stayed in place. IEA chief Fatih Birol now describes the situation as "the largest supply disruption in the history of the global oil market," with secondary stress visible across methanol, aluminium, sulfur, and graphite flows.</p>
+      <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/" class="source" target="_blank">World Economic Forum →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Copper Heads For Its Largest Deficit In 22 Years</h3>
+      <p>Banks now project the global copper market will record its biggest supply deficit in 22 years in 2026, even as US oil-production growth slows to roughly 3% year-on-year and an LNG glut builds from new Qatari, US, Australian, Mexican, and African capacity. The mismatch — tight metals, loose hydrocarbons — is reshaping electrification capex and the relative economics of the energy transition.</p>
+      <a href="https://about.bnef.com/insights/commodities/commodities-in-2026-10-numbers-to-watch-from-power-to-oil/" class="source" target="_blank">BloombergNEF →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Fertilizer Becomes The Hidden Hormuz Story</h3>
+      <p>The Arabian Gulf accounts for at least 20% of seaborne fertilizer exports and roughly 46% of global trade in urea, the world's most widely used nitrogen fertilizer. A prolonged Hormuz disruption would tighten fertilizer availability across import-dependent regions, lifting global food-production costs and feeding through into the next round of consumer-price prints — a transmission channel still under-priced by markets focused on crude.</p>
+      <a href="https://www.weforum.org/stories/2026/04/beyond-oil-lng-commodities-impacted-closure-hormuz-strait/" class="source" target="_blank">World Economic Forum →</a>
+    </div>
+
+    <div class="trend">
+      <h3>US Labor Market Holds Steady Heading Into FOMC</h3>
+      <p>March nonfarm payrolls came in at +178,000 with unemployment little changed at 4.3%, and 2026 year-to-date job growth is averaging 68,300 per month — well above the 10,000 average of 2025. The S&amp;P 500 is on track for its strongest monthly gain since 2020 ahead of Wednesday's FOMC meeting, where rates are expected to remain unchanged despite the renewed inflation pulse from energy.</p>
+      <a href="https://www.bls.gov/news.release/empsit.nr0.htm" class="source" target="_blank">US Bureau of Labor Statistics →</a>
+    </div>
+  </section>
+
+  <section id="social">
+    <h2>Social</h2>
+
+    <div class="trend">
+      <h3>Young Men Are Now More Religious Than Young Women</h3>
+      <p>A new Gallup poll finds that 42% of US men aged 18–29 now say religion is "very important" in their lives, compared with about 29% of young women — the first time the gender gap has flipped in roughly 25 years. The young-male figure jumped from 28% in 2022–2023 to 42% in 2024–2025, returning to levels last seen at the turn of the millennium and pointing to a meaningful realignment in how identity, community, and meaning-making are sorting across genders.</p>
+      <a href="https://hoodline.com/2026/04/holy-role-reversal-young-men-now-more-religious-than-women-gallup-finds/" class="source" target="_blank">Hoodline / Gallup →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Pew: Teens Mostly Positive On TikTok, Instagram, Snapchat</h3>
+      <p>Pew's mid-April release finds that roughly seven in ten US teens describe their overall experience on TikTok, Instagram, and Snapchat as mostly positive, with entertainment cited by nine in ten as a primary motivation. Parents remain considerably more skeptical — about four in ten say social media has hurt their teens' sleep and productivity — sustaining a perception gap that is shaping state-level policy debates around minor accounts and screen time.</p>
+      <a href="https://www.pewresearch.org/internet/2026/04/15/teens-experiences-on-tiktok-instagram-and-snapchat/" class="source" target="_blank">Pew Research Center →</a>
+    </div>
+
+    <div class="trend">
+      <h3>The "Social Exit" Goes Mainstream</h3>
+      <p>Cultural observers across European and US outlets are converging on the same diagnosis: 2026 is the year of the "social exit" — a gradual abandonment of constant exposure, identity performance, and feed-native consumption in favor of newsletters, podcasts, reading rituals, and small private chats. Books, long form, and "wisdom flexing" are displacing the hot take as status markers, especially among urban Gen Z.</p>
+      <a href="https://www.nssgclub.com/en/lifestyle/43834/social-exit-new-cultural-trends-what-will-2026-be-like" class="source" target="_blank">NSS G-Club →</a>
+    </div>
+
+    <div class="trend">
+      <h3>Karol G Becomes Coachella's First Latina Headliner</h3>
+      <p>Karol G headlined Coachella's 2026 weekends alongside Sabrina Carpenter and Justin Bieber, marking the first time a Latina artist has topped the festival bill. The booking — and its dominance of TikTok's April content cycle — caps a multi-year shift in which Latin music has moved from regional category to mainstream-festival anchor, with material consequences for streaming economics, brand sponsorships, and US touring infrastructure.</p>
+      <a href="https://www.thepostathens.com/article/2026/04/coachella2026-musicfestival-karolg-justinbeiber-swaelee-fashiontrends-topmoments" class="source" target="_blank">The Post →</a>
+    </div>
+
+    <div class="trend">
+      <h3>"Re-Anchoring" Goes Global</h3>
+      <p>From the US to India to the Middle East, trend forecasters are documenting a parallel pull toward tradition, continuity, and rootedness: regional-language content topping streaming charts, heritage crafts outpacing fast fashion, and folk and classical music trending on Spotify in multiple markets. The framing reads as a recalibration by societies overwhelmed by AI, automation, and digital churn — a search for what feels safe, legible, and continuous.</p>
+      <a href="https://medium.com/@mail2rajivgopinath/trends-2026-28-33-the-return-of-the-familiar-why-societies-are-re-anchoring-themselves-9fe05bd013f4" class="source" target="_blank">Trends 2026 / Medium →</a>
+    </div>
+  </section>
+
+  <footer><p>Generated by Claude · <a href="index.html">Back to Calendar</a></p></footer>
+</body>
+</html>
