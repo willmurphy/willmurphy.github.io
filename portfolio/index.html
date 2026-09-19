@@ -238,7 +238,7 @@
         /* Earlier Work Gallery */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.25rem;
         }
         .gallery-card {
@@ -251,6 +251,9 @@
         .gallery-card .gallery-info { padding: 1rem; }
         .gallery-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
         .gallery-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+        .gallery-status { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem; }
+        .gallery-status.acquired { color: var(--accent2); }
+        .gallery-status.ended { color: var(--text-muted); }
 
         /* Timeline */
         @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow); } 50% { box-shadow: 0 0 0 4px var(--bg), 0 0 24px var(--accent-glow); } }
@@ -368,14 +371,14 @@
         <div class="section-label">Career &amp; Products</div>
         <h2 class="section-title">Experience</h2>
 
-        <!-- ServiceNow / Moveworks -->
+        <!-- ServiceNow -->
         <div class="timeline-block">
             <div class="timeline-header current">
                 <div class="timeline-date">May 2026 -Present</div>
-                <div class="timeline-role">AI Product Manager, Agentic AI Platform (Moveworks)</div>
-                <div class="timeline-logo-row"><img src="../images/ServiceNow.png" alt="ServiceNow logo" class="timeline-logo"><div class="timeline-company">ServiceNow · Moveworks</div></div>
+                <div class="timeline-role">AI Product Manager, Agentic AI Platform</div>
+                <div class="timeline-logo-row"><img src="../images/ServiceNow.png" alt="ServiceNow logo" class="timeline-logo"><div class="timeline-company">ServiceNow</div></div>
                 <div class="timeline-desc">Focused on agentic reasoning, current platform, A2A enablement, and other projects. Mission: putting AI to work at global enterprise scale.</div>
-                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">Enterprise Platform</span><span class="tag">Moveworks</span></div>
+                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">Enterprise Platform</span></div>
             </div>
         </div>
 
@@ -635,18 +638,35 @@
         <p class="section-desc">Side projects I built -from search engines to social platforms.</p>
 
         <div class="gallery-grid">
+            <a href="https://wabiboard.com" target="_blank" rel="noopener" class="gallery-card" style="text-decoration: none; color: inherit;">
+                <img class="gallery-img" src="../images/preview-wabiboard.png" alt="Wabiboard collaborative AI whiteboard" style="object-position: left top;">
+                <div class="gallery-info">
+                    <h4>Wabiboard</h4>
+                    <div class="gallery-status">Beta</div>
+                    <p>Collaborative whiteboard with an AI assistant that turns rough notes into diagrams. No sign-ups, local file storage. Solo-built.</p>
+                </div>
+            </a>
             <a href="https://ideafeed.com" target="_blank" class="gallery-card" style="text-decoration: none; color: inherit;">
                 <img class="gallery-img" src="images/IdeaFeed.png" alt="IdeaFeed social bookmarking platform">
                 <div class="gallery-info">
                     <h4>IdeaFeed</h4>
-                    <div style="font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem;">Latest Project (Beta)</div>
+                    <div class="gallery-status">Beta</div>
                     <p>Social bookmarking and search reimagined. Save, organize, and discover ideas with community-driven curation.</p>
                 </div>
             </a>
             <div class="gallery-card">
+                <img class="gallery-img" src="images/portfolio_salessync.png" alt="SalesSync pitch inbox">
+                <div class="gallery-info">
+                    <h4>SalesSync</h4>
+                    <div class="gallery-status ended">Wound Down</div>
+                    <p>VC-funded buyer-side pitch inbox with AI-assisted opportunity identification. Launched; wound down. Still love the idea.</p>
+                </div>
+            </div>
+            <div class="gallery-card">
                 <img class="gallery-img" src="images/portfolio_surfrate.png" alt="SurfRate search engine">
                 <div class="gallery-info">
                     <h4>SurfRate</h4>
+                    <div class="gallery-status acquired">Acquired</div>
                     <p>Web search engine based on user reviews. Founded and acquired.</p>
                 </div>
             </div>
@@ -654,6 +674,7 @@
                 <img class="gallery-img" src="images/portfolio_webloghub.png" alt="WeblogHub blog aggregator">
                 <div class="gallery-info">
                     <h4>WeblogHub</h4>
+                    <div class="gallery-status ended">Retired</div>
                     <p>Blog aggregation and discovery platform with RSS feeds and curated content.</p>
                 </div>
             </div>
@@ -661,6 +682,7 @@
                 <img class="gallery-img" src="images/portfolio_tomorrows_trends.png" alt="Tomorrow's Trends blog">
                 <div class="gallery-info">
                     <h4>Tomorrow's Trends</h4>
+                    <div class="gallery-status acquired">Acquired</div>
                     <p>Technology trends blog covering emerging technologies. Acquired.</p>
                 </div>
             </div>
