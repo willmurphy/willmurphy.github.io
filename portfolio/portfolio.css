@@ -312,3 +312,4 @@ section[id], [id^="patent-"] { scroll-margin-top: 80px; }
 .ship-tag.shipped { background: rgba(30,142,62,0.1); color: var(--accent2); }
 .ship-tag.researched { background: rgba(26,115,232,0.08); color: var(--accent); }
 .ship-tag.patent { background: rgba(255,152,0,0.12); color: #e68a00; }
+.ship-tag.killed { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }

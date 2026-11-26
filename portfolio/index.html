@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="portfolio.css">
     <style>
         /* Compact hero */
-        .hero.hero-compact { min-height: auto; padding: 3rem 2rem 3.5rem; }
+        .hero.hero-compact { min-height: auto; padding: 7rem 2rem 3.5rem; }
         .hero-compact .hero-sub { max-width: 680px; }
         .hero-compact .hero-stats { gap: 2.5rem; }
 
@@ -93,6 +93,10 @@
         .status { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; }
         .status.launched { background: rgba(30,142,62,0.1); color: var(--accent2); }
         .status.explored { background: rgba(26,115,232,0.08); color: var(--accent); }
+        .status.building { background: rgba(123,97,255,0.1); color: #7b61ff; }
+        .explore-tile[data-status="building"] .tile-icon { background: rgba(123,97,255,0.1); color: #7b61ff; }
+        .tile-link { margin-top: auto; font-size: 0.8rem; font-weight: 600; color: #7b61ff; text-decoration: none; }
+        .tile-link:hover { text-decoration: underline; }
         .status.wound-down { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
         .explore-tile h4 { font-size: 0.98rem; font-weight: 700; line-height: 1.3; }
         .explore-tile p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
@@ -106,6 +110,52 @@
         .legacy-src { margin-top: 0.4rem; font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
         .legacy-src a { color: var(--accent); text-decoration: none; }
         .legacy-src a:hover { text-decoration: underline; }
+
+        .explore-grid { grid-auto-flow: dense; }
+        .explore-tile.featured { grid-column: span 2; flex-direction: row; gap: 0; padding: 0; overflow: hidden; }
+        .tile-media { flex: 0 0 44%; background: var(--surface); border-right: 1px solid var(--border); overflow: hidden; min-height: 200px; }
+        .tile-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .tile-media.contain { background: #fff; }
+        .tile-media.contain img { object-fit: contain; padding: 0.75rem; }
+        .tile-media.metric { display: flex; flex-direction: column; justify-content: center; padding: 1.5rem; color: #fff; background: linear-gradient(135deg, #0b3d91, #1a73e8); border-right: none; }
+        .tile-media.metric { position: relative; }
+        .tile-media.metric .metric-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.22; pointer-events: none; }
+        .tile-media.metric > :not(.metric-bg) { position: relative; z-index: 1; }
+        .tile-media.metric .metric-big { font-size: 3rem; font-weight: 800; letter-spacing: -1.5px; line-height: 1; }
+        .tile-media.metric .metric-lbl { font-size: 0.9rem; opacity: 0.9; margin-top: 0.4rem; }
+        .tile-media.metric .metric-tag { margin-top: 1rem; align-self: flex-start; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 0.25rem 0.6rem; border-radius: 999px; background: rgba(255,255,255,0.18); }
+        .tile-body { flex: 1; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.5rem; min-width: 0; }
+        .explore-tile.featured h4 { font-size: 1.1rem; }
+        @media (max-width: 600px) {
+            .explore-tile.featured { grid-column: auto; flex-direction: column; }
+            .tile-media { flex-basis: auto; aspect-ratio: 16 / 10; min-height: 0; border-right: none; border-bottom: 1px solid var(--border); }
+        }
+
+        .sum-label { display: inline-flex; align-items: center; gap: 0.35rem; }
+        .info-tip { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid currentColor; font-size: 0.6rem; font-weight: 700; font-style: italic; font-family: Georgia, serif; line-height: 1; opacity: 0.7; cursor: help; }
+        .info-tip:hover, .info-tip:focus { opacity: 1; outline: none; }
+        #tooltip { position: fixed; z-index: 200; max-width: 280px; padding: 0.6rem 0.75rem; border-radius: 8px; background: #202124; color: #fff; font-size: 0.78rem; line-height: 1.5; box-shadow: 0 8px 24px rgba(0,0,0,0.18); pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity 0.15s, transform 0.15s; }
+        #tooltip.show { opacity: 1; transform: translateY(0); }
+
+        .era-group { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; padding: 0.3rem; background: var(--surface); border: 1px solid var(--border); border-radius: 22px; margin-left: 0.35rem; }
+        .era-group .filter-btn { background: transparent; border-color: transparent; display: inline-flex; align-items: center; gap: 0.4rem; }
+        .era-group .filter-btn:hover { background: var(--card); border-color: var(--border); }
+        .era-group .filter-btn.active { background: var(--card); border-color: var(--border); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+        .era-dot, .tile-era::before { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+        .e2020 { background: #1a73e8; }
+        .e2016 { background: rgba(26,115,232,0.55); }
+        .e2001 { background: rgba(26,115,232,0.3); }
+        .tile-era { display: flex; align-items: center; gap: 0.4rem; }
+        .tile-era::before { content: ''; width: 7px; height: 7px; }
+        .explore-tile[data-era="2020"] .tile-era::before { background: #1a73e8; }
+        .explore-tile[data-era="2016"] .tile-era::before { background: rgba(26,115,232,0.55); }
+        .explore-tile[data-era="2001"] .tile-era::before { background: rgba(26,115,232,0.3); }
+
+        .speak-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+        .speak-photos figure { margin: 0; }
+        .speak-photos img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; border: 1px solid var(--border); display: block; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .speak-photos figcaption { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.45rem; font-weight: 500; }
+        @media (max-width: 560px) { .speak-photos { grid-template-columns: 1fr; } }
 
         /* ===== Organizations ===== */
         .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
@@ -157,8 +207,6 @@
         }
         @media (max-width: 560px) {
             section { padding: 3.5rem 1rem; }
-            .view-tabs-wrap { padding-left: 1rem; padding-right: 1rem; }
-            .view-tab { padding: 0.5rem 0.9rem; font-size: 0.85rem; }
             .org-grid, .inv-grid, .early, .adv-grid { grid-template-columns: 1fr; }
             .glance { grid-template-columns: repeat(2, 1fr); }
             .hero-stats { gap: 1.25rem; }
@@ -209,6 +257,10 @@
         <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></symbol>
         <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
         <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="7" y1="6" x2="17" y2="6"/><line x1="6" y1="8" x2="11" y2="16"/><line x1="18" y1="8" x2="13" y2="16"/></symbol>
+        <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+        <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></symbol>
+        <symbol id="i-board" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></symbol>
+        <symbol id="i-swap" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
     </defs>
 </svg>
 
@@ -228,14 +280,6 @@
         </div>
     </div>
 </nav>
-
-<!-- View tabs -->
-<div class="view-tabs-wrap">
-    <div class="view-tabs" role="tablist">
-        <a href="./" class="view-tab active" role="tab" aria-selected="true">Portfolio View</a>
-        <a href="timeline.html" class="view-tab" role="tab">Chronological View</a>
-    </div>
-</div>
 
 <!-- Hero -->
 <section class="hero hero-compact">
@@ -296,36 +340,90 @@
         <div class="filter-row" role="group" aria-label="Filter by era">
             <span class="filter-label">Era</span>
             <button class="filter-btn active" data-era-filter="all">All years<span class="count"></span></button>
-            <button class="filter-btn" data-era-filter="2020">2020&ndash;Present<span class="count"></span></button>
-            <button class="filter-btn" data-era-filter="2016">2016&ndash;2019<span class="count"></span></button>
-            <button class="filter-btn" data-era-filter="2001">2008&ndash;2015<span class="count"></span></button>
+            <div class="era-group" role="group" aria-label="Year ranges, newest to oldest">
+                <button class="filter-btn era-btn" data-era-filter="2020"><span class="era-dot e2020"></span>2020&ndash;Present<span class="count"></span></button>
+                <button class="filter-btn era-btn" data-era-filter="2016"><span class="era-dot e2016"></span>2016&ndash;2019<span class="count"></span></button>
+                <button class="filter-btn era-btn" data-era-filter="2001"><span class="era-dot e2001"></span>2008&ndash;2015<span class="count"></span></button>
+            </div>
         </div>
         <div class="filter-row" role="group" aria-label="Filter by outcome">
             <span class="filter-label">Outcome</span>
             <button class="filter-btn active" data-filter="all">All<span class="count"></span></button>
             <button class="filter-btn" data-filter="launched">Launched<span class="count"></span></button>
+            <button class="filter-btn" data-filter="building">Building<span class="count"></span></button>
             <button class="filter-btn" data-filter="explored">Explored<span class="count"></span></button>
             <button class="filter-btn" data-filter="wound-down">Paused or Killed<span class="count"></span></button>
         </div>
 
         <div class="explore-grid">
-            <div class="explore-tile" data-status="launched" data-era="2020">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-eye"/></svg></div><span class="status launched">In Production</span></div>
-                <div class="tile-era">Intuit &middot; 2025</div>
-                <h4>AI Observability Agent</h4>
-                <p>Took a new AI agent for observability from idea to production on the Intuit Futures team. Estimated 20% reduction in incident resolution time.</p>
+            <div class="explore-tile featured" data-status="launched" data-era="2020">
+                <div class="tile-media metric"><svg class="metric-bg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g fill="none" stroke="#fff" stroke-linecap="round"><line x1="0" y1="62" x2="400" y2="62" stroke-width="3"/><line x1="0" y1="198" x2="400" y2="198" stroke-width="3"/><g stroke-width="2"><line x1="20" y1="62" x2="20" y2="80"/><line x1="80" y1="62" x2="80" y2="80"/><line x1="140" y1="62" x2="140" y2="80"/><line x1="200" y1="62" x2="200" y2="80"/><line x1="260" y1="62" x2="260" y2="80"/><line x1="320" y1="62" x2="320" y2="80"/><line x1="380" y1="62" x2="380" y2="80"/><line x1="20" y1="180" x2="20" y2="198"/><line x1="80" y1="180" x2="80" y2="198"/><line x1="140" y1="180" x2="140" y2="198"/><line x1="200" y1="180" x2="200" y2="198"/><line x1="260" y1="180" x2="260" y2="198"/><line x1="320" y1="180" x2="320" y2="198"/><line x1="380" y1="180" x2="380" y2="198"/></g><path d="M0 130 C 45 92, 95 168, 140 130 S 235 96, 280 130 S 365 162, 400 130" stroke-width="2.5" stroke-dasharray="1 0"/></g><g fill="#fff"><circle cx="140" cy="130" r="6"/><circle cx="280" cy="130" r="6"/><circle cx="62" cy="118" r="4"/><circle cx="210" cy="113" r="4"/><circle cx="345" cy="147" r="4"/></g></svg><div class="metric-big">&minus;75%</div><div class="metric-lbl">L4 support tickets</div><div class="metric-tag">Launched at ServiceNow</div></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-shield"/></svg></div><span class="status launched">Launched</span></div>
+                    <div class="tile-era">ServiceNow &middot; 2026</div>
+                    <h4>AI Harness Improvements</h4>
+                    <p>Hardened the agentic AI harness for enterprise scale: deterministic guardrails, probabilistic improvements for better conversational responses, and 80+ major adjustments. Reduced L4 support tickets by 75%.</p>
+                </div>
             </div>
             <div class="explore-tile" data-status="launched" data-era="2020">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-file"/></svg></div><span class="status launched">Piloted</span></div>
-                <div class="tile-era">Intuit &middot; 2025</div>
-                <h4>Scaffolding AI</h4>
-                <p>Pitched the original idea for AI agents that run a small business from its SOPs. Announced at Intuit Investor Day 2025; piloted by three internal teams.</p>
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-swap"/></svg></div><span class="status launched">Piloting</span></div>
+                <div class="tile-era">ServiceNow &middot; 2026</div>
+                <h4>Agent-to-Agent (A2A)</h4>
+                <p>Agent-to-agent interoperability so AI agents on the platform can work with other agents. Currently piloting.</p>
             </div>
-            <div class="explore-tile" data-status="launched" data-era="2020">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-target"/></svg></div><span class="status launched">Launched</span></div>
-                <div class="tile-era">App Annie &middot; 2020&ndash;2023</div>
-                <h4>Mobile Performance Score</h4>
-                <p>An industry-first &ldquo;credit score&rdquo; for mobile apps combining acquisition, engagement, monetization, and sentiment. Drove upsell and analyst adoption.</p>
+            <div class="explore-tile featured" data-status="launched" data-era="2020">
+                <div class="tile-media metric"><svg class="metric-bg" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><g stroke="#fff" fill="none" stroke-linecap="round" stroke-linejoin="round"><g stroke-width="1" opacity="0.6"><line x1="0" y1="70" x2="400" y2="70"/><line x1="0" y1="130" x2="400" y2="130"/><line x1="0" y1="190" x2="400" y2="190"/><line x1="100" y1="0" x2="100" y2="260"/><line x1="200" y1="0" x2="200" y2="260"/><line x1="300" y1="0" x2="300" y2="260"/></g><line x1="0" y1="118" x2="400" y2="118" stroke-width="2" stroke-dasharray="8 8"/><polyline stroke-width="2.5" points="0,200 25,196 45,90 62,198 90,192 110,70 128,196 160,190 180,120 196,194 230,190 250,160 266,192 300,190 320,178 340,189 370,186 400,188"/></g><g fill="#fff"><circle cx="45" cy="90" r="5"/><circle cx="110" cy="70" r="5"/><circle cx="180" cy="120" r="4"/></g></svg><div class="metric-big">~20%</div><div class="metric-lbl">faster incident resolution (est.)</div><div class="metric-tag">In production at Intuit</div></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-eye"/></svg></div><span class="status launched">In Production</span></div>
+                    <div class="tile-era">Intuit &middot; 2025</div>
+                    <h4>AI Observability Agent</h4>
+                    <p>Took a new AI agent for observability from idea to production on the Intuit Futures team. Estimated 20% reduction in incident resolution time.</p>
+                </div>
+            </div>
+            <div class="explore-tile featured" data-status="launched" data-era="2020">
+                <div class="tile-media contain"><img src="images/Intuit_Scaffolding_AI.jpeg" alt="Scaffolding AI product slide" loading="lazy"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-file"/></svg></div><span class="status launched">Piloted</span></div>
+                    <div class="tile-era">Intuit &middot; 2025</div>
+                    <h4>Scaffolding AI</h4>
+                    <p>Pitched the original idea for AI agents that run a small business from its SOPs. Announced at Intuit Investor Day 2025; piloted by three internal teams.</p>
+                </div>
+            </div>
+            <div class="explore-tile featured" data-status="building" data-era="2020">
+                <div class="tile-media" style="background: linear-gradient(135deg, #0c274b, #23599a); display: flex; align-items: center;"><img src="../images/preview-scrollarly.png" alt="Scrollarly preview" loading="lazy" style="height: auto; object-fit: contain;"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-book"/></svg></div><span class="status building">Building</span></div>
+                    <div class="tile-era">Personal Project &middot; Private Beta</div>
+                    <h4>Scrollarly</h4>
+                    <p>The antidote to doomscrolling is smartscrolling: an endless feed of the ideas every well-rounded mind should know.</p>
+                    <a class="tile-link" href="https://scrollarly.com/" target="_blank" rel="noopener">Visit scrollarly.com &rarr;</a>
+                </div>
+            </div>
+            <div class="explore-tile featured" data-status="building" data-era="2020">
+                <div class="tile-media"><img src="../images/preview-vibeshift.png" alt="VibeShift.fm preview" loading="lazy"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-music"/></svg></div><span class="status building">Building</span></div>
+                    <div class="tile-era">Personal Project &middot; Private Beta</div>
+                    <h4>VibeShift.fm</h4>
+                    <p>Science-backed background music engineered to help you quickly enter and stay in deep focus, fun, or relaxation.</p>
+                    <a class="tile-link" href="https://vibeshift.fm/" target="_blank" rel="noopener">Visit vibeshift.fm &rarr;</a>
+                </div>
+            </div>
+            <div class="explore-tile" data-status="building" data-era="2020">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-board"/></svg></div><span class="status building">Building</span></div>
+                <div class="tile-era">Personal Project &middot; Beta</div>
+                <h4>Wabiboard</h4>
+                <p>Collaborative whiteboard with an AI assistant that turns rough notes into diagrams. No sign-ups, local file storage. Solo-built.</p>
+                <a class="tile-link" href="https://wabiboard.com/" target="_blank" rel="noopener">Visit wabiboard.com &rarr;</a>
+            </div>
+            <div class="explore-tile featured" data-status="launched" data-era="2020">
+                <div class="tile-media contain"><img src="images/App_Annie_Mobile_Performance_Score_2.jpeg" alt="Mobile Performance Score chart" loading="lazy"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-target"/></svg></div><span class="status launched">Launched</span></div>
+                    <div class="tile-era">App Annie &middot; 2020&ndash;2023</div>
+                    <h4>Mobile Performance Score</h4>
+                    <p>An industry-first &ldquo;credit score&rdquo; for mobile apps combining acquisition, engagement, monetization, and sentiment. Drove upsell and analyst adoption.</p>
+                </div>
             </div>
             <div class="explore-tile" data-status="launched" data-era="2020">
                 <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-chat"/></svg></div><span class="status launched">Launched</span></div>
@@ -387,14 +485,14 @@
                 <h4>Ad Creative IQ</h4>
                 <p>Using GenAI and LLMs to generate more successful ads.</p>
             </div>
-            <div class="explore-tile" data-status="explored" data-era="2020">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-link"/></svg></div><span class="status explored">Researched</span></div>
+            <div class="explore-tile" data-status="wound-down" data-era="2020">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-link"/></svg></div><span class="status wound-down">Killed</span></div>
                 <div class="tile-era">App Annie &middot; 2020&ndash;2023</div>
                 <h4>Blockchain Intelligence</h4>
                 <p>Metrics and intelligence for blockchain apps.</p>
             </div>
-            <div class="explore-tile" data-status="explored" data-era="2020">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-mic"/></svg></div><span class="status explored">Researched</span></div>
+            <div class="explore-tile" data-status="wound-down" data-era="2020">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-mic"/></svg></div><span class="status wound-down">Killed</span></div>
                 <div class="tile-era">App Annie &middot; 2020&ndash;2023</div>
                 <h4>Podcast Metrics</h4>
                 <p>Audience and performance metrics for podcasts.</p>
@@ -406,11 +504,14 @@
                 <p>VC-funded buyer-side pitch inbox with AI-assisted opportunity identification. Still love the idea.</p>
             </div>
 
-            <div class="explore-tile" data-status="launched" data-era="2016">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-users"/></svg></div><span class="status launched">Acquired</span></div>
-                <div class="tile-era">Talla &middot; 2016&ndash;2018</div>
-                <h4>Talla</h4>
-                <p>One of the first commercial B2B AI agent platforms. Founding head of product; acquired by Bloomfire.</p>
+            <div class="explore-tile featured" data-status="launched" data-era="2016">
+                <div class="tile-media"><img src="images/Talla_1.png" alt="Talla analytics dashboard" loading="lazy" style="object-position: left top;"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-users"/></svg></div><span class="status launched">Acquired</span></div>
+                    <div class="tile-era">Talla &middot; 2016&ndash;2018</div>
+                    <h4>Talla</h4>
+                    <p>One of the first commercial B2B AI agent platforms. Founding head of product; acquired by Bloomfire.</p>
+                </div>
             </div>
             <div class="explore-tile" data-era="2016" data-status="wound-down">
                 <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-pen"/></svg></div><span class="status wound-down">Killed</span></div>
@@ -419,16 +520,19 @@
                 <p>AI writing coach for sales and support teams.</p>
             </div>
 
-            <div class="explore-tile" data-era="2001" data-status="launched">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-pulse"/></svg></div><span class="status launched">Launched</span></div>
-                <div class="tile-era">FedEx &middot; 2008&ndash;2015</div>
-                <h4>SenseAware</h4>
-                <p>Global IoT platform for real-time, sensor-based shipment tracking.</p>
-                <details class="legacy">
-                    <summary>What FedEx did next</summary>
-                    <p>In 2020 FedEx launched SenseAware ID, a lightweight Bluetooth sensor that reports a package's location every two seconds across the FedEx Express network. FedEx attaches SenseAware ID to COVID-19 vaccine shipments to track them through the network.</p>
-                    <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/senseaware-id/" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://www.freightwaves.com/news/fedex-introducing-precision-tracking-sensors-on-packages" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://www.cio.com/article/3604532/at-fedex-sensors-and-analytics-fuel-covid-19-vaccine-distribution.html" target="_blank" rel="noopener">CIO</a> &middot; <a href="https://www.fedex.com/en-us/healthcare/vaccine-shipping.html" target="_blank" rel="noopener">FedEx Healthcare</a></div>
-                </details>
+            <div class="explore-tile featured" data-era="2001" data-status="launched">
+                <div class="tile-media"><img src="images/SenseAware_1.png" alt="SenseAware platform and tracking device" loading="lazy"></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-pulse"/></svg></div><span class="status launched">Launched</span></div>
+                    <div class="tile-era">FedEx &middot; 2008&ndash;2015</div>
+                    <h4>SenseAware</h4>
+                    <p>Global IoT platform for real-time, sensor-based shipment tracking.</p>
+                    <details class="legacy">
+                        <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
+                        <p>In 2020 FedEx launched SenseAware ID, a lightweight Bluetooth sensor that reports a package's location every two seconds across the FedEx Express network. FedEx attaches SenseAware ID to COVID-19 vaccine shipments to track them through the network.</p>
+                        <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/senseaware-id/" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://www.freightwaves.com/news/fedex-introducing-precision-tracking-sensors-on-packages" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://www.cio.com/article/3604532/at-fedex-sensors-and-analytics-fuel-covid-19-vaccine-distribution.html" target="_blank" rel="noopener">CIO</a> &middot; <a href="https://www.fedex.com/en-us/healthcare/vaccine-shipping.html" target="_blank" rel="noopener">FedEx Healthcare</a></div>
+                    </details>
+                </div>
             </div>
             <div class="explore-tile" data-era="2001" data-status="launched">
                 <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-box"/></svg></div><span class="status launched">Launched</span></div>
@@ -436,7 +540,7 @@
                 <h4>eBay Valet</h4>
                 <p>Marketplace consignment through 1,600 FedEx Office locations.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>In May 2016 eBay and FedEx Office expanded the eBay Valet drop-off program to more than 1,600 FedEx Office stores: staff packed sellers' items and shipped them to eBay Valet to be listed and sold, with sellers paid through PayPal. eBay later closed its Valet program, reportedly in 2018.</p>
                     <div class="legacy-src">Sources: <a href="https://ebayinc.com/stories/news/ebay-and-fedex-office-streamline-online-consumer-selling" target="_blank" rel="noopener">eBay Inc.</a> &middot; <a href="https://prnewswire.com/news-releases/fedex-office-and-ebay-team-up-to-help-consumers-sell-items-online-make-money-300348802.html" target="_blank" rel="noopener">PR Newswire</a> &middot; <a href="https://fortune.com/2016/05/10/ebay-fedex" target="_blank" rel="noopener">Fortune</a> &middot; <a href="https://shoppersshop.com/fedex-ebay-valet-51620162" target="_blank" rel="noopener">Shoppers Shop</a></div>
                 </details>
@@ -447,7 +551,7 @@
                 <h4>FedEx Dataworks</h4>
                 <p>Pitched the concept for FedEx's data science division; launched in 2021.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx Dataworks became FedEx's global analytics and digital innovation organization, growing to hundreds of people and powering products such as FedEx Surround.</p>
                     <div class="legacy-src">Sources: <a href="https://fedex.com/en-us/dataworks.html" target="_blank" rel="noopener">FedEx Dataworks</a> &middot; <a href="https://venturebeat.com/business/how-fedex-dataworks-is-using-analytics-ai-to-fortify-supply-chains" target="_blank" rel="noopener">VentureBeat</a> &middot; <a href="https://fedex.com/en-us/about/history.html" target="_blank" rel="noopener">FedEx history</a></div>
                 </details>
@@ -458,7 +562,7 @@
                 <h4>EPICenter Accelerator</h4>
                 <p>Founded a logistics innovation accelerator in Memphis.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx committed $750K in late 2014, and the EPICenter Logistics Innovation Accelerator ran annual cohorts from 2015: a 14&ndash;15 week program with FedEx mentors for startups in last-mile delivery and supply-chain data. By 2018 a $10M FedEx challenge grant had helped EPICenter Memphis raise $40M for emerging businesses.</p>
                     <div class="legacy-src">Sources: <a href="https://www.venturenashville.com/article/2241/fedex-pledges-750k-for-logistics-accelerator-in-memphis-epicenter" target="_blank" rel="noopener">Venture Nashville</a> &middot; <a href="https://newsroom.fedex.com/newsroom/memphis-logistics-innovation-accelerator-opens-2016-application-process" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://fromcommonground.com/logisticsepicenter/" target="_blank" rel="noopener">From Common Ground</a> &middot; <a href="https://dailymemphian.com/section/business/article/284/fedex-challenge-grant-fuels-40-million-and-co" target="_blank" rel="noopener">Daily Memphian</a></div>
                 </details>
@@ -469,7 +573,7 @@
                 <h4>FedEx Developer APIs</h4>
                 <p>DevRel team that accumulated FedEx's first $1B+ in API revenue. The API channel we built became core to how businesses ship with FedEx.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx rebuilt its developer platform around a self-service portal and modern REST APIs with OAuth security. All new features now ship only in the REST APIs, and the legacy SOAP Web Services moved to maintenance-only support in 2026 ahead of retirement.</p>
                     <div class="legacy-src">Sources: <a href="https://developer.fedex.com/api/en-us/announcements.html" target="_blank" rel="noopener">FedEx Developer Portal</a> &middot; <a href="https://developer.fedex.com/api/en-bb/announcements/Migrate_to_FedEx_APIs_Act_Now.html" target="_blank" rel="noopener">FedEx: Migrate to FedEx APIs</a> &middot; <a href="https://www.fedex.com/en-ca/resources-tools/api.html" target="_blank" rel="noopener">FedEx API</a></div>
                 </details>
@@ -492,7 +596,7 @@
                 <h4>CleanTech</h4>
                 <p>Cleaner fleets, energy, and packaging for a global logistics network.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>In 2021 FedEx committed to carbon-neutral operations and an all-electric pickup and delivery fleet by 2040, and pledged $100M to help found the Yale Center for Natural Carbon Capture. Its first BrightDrop electric vans arrived in December 2021, with 2,500 planned.</p>
                     <div class="legacy-src">Sources: <a href="https://www.fastcompany.com/90610719/how-fedex-plans-to-become-carbon-neutral-by-2040" target="_blank" rel="noopener">Fast Company</a> &middot; <a href="https://fedex.com/en-ca/sustainability/electric-vehicles.html" target="_blank" rel="noopener">FedEx EVs</a> &middot; <a href="https://newsroom.fedex.com/newsroom/brightdropev600/" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-continues-advancing-fleet-electrification-goals-with-latest-150-electric-vehicle-delivery-from-brightdrop/" target="_blank" rel="noopener">FedEx: BrightDrop delivery</a></div>
                 </details>
@@ -509,7 +613,7 @@
                 <h4>3D Printing &amp; On-Demand Manufacturing</h4>
                 <p>Shipping files instead of finished goods, and making them close to the customer.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>In 2018 FedEx launched FedEx Forward Depots, a new company spanning critical inventory, service parts, repair, and on-demand 3D printing, built on Stratasys technology.</p>
                     <div class="legacy-src">Sources: <a href="https://3dprint.com/201472/fedex-3d-printing-forward-depots/" target="_blank" rel="noopener">3DPrint.com</a> &middot; <a href="https://3dadept.com/fedex-forward-depots-fedex-new-company-focused-on-3d-printing/" target="_blank" rel="noopener">3D ADEPT</a> &middot; <a href="https://www.stratasys.com/explore/video/fedex-dives-into-3d-printing-with-help-from-stratasys" target="_blank" rel="noopener">Stratasys</a></div>
                 </details>
@@ -532,7 +636,7 @@
                 <h4>Blockchain for Supply Chain</h4>
                 <p>Shared, tamper-evident records of custody across shippers and carriers.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>In 2018 FedEx became a founding member of the Blockchain in Transport Alliance (BiTA), joined its standards board and the Hyperledger project, and piloted blockchain for resolving shipping disputes.</p>
                     <div class="legacy-src">Sources: <a href="https://www.freightwaves.com/news/fedex-bita-blockchain-logistics-plans" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://coindesk.com/fedex-moves-forward-blockchain-logistics-plans/" target="_blank" rel="noopener">CoinDesk</a> &middot; <a href="https://www.freightwaves.com/news/2018-9-26-fedex-joins-hyperledger-in-further-push-for-logistics-efficiency" target="_blank" rel="noopener">FreightWaves: Hyperledger</a></div>
                 </details>
@@ -543,7 +647,7 @@
                 <h4>Smart Lockers &amp; Alternate Delivery</h4>
                 <p>Secure pickup points that reduce failed deliveries.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx built out FedEx OnSite, a retail pickup and drop-off network: more than 7,500 Walgreens locations by late 2017, and a 2019 Dollar General alliance targeting 8,000+ stores that grew the network to more than 62,000 retail locations. Customers can hold packages there for up to 7 days.</p>
                     <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/fedex-package-pickup-and-drop-off-now-available-at-more-than-7500-walgreens-locations-in-all-50-states/" target="_blank" rel="noopener">FedEx: Walgreens</a> &middot; <a href="https://newsroom.fedex.com/newsroom/dollar-general-and-fedex-to-offer-convenient-package-drop-off-and-pickup-solutions/" target="_blank" rel="noopener">FedEx: Dollar General</a> &middot; <a href="https://www.fedex.com/en-us/faq/onsite.html" target="_blank" rel="noopener">FedEx OnSite</a></div>
                 </details>
@@ -554,7 +658,7 @@
                 <h4>Data Monetization</h4>
                 <p>Turning logistics data into new products and services.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx turned its network data into products: FedEx Surround (2020, with Microsoft) sells near-real-time shipment analytics and supported COVID-19 vaccine transport, and fdx (2024) is a data-driven commerce platform for merchants.</p>
                     <div class="legacy-src">Sources: <a href="https://news.microsoft.com/source/2020/05/18/fedex-and-microsoft-join-forces-to-transform-commerce/" target="_blank" rel="noopener">Microsoft</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-surround/" target="_blank" rel="noopener">FedEx: Surround</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-launches-the-fdx-platform" target="_blank" rel="noopener">FedEx: fdx</a></div>
                 </details>
@@ -565,7 +669,7 @@
                 <h4>Data-Driven Commerce</h4>
                 <p>Using shipping network data to help merchants grow demand, fulfillment, and returns.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>In December 2020 FedEx acquired the e-commerce platform ShopRunner and placed it inside FedEx Dataworks. In 2024 FedEx launched fdx, which it calls the first data-driven commerce platform, using FedEx network data to help merchants grow demand, increase conversion, optimize fulfillment, and streamline returns.</p>
                     <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/fedex-completes-acquisition-of-shoprunner-expanding-its-e-commerce-capabilities/" target="_blank" rel="noopener">FedEx: ShopRunner</a> &middot; <a href="https://www.businesswire.com/news/home/20201228005055/en" target="_blank" rel="noopener">Business Wire</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-announces-first-of-its-kind-data-driven-commerce-platform" target="_blank" rel="noopener">FedEx: fdx announced</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-launches-the-fdx-platform" target="_blank" rel="noopener">FedEx: fdx launch</a></div>
                 </details>
@@ -576,7 +680,7 @@
                 <h4>FedEx Office Next-Generation Design</h4>
                 <p>Reimagining the FedEx Office retail experience.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx Office rolled out a redesigned retail concept with drop-off windows, self-serve packing stations, and floor agents; designer Ziba reports it cut agent labor by 15&ndash;30%. Its Plano headquarters (2015) includes a full mock storefront for testing new store equipment.</p>
                     <div class="legacy-src">Sources: <a href="https://www.ziba.com/work/fedex-retail" target="_blank" rel="noopener">Ziba</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-office-plants-roots-in-plano/" target="_blank" rel="noopener">FedEx Newsroom</a></div>
                 </details>
@@ -593,7 +697,7 @@
                 <h4>Drone Delivery</h4>
                 <p>Unmanned aerial delivery for urgent, remote, and last-mile shipments.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx kept testing drones through partners. In 2019 Wing, the Alphabet drone company that grew out of X, made the first scheduled commercial residential drone delivery in the U.S. with FedEx Express, a limited trial in Christiansburg, Virginia. In 2022 FedEx agreed to test Elroy Air's autonomous Chaparral cargo aircraft on middle-mile routes, with flight tests slated for 2023.</p>
                     <div class="legacy-src">Sources: <a href="https://www.fedex.com/en-au/about/sustainability/our-approach/wing-drones-transport-fedex-deliveries-directly-to-homes.html" target="_blank" rel="noopener">FedEx: Wing</a> &middot; <a href="https://newsroom.fedex.com/newsroom/elroyair" target="_blank" rel="noopener">FedEx: Elroy Air</a> &middot; <a href="https://www.freightwaves.com/news/fedex-express-to-test-autonomous-aircraft" target="_blank" rel="noopener">FreightWaves</a></div>
                 </details>
@@ -604,7 +708,7 @@
                 <h4>Crowdsourced Delivery</h4>
                 <p>On-demand delivery networks powered by local couriers.</p>
                 <details class="legacy">
-                    <summary>What FedEx did next</summary>
+                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
                     <p>FedEx never built its own crowdsourced courier network; rival UPS bought the crowdsourced platform Roadie instead. In March 2026 FedEx launched FedEx SameDay Local, tapping OneRail's network of 1,000+ delivery providers for two-hour and end-of-day delivery.</p>
                     <div class="legacy-src">Sources: <a href="https://en.wikipedia.org/wiki/Roadie_(app)" target="_blank" rel="noopener">Wikipedia: Roadie</a> &middot; <a href="https://www.onerail.com/newsroom/fedex-taps-onerail-to-take-on-amazon-in-same-day-delivery-race/" target="_blank" rel="noopener">OneRail</a> &middot; <a href="https://www.freightwaves.com/news/fedex-to-compete-in-same-day-delivery-with-amazon-walmart-and-ups" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://www.retailbrew.com/stories/2026/03/31/fedex-s-same-day-delivery-offering-took-years-to-build" target="_blank" rel="noopener">Retail Brew</a></div>
                 </details>
@@ -809,6 +913,11 @@
             </div>
         </div>
         <h3 class="adv-title">Advisory, Fellowships &amp; Speaking</h3>
+        <div class="speak-photos">
+            <figure><img src="../images/Image-2018-01-18-at-8.54.04-PM.png" alt="Will Murphy speaking on stage at the World Crypto Economic Forum" loading="lazy" style="object-position: center 20%;"><figcaption>Keynote &middot; World Crypto Economic Forum</figcaption></figure>
+            <figure><img src="../images/will-stanford-media-x.png" alt="Will Murphy presenting at Stanford MediaX" loading="lazy"><figcaption>Speaker &middot; Stanford MediaX</figcaption></figure>
+            <figure><img src="../images/will-talking.png" alt="Will Murphy in conversation with founders and builders" loading="lazy"><figcaption>In conversation with builders</figcaption></figure>
+        </div>
         <div class="adv-grid">
             <div class="adv-card"><img src="logos/Plug_and_Play_logo.jpeg" alt="Plug and Play logo" loading="lazy"><div><div class="adv-name">Plug and Play Tech Center</div><div class="adv-role">Advisor</div></div></div>
             <div class="adv-card"><img src="logos/singularity_university_logo.jpeg" alt="Singularity University logo" loading="lazy"><div><div class="adv-name">Singularity University</div><div class="adv-role">Advisor</div></div></div>
@@ -854,7 +963,6 @@
             <div class="glance-item"><img src="logos/talla_logo.jpeg" alt="Talla logo"><div class="glance-co">Talla</div><div class="glance-yr">2016 &ndash; 2018</div></div>
             <div class="glance-item"><img src="logos/fedex_logo.jpeg" alt="FedEx logo"><div class="glance-co">FedEx</div><div class="glance-yr">2001 &ndash; 2015</div></div>
         </div>
-        <a href="timeline.html" class="btn btn-secondary">See the full chronological view <svg class="ico" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
     </div>
 </section>
 
@@ -862,7 +970,7 @@
 <section id="contact" class="contact-section">
     <div class="container">
         <div class="section-label">Connect</div>
-        <h2 class="section-title">Let's Build What's Next</h2>
+        <h2 class="section-title">Let's Build the Future Together</h2>
         <p class="section-desc">Interested in moonshots, innovation systems, or AI? Reach out.</p>
         <div class="contact-links">
             <a href="https://www.linkedin.com/in/willmurphy" target="_blank" rel="noopener" class="contact-link">&#x1F517; LinkedIn</a>
@@ -896,6 +1004,29 @@
         statusBtns.forEach(function (b) { b.addEventListener('click', function () { state.status = b.dataset.filter; render(); }); });
         eraBtns.forEach(function (b) { b.addEventListener('click', function () { state.era = b.dataset.eraFilter; render(); }); });
         render();
+    })();
+    (function () {
+        var tip = document.createElement('div');
+        tip.id = 'tooltip'; tip.setAttribute('role', 'tooltip');
+        document.body.appendChild(tip);
+        function show(el) {
+            tip.innerHTML = el.getAttribute('data-tip');
+            tip.classList.add('show');
+            var r = el.getBoundingClientRect(), t = tip.getBoundingClientRect();
+            var left = Math.min(Math.max(8, r.left + r.width / 2 - t.width / 2), window.innerWidth - t.width - 8);
+            var top = r.top - t.height - 8;
+            if (top < 72) top = r.bottom + 8;
+            tip.style.left = left + 'px'; tip.style.top = top + 'px';
+        }
+        function hide() { tip.classList.remove('show'); }
+        document.querySelectorAll('.info-tip').forEach(function (el) {
+            el.addEventListener('mouseenter', function () { show(el); });
+            el.addEventListener('mouseleave', hide);
+            el.addEventListener('focus', function () { show(el); });
+            el.addEventListener('blur', hide);
+            el.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); show(el); });
+        });
+        window.addEventListener('scroll', hide, { passive: true });
     })();
 </script>
 
