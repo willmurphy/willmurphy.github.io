@@ -307,4 +307,8 @@ footer { padding: 2rem; text-align: center; color: var(--text-muted); font-size:
 .view-tab.active { background: var(--card); color: var(--accent); box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
 .view-tab svg { width: 16px; height: 16px; }
 nav a.logo { text-decoration: none; }
-section[id] { scroll-margin-top: 64px; }
+section[id], [id^="patent-"] { scroll-margin-top: 80px; }
+.ship-tag { text-decoration: none; display: inline-block; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 0.1rem 0.45rem; border-radius: 999px; margin-left: 0.35rem; white-space: nowrap; vertical-align: 1px; }
+.ship-tag.shipped { background: rgba(30,142,62,0.1); color: var(--accent2); }
+.ship-tag.researched { background: rgba(26,115,232,0.08); color: var(--accent); }
+.ship-tag.patent { background: rgba(255,152,0,0.12); color: #e68a00; }
