@@ -3,321 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will Murphy | AI Product Leader</title>
+    <title>Will Murphy | Portfolio</title>
+    <meta name="description" content="Will Murphy builds the machinery that finds, tests, and launches new ventures: innovation systems, emerging-tech exploration, and zero-to-one products.">
+    <link rel="stylesheet" href="portfolio.css">
     <style>
-        :root {
-            --bg: #ffffff;
-            --surface: #f8f9fa;
-            --card: #ffffff;
-            --border: #dadce0;
-            --text: #202124;
-            --text-muted: #5f6368;
-            --accent: #1a73e8;
-            --accent-glow: rgba(26, 115, 232, 0.15);
-            --accent2: #1e8e3e;
-            --accent3: #d93025;
-        }
+        /* Compact hero */
+        .hero.hero-compact { min-height: auto; padding: 3rem 2rem 3.5rem; }
+        .hero-compact .hero-sub { max-width: 680px; }
+        .hero-compact .hero-stats { gap: 2.5rem; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        .ico { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-        body {
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
+        .frameworks { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-top: 1.75rem; font-size: 0.85rem; color: var(--text-muted); }
+        .frameworks a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.85rem; border: 1px solid var(--border); border-radius: 999px; background: var(--card); color: var(--text); text-decoration: none; font-weight: 500; transition: border-color 0.2s; }
+        .frameworks a:hover { border-color: var(--accent); color: var(--accent); }
 
-        /* Nav */
-        nav {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(255,255,255,0.88);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            z-index: 100; padding: 0 2rem;
-        }
-        nav .nav-inner {
-            max-width: 1200px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center; height: 64px;
-        }
-        nav .logo { font-weight: 700; font-size: 1.2rem; color: var(--accent); letter-spacing: -0.5px; }
-        nav .nav-links { display: flex; gap: 2rem; list-style: none; }
-        nav .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-        nav .nav-links a:hover { color: var(--text); }
-        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-        .hamburger span { width: 24px; height: 2px; background: var(--text-muted); transition: 0.3s; }
+        .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .principle { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
+        .principle-n { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); }
+        .principle h3 { font-size: 1.15rem; font-weight: 700; margin: 0.2rem 0 0.5rem; }
+        .principle p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+        .principle a { margin-top: auto; padding-top: 0.75rem; font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+        .principle a:hover { text-decoration: underline; }
 
-        /* Hero */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center; justify-content: center;
-            padding: 6rem 2rem 2rem; position: relative; overflow: hidden;
+        /* ===== Napkin-to-platform strip ===== */
+        .proto-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+        .proto-frame { position: relative; }
+        .proto-frame:not(:last-child)::after {
+            content: ''; position: absolute; right: -0.95rem; top: 38%; width: 10px; height: 10px;
+            border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); transform: rotate(45deg);
         }
-        .hero::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(ellipse at 30% 50%, rgba(26,115,232,0.06) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 50%, rgba(30,142,62,0.04) 0%, transparent 50%);
-            animation: drift 20s ease-in-out infinite alternate;
-        }
-        @keyframes drift { 0% { transform: translate(0,0) rotate(0deg); } 100% { transform: translate(-5%,3%) rotate(3deg); } }
-        .hero-content { position: relative; max-width: 800px; text-align: center; }
-        .hero-badge {
-            display: inline-block; padding: 0.4rem 1rem;
-            background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.2);
-            border-radius: 100px; font-size: 0.85rem; color: var(--accent); margin-bottom: 1.5rem; letter-spacing: 0.5px;
-        }
-        h1 { font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -2px; }
-        h1 .gradient { background: linear-gradient(135deg, #1a73e8, #4fc3f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-sub { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 2.5rem; line-height: 1.8; }
-        .hero-stats { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
-        .stat { text-align: center; }
-        .stat-number { font-size: 2rem; font-weight: 800; color: var(--accent); }
-        .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; }
-        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.8rem; border-radius: 8px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
-        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px var(--accent-glow); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
-        .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
-        .btn-secondary:hover { border-color: var(--accent); background: rgba(26,115,232,0.03); }
+        .proto-img { aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .proto-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .proto-img.contain img { object-fit: contain; padding: 0.75rem; }
+        .proto-step { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); margin-top: 0.8rem; }
+        .proto-cap { font-size: 0.95rem; font-weight: 700; margin-top: 0.1rem; }
+        .proto-sub { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .proto-summary { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2rem; align-items: start; background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+        .proto-summary p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+        .proto-summary .awards-list { margin-top: 0; }
 
-        /* Sections */
-        section { padding: 5rem 2rem; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        .section-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
-        .section-title { font-size: clamp(1.8rem,4vw,2.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
-        .section-desc { color: var(--text-muted); max-width: 600px; margin-bottom: 3rem; font-size: 1.05rem; }
+        /* ===== Called it early ===== */
+        .early-group { display: flex; align-items: center; gap: 0.75rem; font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .early-group::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        .early-group.calling { color: #e68a00; }
+        .early { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.75rem 1.25rem; padding-top: 1.75rem; margin-bottom: 3rem; }
+        .early:last-child { margin-bottom: 0; }
+        .early-item { position: relative; }
+        .early-item::after { content: ''; position: absolute; top: -1.2rem; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); opacity: 0.3; }
+        .early-item::before {
+            content: ''; position: absolute; top: -1.6rem; left: 0; width: 14px; height: 14px; border-radius: 50%; z-index: 1;
+            background: var(--accent); box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow);
+        }
+        .early.calling .early-item::before { background: var(--bg); border: 2px dashed #e68a00; box-shadow: 0 0 0 4px var(--bg); }
+        .early.calling .early-item::after { background: repeating-linear-gradient(90deg, #e68a00 0 6px, transparent 6px 12px); opacity: 0.5; }
+        .early-year { font-size: 1.5rem; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; line-height: 1.2; }
+        .early.calling .early-year { color: #e68a00; }
+        .early-what { font-size: 0.95rem; font-weight: 700; margin: 0.35rem 0 0.4rem; line-height: 1.35; }
+        .early-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+        .early-next, .early-expect { margin-top: 0.75rem; padding: 0.6rem 0.75rem; border-radius: 8px; font-size: 0.8rem; color: var(--text); line-height: 1.45; }
+        .early-next { background: rgba(30,142,62,0.06); border: 1px solid rgba(30,142,62,0.15); }
+        .early-expect { background: rgba(255,152,0,0.07); border: 1px dashed rgba(230,138,0,0.45); }
+        .early-next strong, .early-expect strong { display: block; font-size: 0.68rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.15rem; }
+        .early-next strong { color: var(--accent2); }
+        .early-expect strong { color: #e68a00; }
 
-        /* Skills */
-        .skills-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
-        .skill-pill { padding: 0.5rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; transition: all 0.2s; }
-        .skill-pill:hover { border-color: var(--accent); color: var(--text); background: rgba(26,115,232,0.03); }
+        /* ===== Exploration portfolio ===== */
+        .filter-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+        .filter-btn { padding: 0.45rem 1rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); font: inherit; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s; }
+        .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+        .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .filter-btn .count { opacity: 0.7; font-weight: 500; margin-left: 0.25rem; }
+        .explore-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+        .explore-tile { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.5rem; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .explore-tile:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); border-color: var(--accent); }
+        .explore-tile[hidden] { display: none; }
+        .tile-top { display: flex; align-items: center; justify-content: space-between; }
+        .tile-icon { width: 40px; height: 40px; border-radius: 11px; display: flex; align-items: center; justify-content: center; background: rgba(26,115,232,0.08); color: var(--accent); }
+        .explore-tile[data-status="launched"] .tile-icon { background: rgba(30,142,62,0.08); color: var(--accent2); }
+        .explore-tile[data-status="wound-down"] .tile-icon { background: var(--surface); color: var(--text-muted); }
+        .status { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; }
+        .status.launched { background: rgba(30,142,62,0.1); color: var(--accent2); }
+        .status.explored { background: rgba(26,115,232,0.08); color: var(--accent); }
+        .status.wound-down { background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); }
+        .explore-tile h4 { font-size: 0.98rem; font-weight: 700; line-height: 1.3; }
+        .explore-tile p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
 
-        /* Timeline Logo + Company inline */
-        .timeline-logo-row {
-            display: flex; align-items: center; gap: 0.6rem;
-            margin-top: 0.5rem; margin-bottom: 0.75rem;
-        }
-        .timeline-logo {
-            width: 36px; height: 36px; border-radius: 8px; object-fit: cover;
-            border: 1px solid var(--border); flex-shrink: 0;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        }
-        .timeline-logo-row .timeline-company { margin-bottom: 0; }
+        .legacy { margin-top: auto; padding-top: 0.6rem; border-top: 1px solid var(--border); }
+        .legacy summary { cursor: pointer; list-style: none; display: flex; align-items: center; justify-content: space-between; font-size: 0.78rem; font-weight: 600; color: var(--accent2); }
+        .legacy summary::-webkit-details-marker { display: none; }
+        .legacy summary::after { content: '+'; font-size: 1rem; font-weight: 600; line-height: 1; }
+        .legacy[open] summary::after { content: '\2212'; }
+        .legacy p { margin-top: 0.5rem; font-size: 0.8rem; color: var(--text); line-height: 1.5; }
+        .legacy-src { margin-top: 0.4rem; font-size: 0.72rem; color: var(--text-muted); line-height: 1.5; }
+        .legacy-src a { color: var(--accent); text-decoration: none; }
+        .legacy-src a:hover { text-decoration: underline; }
 
-        /* Speaking Logo inline with venue */
-        .speaking-header {
-            display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem;
-        }
-        .speaking-logo {
-            width: 28px; height: 28px; border-radius: 6px; object-fit: cover;
-            border: 1px solid var(--border); flex-shrink: 0;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-        }
-        .speaking-logos {
-            display: flex; gap: 0.4rem; align-items: center;
-        }
+        /* ===== Organizations ===== */
+        .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .org-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .org-card .tile-icon { margin-bottom: 0.9rem; }
+        .org-kicker { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent2); }
+        .org-card h3 { font-size: 1.08rem; font-weight: 700; margin: 0.15rem 0 0.5rem; }
+        .org-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; }
+        .adv-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 600; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+        .adv-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        .adv-card { display: flex; align-items: center; gap: 0.85rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); transition: border-color 0.2s; }
+        .adv-card:hover { border-color: var(--accent); }
+        .adv-card img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; background: #fff; }
+        .adv-name { font-size: 0.9rem; font-weight: 700; line-height: 1.3; }
+        .adv-role { font-size: 0.78rem; color: var(--text-muted); }
 
-        /* Timeline Blocks */
-        .timeline-block {
-            position: relative;
-            padding-left: 2.5rem;
-            margin-bottom: 4rem;
-            border-left: 2px solid var(--border);
-        }
-        .timeline-block:first-child { border-image: linear-gradient(to bottom, var(--accent), var(--border)) 1; }
-        .timeline-header {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-        .timeline-header::before {
-            content: ''; position: absolute; left: -2.85rem; top: 8px;
-            width: 12px; height: 12px; background: var(--accent);
-            border-radius: 50%; box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow);
-        }
-        .timeline-header.current::before { animation: pulse-dot 2s ease-in-out infinite; }
-        .showcase-inline {
-            background: var(--surface); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem; margin-top: 1.5rem;
-        }
-        .showcase-inline .showcase-item { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-        .showcase-inline .showcase-text .showcase-company { display: none; }
+        /* ===== Thinking now ===== */
+        .now-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+        .now-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; border-left: 3px solid var(--accent); }
+        .now-card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 0.4rem; }
+        .now-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
 
-        /* Product list for expanded sections */
-        .product-list-section { margin-top: 1.5rem; }
-        .product-list-section h4 {
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px;
-            color: var(--accent); font-weight: 600; margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
-        }
-        .product-list {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 2rem;
-            margin-bottom: 1.25rem;
-        }
-        .product-list-item {
-            font-size: 0.88rem; color: var(--text-muted); padding: 0.2rem 0;
-            display: flex; align-items: baseline; gap: 0.4rem;
-        }
-        .product-list-item::before { content: '\2022'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
-        .product-list-item .zero-to-one-badge {
-            flex-shrink: 0; margin-bottom: 0; white-space: nowrap; align-self: flex-start; margin-top: 0.1rem;
-        }
+        /* ===== Inventions ===== */
+        .inv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .inv-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; gap: 0.85rem; align-items: flex-start; }
+        .inv-card .tile-icon { width: 34px; height: 34px; flex-shrink: 0; }
+        .inv-card .tile-icon .ico { width: 18px; height: 18px; }
+        .inv-card h4 { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
+        .inv-card .patent-status { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
 
-        /* ===== PRODUCT SHOWCASE ===== */
-        .showcase-item {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 5rem;
-            padding-bottom: 5rem;
-            border-bottom: 1px solid var(--border);
-        }
-        .showcase-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .showcase-item.reverse .showcase-images { order: -1; }
+        /* ===== Experience at a glance ===== */
+        .glance { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; margin-bottom: 1.75rem; }
+        .glance-item { text-align: center; padding: 1.1rem 0.5rem; border: 1px solid var(--border); border-radius: 12px; background: var(--card); }
+        .glance-item img { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 1px solid var(--border); margin-bottom: 0.5rem; }
+        .glance-co { font-size: 0.88rem; font-weight: 700; }
+        .glance-yr { font-size: 0.75rem; color: var(--text-muted); }
 
-        .showcase-text .showcase-company {
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;
-            color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+        @media (max-width: 960px) {
+            .principles { grid-template-columns: 1fr; }
+            .early { grid-template-columns: repeat(2, 1fr); }
+            .org-grid, .inv-grid, .adv-grid { grid-template-columns: repeat(2, 1fr); }
+            .glance { grid-template-columns: repeat(3, 1fr); }
+            .proto-summary { grid-template-columns: 1fr; }
         }
-        .showcase-text h3 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.5px; }
-        .showcase-text p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1rem; }
-        .showcase-metric {
-            display: inline-block; padding: 0.4rem 1rem;
-            background: rgba(30,142,62,0.08); border: 1px solid rgba(30,142,62,0.2);
-            border-radius: 6px; font-size: 0.85rem; color: var(--accent2); font-weight: 600;
-            margin-right: 0.5rem; margin-bottom: 0.5rem;
-        }
-        .industry-first-badge {
-            display: inline-block; padding: 0.35rem 0.9rem;
-            background: rgba(255,152,0,0.1); border: 1px solid rgba(255,152,0,0.25);
-            border-radius: 6px; font-size: 0.8rem; color: #e68a00; font-weight: 600;
-            margin-bottom: 0.75rem; letter-spacing: 0.3px;
-        }
-        .paused-badge {
-            background: rgba(255,213,0,0.15) !important; border: 1px solid rgba(255,193,0,0.35) !important;
-            color: #b8860b !important;
-        }
-        .zero-to-one-badge {
-            display: inline-block; padding: 0.35rem 0.9rem;
-            background: rgba(26,115,232,0.08); border: 1px solid rgba(26,115,232,0.2);
-            border-radius: 6px; font-size: 0.8rem; color: var(--accent); font-weight: 600;
-            margin-bottom: 0.75rem; letter-spacing: 0.3px;
-        }
-        .showcase-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-        .tag { padding: 0.3rem 0.75rem; background: rgba(26,115,232,0.06); border: 1px solid rgba(26,115,232,0.15); border-radius: 6px; font-size: 0.78rem; color: var(--accent); font-weight: 500; }
-
-        .showcase-images { display: grid; gap: 0.75rem; }
-        .showcase-images.grid-2 { grid-template-columns: 1fr 1fr; }
-        .showcase-images.grid-stack { grid-template-columns: 1fr; }
-
-        .showcase-img-wrap {
-            border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-            transition: transform 0.3s, box-shadow 0.3s;
-            background: var(--surface);
-        }
-        .showcase-img-wrap:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-        }
-        .showcase-img-wrap img {
-            width: 100%; height: 100%; object-fit: cover; display: block;
-        }
-        .showcase-img-wrap.tall img { object-fit: contain; padding: 1rem; background: #fff; }
-        .showcase-img-wrap.hero-img { grid-column: 1 / -1; }
-
-        /* Awards */
-        .awards-list { margin-top: 1.25rem; display: flex; flex-direction: column; gap: 0.4rem; }
-        .award-item {
-            display: flex; align-items: baseline; gap: 0.5rem;
-            font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;
-        }
-        .award-item::before { content: '\1F3C6'; flex-shrink: 0; font-size: 0.7rem; }
-        .award-item strong { color: var(--text); font-weight: 600; }
-
-        /* Earlier Work Gallery */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-        }
-        .gallery-card {
-            background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-            overflow: hidden; transition: all 0.3s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); border-color: var(--accent); }
-        .gallery-card .gallery-img { width: 100%; height: 160px; object-fit: cover; object-position: top; display: block; border-bottom: 1px solid var(--border); }
-        .gallery-card .gallery-info { padding: 1rem; }
-        .gallery-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .gallery-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
-        .gallery-status { font-size: 0.7rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.25rem; }
-        .gallery-status.acquired { color: var(--accent2); }
-        .gallery-status.ended { color: var(--text-muted); }
-
-        /* Timeline */
-        @keyframes pulse-dot { 0%,100% { box-shadow: 0 0 0 4px var(--bg), 0 0 12px var(--accent-glow); } 50% { box-shadow: 0 0 0 4px var(--bg), 0 0 24px var(--accent-glow); } }
-        .timeline-date { font-size: 0.8rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .timeline-role { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.15rem; }
-        .timeline-company { font-size: 1rem; color: var(--accent2); font-weight: 600; margin-bottom: 0.75rem; }
-        .timeline-desc { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
-        .timeline-highlights { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .tag.green { background: rgba(30,142,62,0.06); border-color: rgba(30,142,62,0.15); color: var(--accent2); }
-
-        /* Speaking */
-        .speaking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
-        .speaking-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .speaking-card:hover { border-color: var(--accent); }
-        .speaking-venue { font-size: 0.78rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 0.5rem; }
-        .speaking-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .speaking-card p { color: var(--text-muted); font-size: 0.85rem; }
-
-        /* Patents */
-        .patents-list { display: grid; gap: 1rem; }
-        .patent-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .patent-icon { flex-shrink: 0; width: 36px; height: 36px; background: rgba(26,115,232,0.08); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
-        .patent-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .patent-item .patent-status { font-size: 0.78rem; color: var(--text-muted); }
-
-        /* Education */
-        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
-        .edu-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .edu-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .edu-card .school { color: var(--accent2); font-size: 0.9rem; font-weight: 600; }
-
-        /* Contact */
-        .contact-section { text-align: center; background: var(--surface); border-top: 1px solid var(--border); }
-        .contact-section .section-desc { margin-left: auto; margin-right: auto; }
-        .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .contact-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-        .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
-
-        footer { padding: 2rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
-
-        /* Responsive */
         @media (max-width: 768px) {
-            nav .nav-links { display: none; }
-            nav .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); gap: 1rem; }
-            .hamburger { display: flex; }
-            .hero-stats { gap: 1.5rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .showcase-item, .showcase-item.reverse { grid-template-columns: 1fr; }
-            .showcase-item.reverse .showcase-images { order: 0; }
-            .gallery-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+            .proto-strip { grid-template-columns: repeat(2, 1fr); }
+            .proto-frame::after { display: none; }
+            .now-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 560px) {
+            section { padding: 3.5rem 1rem; }
+            .view-tabs-wrap { padding-left: 1rem; padding-right: 1rem; }
+            .view-tab { padding: 0.5rem 0.9rem; font-size: 0.85rem; }
+            .org-grid, .inv-grid, .early, .adv-grid { grid-template-columns: 1fr; }
+            .glance { grid-template-columns: repeat(2, 1fr); }
+            .hero-stats { gap: 1.25rem; }
         }
     </style>
 </head>
 <body>
 
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+        <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+        <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></symbol>
+        <symbol id="i-filter" viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></symbol>
+        <symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+        <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+        <symbol id="i-drone" viewBox="0 0 24 24"><rect x="9" y="10" width="6" height="4" rx="1"/><circle cx="5" cy="6" r="2.5"/><circle cx="19" cy="6" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/><path d="M7 8l2 2M17 8l-2 2M7 16l2-2M17 16l-2-2"/></symbol>
+        <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></symbol>
+        <symbol id="i-truck" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+        <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></symbol>
+        <symbol id="i-map" viewBox="0 0 24 24"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+        <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+        <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+        <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+        <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+        <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+        <symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></symbol>
+        <symbol id="i-store" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+        <symbol id="i-pulse" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+        <symbol id="i-box" viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+        <symbol id="i-bars" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+        <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+        <symbol id="i-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+        <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+        <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+        <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+        <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    </defs>
+</svg>
+
 <!-- Navigation -->
 <nav>
     <div class="nav-inner">
-        <div class="logo">WM</div>
+        <a href="../" class="logo">WM</a>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#earlier">Earlier Work</a></li>
-            <li><a href="#speaking">Speaking</a></li>
-            <li><a href="#patents">Patents</a></li>
+            <li><a href="#method">Approach</a></li>
+            <li><a href="#explorations">Explorations</a></li>
+            <li><a href="#early">Early Calls</a></li>
+            <li><a href="#organizations">Organizations</a></li>
+            <li><a href="#now">Now</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
@@ -326,18 +212,26 @@
     </div>
 </nav>
 
+<!-- View tabs -->
+<div class="view-tabs-wrap">
+    <div class="view-tabs" role="tablist">
+        <a href="./" class="view-tab active" role="tab" aria-selected="true">Portfolio View</a>
+        <a href="timeline.html" class="view-tab" role="tab">Chronological View</a>
+    </div>
+</div>
+
 <!-- Hero -->
-<section class="hero">
+<section class="hero hero-compact">
     <div class="hero-content">
-        <div class="hero-badge">AI Product Leader &bull; Builder &bull; Advisor</div>
+        <div class="hero-badge">Zero-to-One Builder &bull; Innovation Systems &bull; AI + the Physical World</div>
         <h1>Will <span class="gradient">Murphy</span></h1>
         <p class="hero-sub">
-            Pioneering applied AI product management since 2016.
-            A track record of 0-to-1 and scaled product development at Fortune 500 companies and startups.
+            I build the machinery that finds, tests, and launches new ventures, from sensor networks inside FedEx to AI agents today.
+            Founding member of FedEx Innovation Labs, head of App Annie Innovation Labs, startup founder, and applied-AI product leader since 2016.
         </p>
         <div class="hero-stats">
-            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Years in AI PM</div></div>
-            <div class="stat"><div class="stat-number">10+</div><div class="stat-label">Years 0-to-1</div></div>
+            <div class="stat"><div class="stat-number">25</div><div class="stat-label">Years Innovating</div></div>
+            <div class="stat"><div class="stat-number">13+</div><div class="stat-label">Tech Explorations</div></div>
             <div class="stat"><div class="stat-number">$1B+</div><div class="stat-label">Revenue Impact</div></div>
             <div class="stat"><div class="stat-number">6</div><div class="stat-label">Patents</div></div>
             <div class="stat"><div class="stat-number">18</div><div class="stat-label">Corporate Awards</div></div>
@@ -345,435 +239,503 @@
     </div>
 </section>
 
-<!-- Skills -->
-<section style="padding-top: 0; padding-bottom: 1.5rem;">
+<!-- Approach -->
+<section id="method" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
-        <div class="skills-row">
-            <span class="skill-pill">Agentic AI</span>
-            <span class="skill-pill">RAG / GraphRAG</span>
-            <span class="skill-pill">LLMs &amp; SLMs</span>
-            <span class="skill-pill">Neuro-Symbolic AI</span>
-            <span class="skill-pill">Knowledge Graphs</span>
-            <span class="skill-pill">0-to-1 Product</span>
-            <span class="skill-pill">Developer Platforms</span>
-            <span class="skill-pill">IoT</span>
-            <span class="skill-pill">DevRel &amp; APIs</span>
-            <span class="skill-pill">Cross-Functional Leadership</span>
-            <span class="skill-pill">Data Science</span>
-            <span class="skill-pill">Product Strategy</span>
-        </div>
-    </div>
-</section>
+        <div class="section-label">The Approach</div>
+        <h2 class="section-title">Principles</h2>
+        <p class="section-desc">How I approach new bets.</p>
 
-<!-- Experience & Products -->
-<section id="experience" style="padding-top: 2rem;">
-    <div class="container">
-        <div class="section-label">Career &amp; Products</div>
-        <h2 class="section-title">Experience</h2>
-
-        <!-- ServiceNow -->
-        <div class="timeline-block">
-            <div class="timeline-header current">
-                <div class="timeline-date">May 2026 -Present</div>
-                <div class="timeline-role">AI Product Manager, Agentic AI Platform</div>
-                <div class="timeline-logo-row"><img src="../images/ServiceNow.png" alt="ServiceNow logo" class="timeline-logo"><div class="timeline-company">ServiceNow</div></div>
-                <div class="timeline-desc">Focused on agentic reasoning, current platform, A2A enablement, and other projects. Mission: putting AI to work at global enterprise scale.</div>
-                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">Enterprise Platform</span></div>
+        <div class="principles">
+            <div class="principle">
+                <div class="principle-n">01</div>
+                <h3>Demos Over Memos</h3>
+                <p>Build the prototype before the memo. A working demo settles debates a slide deck can't.</p>
+                <a href="https://demosovermemos.com/" target="_blank" rel="noopener">Read the essay &rarr;</a>
             </div>
-        </div>
-
-        <!-- Intuit -->
-        <div class="timeline-block">
-            <div class="timeline-header">
-                <div class="timeline-date">Jan 2025 -Nov 2025</div>
-                <div class="timeline-role">Principal Product Manager, AI New Products / Futures Team</div>
-                <div class="timeline-logo-row"><img src="logos/intuit_logo.jpeg" alt="Intuit logo" class="timeline-logo"><div class="timeline-company">Intuit</div></div>
-                <div class="timeline-desc">Led 0-to-1 vision and delivery of new product bets within Intuit Futures. Pioneered multiple AI agents including SLMs, GraphRAG, and neuro-symbolic reasoning.</div>
-                <div class="timeline-highlights"><span class="tag">Agentic AI</span><span class="tag">GraphRAG</span><span class="tag">Neuro-Symbolic</span><span class="zero-to-one-badge" style="margin-bottom:0">Zero-to-One</span><span class="tag green">20% MTTR Reduction</span><span class="tag green">25% Triage Reduction</span></div>
+            <div class="principle">
+                <div class="principle-n">02</div>
+                <h3>Design for Probabilistic Outcomes</h3>
+                <p>AI products predict; they don't guarantee. I coined &ldquo;probabilistic products&rdquo; in 2016 to design for being wrong gracefully.</p>
+                <a href="https://futurelab.substack.com/p/probabilistic-products" target="_blank" rel="noopener">Read the essay &rarr;</a>
             </div>
-            <div class="showcase-inline">
-                <div class="showcase-item">
-                    <div class="showcase-text">
-                        <h3>Scaffolding AI</h3>
-                        <p>New product announced at Intuit Investor Day 2025. Pitched the original idea, defined market requirements, and initiated development for AI agents that run your small business with an AI control panel. Our product turns SOPs (Standard Operating Procedures) into agentic work.</p>
-                        <p>Projected $1B+ ARR opportunity, directly advancing Intuit's "done for you" platform strategy. Created a system of SLMs (Small Language Models) to optimize token usage and narrow business knowledge domains. Integrated neuro-symbolic reasoning and LLM-as-a-Judge for system reliability, securing immediate pilot adoption across three internal teams.</p>
-                        <div>
-                            <span class="showcase-metric">Investor Day 2025</span>
-                            <span class="showcase-metric">$1B+ ARR Opportunity</span>
-                            <span class="showcase-metric">3 Team Pilots</span>
-                            <span class="industry-first-badge">Industry First</span>
-                        </div>
-                    </div>
-                    <div class="showcase-images grid-stack">
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/Intuit_Scaffolding_AI.jpeg" alt="Scaffolding AI product slide showing next-gen tech for mid-market businesses">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- data.ai -->
-        <div class="timeline-block">
-            <div class="timeline-header">
-                <div class="timeline-date">Jan 2020 -Jun 2023</div>
-                <div class="timeline-role">Senior Director of Product &amp; Head of AI New Products</div>
-                <div class="timeline-logo-row"><img src="logos/dataai_app_annie_logo.jpeg" alt="data.ai logo" class="timeline-logo"><div class="timeline-company">data.ai (formerly App Annie)</div></div>
-                <div class="timeline-desc">Promoted from Principal PM to Senior Director within 6 months. Owned strategy, vision, and roadmap for new product development. Led and mentored 6 direct reports across a cross-functional org of PMs, engineers, and data scientists. Player-coach for AI innovation across team and company. Collaborated cross-functionally with Engineering, Design, Legal, Sales, GTM, and C-Suite.</div>
-                <div class="timeline-highlights"><span class="tag">GenAI/LLMs</span><span class="tag">Knowledge Graphs</span><span class="tag">DevRel &amp; APIs</span><span class="tag">Snowflake</span><span class="tag green">6 Direct Reports</span><span class="tag green">80% New Product Coverage</span></div>
-            </div>
-            <div class="showcase-inline">
-                <div class="showcase-item reverse">
-                    <div class="showcase-text">
-                        <h3>Mobile Performance Score</h3>
-                        <span class="industry-first-badge">Industry First</span>
-                        <span class="zero-to-one-badge">Zero-to-One</span>
-                        <p>Labs team launched the first Mobile Performance Score (MPS) -a "credit score" for mobile apps measuring Acquisition, Engagement, Monetization, and Sentiment in a single composite score. Drove upsell and analyst adoption across the platform.</p>
-                        <div>
-                            <span class="showcase-metric">Industry First</span>
-                            <span class="showcase-metric">Drove Upsell &amp; Analyst Adoption</span>
-                        </div>
-                    </div>
-                    <div class="showcase-images grid-stack">
-                        <div class="showcase-img-wrap tall">
-                            <img src="images/App_Annie_Mobile_Performance_Score_2.jpeg" alt="Mobile Performance Score radar chart showing score of 91">
-                        </div>
-                    </div>
-                </div>
-                <div class="product-list-section">
-                    <h4>AI &amp; GenAI Products</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">Copilot Chatbot Assistant (GenAI/LLMs)</div>
-                        <div class="product-list-item">Ad Creative IQ -AI-generated ad optimization</div>
-                        <div class="product-list-item">AI Feedback Loop Service/API (cross-product)</div>
-                        <div class="product-list-item">Recommendation Engine -app similarity &amp; interest</div>
-                        <div class="product-list-item">Consumer Intelligence Knowledge Graph (POC)</div>
-                        <div class="product-list-item">Smart Search</div>
-                    </div>
-                    <h4>Data &amp; Analytics Products</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">Automated Insight Feed</div>
-                        <div class="product-list-item">Automated Newsfeed</div>
-                        <div class="product-list-item">Ad Revenue Estimates</div>
-                        <div class="product-list-item">Podcast Metrics</div>
-                        <div class="product-list-item">Blockchain Intelligence</div>
-                        <div class="product-list-item">Connect Plus -1st party data platform (reset strategy)</div>
-                    </div>
-                    <h4>Data Infrastructure &amp; Privacy</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">Snowflake Data Share &amp; Marketplace</div>
-                        <div class="product-list-item">Synthetic Data &amp; Data Clean Room</div>
-                        <div class="product-list-item">Homomorphic Encryption</div>
-                    </div>
-                    <h4>Developer Relations &amp; API</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">Led global DevRel &amp; API platform -tens of millions in annual revenue</div>
-                        <div class="product-list-item">Re-architected API to overcome design challenges</div>
-                        <div class="product-list-item">Introduced Snowflake for high-value customer data delivery</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MessagePath -->
-        <div class="timeline-block">
-            <div class="timeline-header">
-                <div class="timeline-date">Jun 2018 -Dec 2019</div>
-                <div class="timeline-role">CEO &amp; Co-Founder</div>
-                <div class="timeline-logo-row"><img src="logos/MessagePath_logo.jpeg" alt="MessagePath logo" class="timeline-logo"><div class="timeline-company">MessagePath</div></div>
-                <div class="timeline-desc">Built a B2B SaaS AI writing assistant for sales and support teams, scaling to thousands of active users.</div>
-                <div class="timeline-highlights"><span class="tag">NLP</span><span class="tag">B2B SaaS</span><span class="tag green">#5 on G2</span></div>
-            </div>
-            <div class="showcase-inline">
-                <div class="showcase-item">
-                    <div class="showcase-text">
-                        <h3>MessagePath</h3>
-                        <span class="industry-first-badge">Industry First</span>
-                        <span class="zero-to-one-badge">Zero-to-One</span>
-                        <p>Industry-first business-focused AI writing co-pilot. B2B SaaS AI writing coach for sales and support teams. Scored and improved business writing using NLP analysis. Described as what you'd get if "Grammarly and Hemingway App had a business-focused baby."</p>
-                        <div>
-                            <span class="showcase-metric">#5 AI Writing on G2</span>
-                            <span class="showcase-metric">Rising Star Award</span>
-                        </div>
-                    </div>
-                    <div class="showcase-images grid-2">
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/MessagePath_Main_Page.png" alt="MessagePath app showing writing score and analysis on a MacBook">
-                        </div>
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/MessagePath_contextual_intelligence.png" alt="MessagePath contextual intelligence across Marketing, Sales, Support, and Press Release categories">
-                        </div>
-                        <div class="showcase-img-wrap">
-                            <img src="images/MessagePath_Awards.png" alt="MessagePath Rising Star and Premium Usability 2019 Awards">
-                        </div>
-                        <div class="showcase-img-wrap tall">
-                            <img src="images/MessagePath_Customer_Feedback.png" alt="MessagePath 5-star G2 Crowd reviews">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Talla -->
-        <div class="timeline-block">
-            <div class="timeline-header">
-                <div class="timeline-date">Jan 2016 -May 2018</div>
-                <div class="timeline-role">Founding Head of Product / VP Product &amp; Business Development</div>
-                <div class="timeline-logo-row"><img src="logos/talla_logo.jpeg" alt="Talla logo" class="timeline-logo"><div class="timeline-company">Talla</div></div>
-                <div class="timeline-desc">Founding executive providing vision and leadership to ideate, prototype, launch, and grow an AI-powered digital employee chatbot for web, Slack, and Microsoft Teams. Led cross-functional team of 30+ (2 PM direct reports, 10 engineers, 4 data scientists, designer). Pioneered advancements in conversational AI and NLP. Drove partnerships with Slack and Microsoft Teams, with business development conversations with Atlassian and Box. Led SOC 2 and GDPR implementations. Acquired by Bloomfire, now 2024 AI-Based Knowledge Management Software Company of the Year (CIO Review).</div>
-                <div class="timeline-highlights"><span class="tag">Conversational AI</span><span class="tag">NLP</span><span class="tag">Slack &amp; Teams</span><span class="tag">SOC 2 / GDPR</span><span class="tag green">2,000+ Users</span><span class="tag green">30+ Cross-Functional Team</span><span class="tag green">Acquired</span></div>
-            </div>
-            <div class="showcase-inline">
-                <div class="showcase-item reverse">
-                    <div class="showcase-text">
-                        <h3>Talla AI Knowledge Bot</h3>
-                        <span class="industry-first-badge">Industry First</span>
-                        <span class="zero-to-one-badge">Zero-to-One</span>
-                        <p>Head of product for one of the first commercial B2B AI agent platforms. Enterprise AI chatbot agent supporting knowledge management for HR, sales, and support teams. Featured analytics dashboards, knowledge gap detection, intelligent content tagging, and an early vision for AI agentic workflows. Directed the product through its first 2,000 users while working closely with data science to experiment with and plan NLP technology paths.</p>
-                        <div>
-                            <span class="showcase-metric">2,000+ Users</span>
-                            <span class="showcase-metric">Acquired by Bloomfire</span>
-                            <span class="showcase-metric">2024 KM Company of the Year</span>
-                        </div>
-                    </div>
-                    <div class="showcase-images grid-2">
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/Talla_1.png" alt="Talla analytics dashboard with knowledge base quality metrics">
-                        </div>
-                        <div class="showcase-img-wrap">
-                            <img src="images/Talla_2.png" alt="Talla chat interface showing AI answering questions">
-                        </div>
-                        <div class="showcase-img-wrap">
-                            <img src="images/Talla_3.png" alt="Talla knowledge gap information request tracking">
-                        </div>
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/Talla_4.png" alt="Talla knowledge base content with AI tagging">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FedEx -->
-        <div class="timeline-block">
-            <div class="timeline-header">
-                <div class="timeline-date">Jan 2001 -Dec 2015</div>
-                <div class="timeline-role">Principal Product Manager &amp; Program Manager</div>
-                <div class="timeline-logo-row"><img src="logos/fedex_logo.jpeg" alt="FedEx logo" class="timeline-logo"><div class="timeline-company">FedEx</div></div>
-                <div class="timeline-desc">Founding member of FedEx Innovation Labs at a Fortune 50 company. We built a multi-disciplinary team and created FedEx's design thinking, prototyping, open innovation, and startup launch laboratory. Led research, design, development, and launch of first-of-its-kind products. Contributed to the Innovation Imperatives section of strategy presented annually to the FedEx Board of Directors. Pitched the concept that became FedEx Dataworks, FedEx's data science division (launched 2020). Led cross-functional global teams of 100+ and managed executive stakeholder alignment across all phases of product development.</div>
-                <div class="timeline-highlights"><span class="tag">IoT</span><span class="tag">Innovation Labs</span><span class="tag">Design Thinking</span><span class="tag">DevRel / APIs</span><span class="tag">Open Innovation</span><span class="tag green">$1B+ API Revenue</span><span class="tag green">$600M Enterprise Launches</span><span class="tag green">18 Awards</span><span class="tag green">100+ Global Team</span></div>
-            </div>
-            <div class="showcase-inline">
-                <div class="showcase-item">
-                    <div class="showcase-text">
-                        <h3>SenseAware, Co-Founder</h3>
-                        <span class="industry-first-badge">Industry First</span>
-                        <span class="zero-to-one-badge">Zero-to-One</span>
-                        <p>Launched the first integrated remote-sensor IoT platform at FedEx. Global SaaS IoT platform for real-time shipment tracking with sensor data -temperature, light exposure, location, and barometric pressure. Used for vaccine distribution, pharmaceuticals, and high-value logistics worldwide.</p>
-                        <div>
-                            <span class="showcase-metric">Global Scale IoT</span>
-                            <span class="showcase-metric">COVID Vaccine Delivery</span>
-                        </div>
-                        <div class="awards-list">
-                            <div class="award-item"><strong>InformationWeek 500:</strong> 20 Great Ideas to Steal (2010)</div>
-                            <div class="award-item"><strong>ReadWriteWeb:</strong> Top 10 Internet of Things Products of 2009</div>
-                            <div class="award-item"><strong>Postscapes:</strong> Best Enterprise IoT Implementation (2011 &amp; 2012)</div>
-                            <div class="award-item"><strong>World Mail Awards:</strong> Innovation &amp; Security Categories (2012)</div>
-                            <div class="award-item"><strong>Cool Chain Logistics Europe:</strong> Supply Chain Integrity Innovator of the Year (2013)</div>
-                            <div class="award-item"><strong>SHD Logistics Award:</strong> Innovation Award Highly Commended (2014)</div>                        </div>
-                    </div>
-                    <div class="showcase-images grid-2">
-                        <div class="showcase-img-wrap hero-img">
-                            <img src="images/SenseAware_2.png" alt="SenseAware multi-device dashboard showing map tracking">
-                        </div>
-                        <div class="showcase-img-wrap">
-                            <img src="images/SenseAware_1.png" alt="SenseAware platform on laptop with tracking device">
-                        </div>
-                        <div class="showcase-img-wrap tall">
-                            <img src="images/SenseAware_3.webp" alt="SenseAware physical tracking device">
-                        </div>
-                        <div class="showcase-img-wrap tall">
-                            <img src="images/FedEx_SenseAware_Concept_Napkin.png" alt="Original SenseAware concept napkin sketch">
-                        </div>
-                    </div>
-                </div>
-                <div class="product-list-section">
-                    <h4>Innovation Lab &amp; Strategy</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">Fortune 50 Innovation Lab -board-level strategy for emerging tech</div>
-                        <div class="product-list-item">Pitched concept for FedEx Dataworks (data science division, launched 2020)</div>
-                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> Founded EPICenter Logistics Innovation Accelerator</div>
-                        <div class="product-list-item">Design thinking, lean startup &amp; business model innovation workshops</div>
-                    </div>
-                    <h4>Strategic Partnerships &amp; Open Innovation</h4>
-                    <div class="product-list">
-                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> eBay Valet -marketplace consignment via 1,600 FedEx Office locations</div>
-                        <div class="product-list-item">Open innovation with Google, eBay, universities, and startups</div>
-                        <div class="product-list-item">Researched e-commerce, urban mobility, data monetization &amp; blockchain</div>
-                    </div>
-                    <h4>Developer Relations &amp; API</h4>
-                    <div class="product-list">
-                        <div class="product-list-item"><span class="zero-to-one-badge">Zero-to-One</span> DevRel team accumulated the first $1B+ in API revenue for FedEx</div>
-                        <div class="product-list-item">$600M in incremental revenue for enterprise product launches</div>
-                        <div class="product-list-item">API customers: eBay, PayPal, Intuit, Microsoft, Oracle, Stamps.com</div>
-                        <div class="product-list-item">Built API testing app -reduced testing from 1 month to 1 hour</div>
-                    </div>
-                    <h4>18 Corporate Awards</h4>
-                    <div class="product-list">
-                        <div class="product-list-item">8 Leadership, 3 Innovation, 2 E-Commerce Strategy</div>
-                        <div class="product-list-item">1 Research, 1 Prototyping, 1 PM &amp; Business Development</div>
-                        <div class="product-list-item">1 Venture Strategy, 1 Customer Experience Design</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ===== EARLIER WORK GALLERY ===== -->
-<section id="earlier">
-    <div class="container">
-        <div class="section-label">Earlier Work</div>
-        <h2 class="section-title">Founding &amp; Building</h2>
-        <p class="section-desc">Side projects I built -from search engines to social platforms.</p>
-
-        <div class="gallery-grid">
-            <a href="https://wabiboard.com" target="_blank" rel="noopener" class="gallery-card" style="text-decoration: none; color: inherit;">
-                <img class="gallery-img" src="../images/preview-wabiboard.png" alt="Wabiboard collaborative AI whiteboard" style="object-position: left top;">
-                <div class="gallery-info">
-                    <h4>Wabiboard</h4>
-                    <div class="gallery-status">Beta</div>
-                    <p>Collaborative whiteboard with an AI assistant that turns rough notes into diagrams. No sign-ups, local file storage. Solo-built.</p>
-                </div>
-            </a>
-            <a href="https://ideafeed.com" target="_blank" class="gallery-card" style="text-decoration: none; color: inherit;">
-                <img class="gallery-img" src="images/IdeaFeed.png" alt="IdeaFeed social bookmarking platform">
-                <div class="gallery-info">
-                    <h4>IdeaFeed</h4>
-                    <div class="gallery-status">Beta</div>
-                    <p>Social bookmarking and search reimagined. Save, organize, and discover ideas with community-driven curation.</p>
-                </div>
-            </a>
-            <a href="https://genhub.ai" target="_blank" rel="noopener" class="gallery-card" style="text-decoration: none; color: inherit;">
-                <img class="gallery-img" src="images/portfolio_genhub.png" alt="GenHub.ai professional network for AI agents">
-                <div class="gallery-info">
-                    <h4>GenHub.ai</h4>
-                    <div class="gallery-status">Beta</div>
-                    <p>The first professional network for AI agents. Find or create AI bots for your professional tasks, with a library of 200+ prompts and bots.</p>
-                </div>
-            </a>
-            <div class="gallery-card">
-                <img class="gallery-img" src="images/portfolio_salessync.png" alt="SalesSync pitch inbox">
-                <div class="gallery-info">
-                    <h4>SalesSync</h4>
-                    <div class="gallery-status ended">Wound Down</div>
-                    <p>VC-funded buyer-side pitch inbox with AI-assisted opportunity identification. Launched; wound down. Still love the idea.</p>
-                </div>
-            </div>
-            <div class="gallery-card">
-                <img class="gallery-img" src="images/portfolio_surfrate.png" alt="SurfRate search engine">
-                <div class="gallery-info">
-                    <h4>SurfRate</h4>
-                    <div class="gallery-status acquired">Acquired</div>
-                    <p>Web search engine based on user reviews. Founded and acquired.</p>
-                </div>
-            </div>
-            <div class="gallery-card">
-                <img class="gallery-img" src="images/portfolio_webloghub.png" alt="WeblogHub blog aggregator">
-                <div class="gallery-info">
-                    <h4>WeblogHub</h4>
-                    <div class="gallery-status ended">Retired</div>
-                    <p>Blog aggregation and discovery platform with RSS feeds and curated content.</p>
-                </div>
-            </div>
-            <div class="gallery-card">
-                <img class="gallery-img" src="images/portfolio_tomorrows_trends.png" alt="Tomorrow's Trends blog">
-                <div class="gallery-info">
-                    <h4>Tomorrow's Trends</h4>
-                    <div class="gallery-status acquired">Acquired</div>
-                    <p>Technology trends blog covering emerging technologies. Acquired.</p>
-                </div>
+            <div class="principle">
+                <div class="principle-n">03</div>
+                <h3>Early Is a Feature</h3>
+                <p>Many good ideas fail on timing, not merit. Pause instead of forgetting, and revisit when the technology or market catches up.</p>
+                <a href="https://www.youtube.com/watch?v=bNpx7gpSqbY" target="_blank" rel="noopener">Bill Gross (Idealab): timing is the #1 factor &rarr;</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Speaking -->
-<section id="speaking" style="background: var(--surface);">
+<!-- Exploration portfolio -->
+<section id="explorations">
     <div class="container">
-        <div class="section-label">Thought Leadership</div>
-        <h2 class="section-title">Speaking &amp; Advisory</h2>
-        <p class="section-desc">Sharing perspectives on AI, innovation, and the future of product at leading venues.</p>
-        <div class="speaking-grid">
-            <div class="speaking-card">
-                <div class="speaking-header"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" class="speaking-logo"><div class="speaking-venue">Stanford MediaX</div></div>
-                <h3>Rights, Revenues, and Responsibilities in the Supply Chain of Data</h3>
-                <p>Exploring data ethics, AI, and the rules for creating intelligent systems.</p>
+        <div class="section-label">Portfolio of Bets</div>
+        <h2 class="section-title">Explorations &amp; Outcomes</h2>
+        <p class="section-desc">Ventures launched, research explored, and ideas paused or killed. I&rsquo;m often early: many of these ideas resurfaced later, when the timing was right.</p>
+
+        <div class="filter-row" role="group" aria-label="Filter explorations">
+            <button class="filter-btn active" data-filter="all">All<span class="count"></span></button>
+            <button class="filter-btn" data-filter="launched">Launched<span class="count"></span></button>
+            <button class="filter-btn" data-filter="explored">Explored<span class="count"></span></button>
+            <button class="filter-btn" data-filter="wound-down">Paused or Killed<span class="count"></span></button>
+        </div>
+
+        <div class="explore-grid">
+            <!-- Launched -->
+            <div class="explore-tile" data-status="launched">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-pulse"/></svg></div><span class="status launched">Launched</span></div>
+                <h4>SenseAware</h4>
+                <p>Global IoT platform for real-time, sensor-based shipment tracking.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In 2020 FedEx launched SenseAware ID, a lightweight Bluetooth sensor that reports a package's location every two seconds across the FedEx Express network. FedEx attaches SenseAware ID to COVID-19 vaccine shipments to track them through the network.</p>
+                    <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/senseaware-id/" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://www.freightwaves.com/news/fedex-introducing-precision-tracking-sensors-on-packages" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://www.cio.com/article/3604532/at-fedex-sensors-and-analytics-fuel-covid-19-vaccine-distribution.html" target="_blank" rel="noopener">CIO</a> &middot; <a href="https://www.fedex.com/en-us/healthcare/vaccine-shipping.html" target="_blank" rel="noopener">FedEx Healthcare</a></div>
+                </details>
             </div>
-            <div class="speaking-card">
-                <div class="speaking-header"><img src="logos/mit_logo.png" alt="MIT logo" class="speaking-logo"><div class="speaking-venue">MIT VLAB</div></div>
-                <h3>The Machines are Talking Back</h3>
-                <p>On the evolution of conversational AI and its enterprise implications.</p>
+            <div class="explore-tile" data-status="launched">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-box"/></svg></div><span class="status launched">Launched</span></div>
+                <h4>eBay Valet</h4>
+                <p>Marketplace consignment through 1,600 FedEx Office locations.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In May 2016 eBay and FedEx Office expanded the eBay Valet drop-off program to more than 1,600 FedEx Office stores: staff packed sellers' items and shipped them to eBay Valet to be listed and sold, with sellers paid through PayPal. eBay later closed its Valet program, reportedly in 2018.</p>
+                    <div class="legacy-src">Sources: <a href="https://ebayinc.com/stories/news/ebay-and-fedex-office-streamline-online-consumer-selling" target="_blank" rel="noopener">eBay Inc.</a> &middot; <a href="https://prnewswire.com/news-releases/fedex-office-and-ebay-team-up-to-help-consumers-sell-items-online-make-money-300348802.html" target="_blank" rel="noopener">PR Newswire</a> &middot; <a href="https://fortune.com/2016/05/10/ebay-fedex" target="_blank" rel="noopener">Fortune</a> &middot; <a href="https://shoppersshop.com/fedex-ebay-valet-51620162" target="_blank" rel="noopener">Shoppers Shop</a></div>
+                </details>
             </div>
-            <div class="speaking-card">
-                <div class="speaking-header"><img src="logos/AI_Conference_logo.webp" alt="The AI Conference logo" class="speaking-logo"><div class="speaking-venue">The AI Conference</div></div>
-                <h3>Beyond Chatbots: The Future of AI</h3>
-                <p>Moving past simple chatbots toward autonomous agents and intelligent systems.</p>
+            <div class="explore-tile" data-status="launched">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-bars"/></svg></div><span class="status launched">Launched</span></div>
+                <h4>FedEx Dataworks</h4>
+                <p>Pitched the concept for FedEx's data science division; launched in 2021.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx Dataworks became FedEx's global analytics and digital innovation organization, growing to hundreds of people and powering products such as FedEx Surround.</p>
+                    <div class="legacy-src">Sources: <a href="https://fedex.com/en-us/dataworks.html" target="_blank" rel="noopener">FedEx Dataworks</a> &middot; <a href="https://venturebeat.com/business/how-fedex-dataworks-is-using-analytics-ai-to-fortify-supply-chains" target="_blank" rel="noopener">VentureBeat</a> &middot; <a href="https://fedex.com/en-us/about/history.html" target="_blank" rel="noopener">FedEx history</a></div>
+                </details>
             </div>
-            <div class="speaking-card">
-                <div class="speaking-header"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" class="speaking-logo"><div class="speaking-venue">Stanford Leadership Garage</div></div>
-                <h3>Guest Speaker</h3>
-                <p>Innovation leadership and building products at the frontier of technology.</p>
+            <div class="explore-tile" data-status="launched">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-flag"/></svg></div><span class="status launched">Launched</span></div>
+                <h4>EPICenter Accelerator</h4>
+                <p>Founded a logistics innovation accelerator in Memphis.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx committed $750K in late 2014, and the EPICenter Logistics Innovation Accelerator ran annual cohorts from 2015: a 14&ndash;15 week program with FedEx mentors for startups in last-mile delivery and supply-chain data. By 2018 a $10M FedEx challenge grant had helped EPICenter Memphis raise $40M for emerging businesses.</p>
+                    <div class="legacy-src">Sources: <a href="https://www.venturenashville.com/article/2241/fedex-pledges-750k-for-logistics-accelerator-in-memphis-epicenter" target="_blank" rel="noopener">Venture Nashville</a> &middot; <a href="https://newsroom.fedex.com/newsroom/memphis-logistics-innovation-accelerator-opens-2016-application-process" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://fromcommonground.com/logisticsepicenter/" target="_blank" rel="noopener">From Common Ground</a> &middot; <a href="https://dailymemphian.com/section/business/article/284/fedex-challenge-grant-fuels-40-million-and-co" target="_blank" rel="noopener">Daily Memphian</a></div>
+                </details>
             </div>
-            <div class="speaking-card">
-                <div class="speaking-header"><img src="logos/monage_logo" alt="MoNage logo" class="speaking-logo"><div class="speaking-venue">MoNage Conference</div></div>
-                <h3>Convergence of Computing, Crypto, AI &amp; Messaging</h3>
-                <p>The intersection of emerging technologies and new business ecosystems.</p>
+            <div class="explore-tile" data-status="launched">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-code"/></svg></div><span class="status launched">Launched</span></div>
+                <h4>FedEx Developer APIs</h4>
+                <p>DevRel team that accumulated FedEx's first $1B+ in API revenue. The API channel we built became core to how businesses ship with FedEx.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx rebuilt its developer platform around a self-service portal and modern REST APIs with OAuth security. All new features now ship only in the REST APIs, and the legacy SOAP Web Services moved to maintenance-only support in 2026 ahead of retirement.</p>
+                    <div class="legacy-src">Sources: <a href="https://developer.fedex.com/api/en-us/announcements.html" target="_blank" rel="noopener">FedEx Developer Portal</a> &middot; <a href="https://developer.fedex.com/api/en-bb/announcements/Migrate_to_FedEx_APIs_Act_Now.html" target="_blank" rel="noopener">FedEx: Migrate to FedEx APIs</a> &middot; <a href="https://www.fedex.com/en-ca/resources-tools/api.html" target="_blank" rel="noopener">FedEx API</a></div>
+                </details>
             </div>
-            <div class="speaking-card">
-                <div class="speaking-header">
-                    <div class="speaking-logos">
-                        <img src="logos/ondeck_logo.jpeg" alt="On Deck logo" class="speaking-logo">
-                        <img src="logos/Plug_and_Play_logo.jpeg" alt="Plug and Play logo" class="speaking-logo">
-                        <img src="logos/singularity_university_logo.jpeg" alt="Singularity University logo" class="speaking-logo">
-                    </div>
-                    <div class="speaking-venue">Advisory</div>
-                </div>
-                <h3>Fellowships &amp; Mentorship</h3>
-                <p>On Deck Fellow (ODCI01, ODF18). Advisor at Plug and Play Tech Center &amp; Singularity University.</p>
+
+            <!-- Explored -->
+            <div class="explore-tile" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-bulb"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Innovation Factory</h4>
+                <p>How to lead innovation teams that explore, discover, and pursue new opportunities.</p>
+            </div>
+            <div class="explore-tile" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-truck"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Autonomous Vehicles &amp; Delivery Robots</h4>
+                <p>Self-driving vehicles and robots for the last mile.</p>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-leaf"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>CleanTech</h4>
+                <p>Cleaner fleets, energy, and packaging for a global logistics network.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In 2021 FedEx committed to carbon-neutral operations and an all-electric pickup and delivery fleet by 2040, and pledged $100M to help found the Yale Center for Natural Carbon Capture. Its first BrightDrop electric vans arrived in December 2021, with 2,500 planned.</p>
+                    <div class="legacy-src">Sources: <a href="https://www.fastcompany.com/90610719/how-fedex-plans-to-become-carbon-neutral-by-2040" target="_blank" rel="noopener">Fast Company</a> &middot; <a href="https://fedex.com/en-ca/sustainability/electric-vehicles.html" target="_blank" rel="noopener">FedEx EVs</a> &middot; <a href="https://newsroom.fedex.com/newsroom/brightdropev600/" target="_blank" rel="noopener">FedEx Newsroom</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-continues-advancing-fleet-electrification-goals-with-latest-150-electric-vehicle-delivery-from-brightdrop/" target="_blank" rel="noopener">FedEx: BrightDrop delivery</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-map"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Urban Mobility</h4>
+                <p>How dense cities change the way goods and people move.</p>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-layers"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>3D Printing &amp; On-Demand Manufacturing</h4>
+                <p>Shipping files instead of finished goods, and making them close to the customer.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In 2018 FedEx launched FedEx Forward Depots, a new company spanning critical inventory, service parts, repair, and on-demand 3D printing, built on Stratasys technology.</p>
+                    <div class="legacy-src">Sources: <a href="https://3dprint.com/201472/fedex-3d-printing-forward-depots/" target="_blank" rel="noopener">3DPrint.com</a> &middot; <a href="https://3dadept.com/fedex-forward-depots-fedex-new-company-focused-on-3d-printing/" target="_blank" rel="noopener">3D ADEPT</a> &middot; <a href="https://www.stratasys.com/explore/video/fedex-dives-into-3d-printing-with-help-from-stratasys" target="_blank" rel="noopener">Stratasys</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-trend"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Predictive Analytics</h4>
+                <p>Forecasting delays, demand, and volume before they happen.</p>
+            </div>
+            <div class="explore-tile" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-zap"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Same-Day &amp; On-Demand Delivery</h4>
+                <p>Faster delivery windows for urgent and local shipments.</p>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-link"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Blockchain for Supply Chain</h4>
+                <p>Shared, tamper-evident records of custody across shippers and carriers.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In 2018 FedEx became a founding member of the Blockchain in Transport Alliance (BiTA), joined its standards board and the Hyperledger project, and piloted blockchain for resolving shipping disputes.</p>
+                    <div class="legacy-src">Sources: <a href="https://www.freightwaves.com/news/fedex-bita-blockchain-logistics-plans" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://coindesk.com/fedex-moves-forward-blockchain-logistics-plans/" target="_blank" rel="noopener">CoinDesk</a> &middot; <a href="https://www.freightwaves.com/news/2018-9-26-fedex-joins-hyperledger-in-further-push-for-logistics-efficiency" target="_blank" rel="noopener">FreightWaves: Hyperledger</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-lock"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Smart Lockers &amp; Alternate Delivery</h4>
+                <p>Secure pickup points that reduce failed deliveries.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx built out FedEx OnSite, a retail pickup and drop-off network: more than 7,500 Walgreens locations by late 2017, and a 2019 Dollar General alliance targeting 8,000+ stores that grew the network to more than 62,000 retail locations. Customers can hold packages there for up to 7 days.</p>
+                    <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/fedex-package-pickup-and-drop-off-now-available-at-more-than-7500-walgreens-locations-in-all-50-states/" target="_blank" rel="noopener">FedEx: Walgreens</a> &middot; <a href="https://newsroom.fedex.com/newsroom/dollar-general-and-fedex-to-offer-convenient-package-drop-off-and-pickup-solutions/" target="_blank" rel="noopener">FedEx: Dollar General</a> &middot; <a href="https://www.fedex.com/en-us/faq/onsite.html" target="_blank" rel="noopener">FedEx OnSite</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-db"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Data Monetization</h4>
+                <p>Turning logistics data into new products and services.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx turned its network data into products: FedEx Surround (2020, with Microsoft) sells near-real-time shipment analytics and supported COVID-19 vaccine transport, and fdx (2024) is a data-driven commerce platform for merchants.</p>
+                    <div class="legacy-src">Sources: <a href="https://news.microsoft.com/source/2020/05/18/fedex-and-microsoft-join-forces-to-transform-commerce/" target="_blank" rel="noopener">Microsoft</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-surround/" target="_blank" rel="noopener">FedEx: Surround</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-launches-the-fdx-platform" target="_blank" rel="noopener">FedEx: fdx</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-cart"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>Data-Driven Commerce</h4>
+                <p>Using shipping network data to help merchants grow demand, fulfillment, and returns.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>In December 2020 FedEx acquired the e-commerce platform ShopRunner and placed it inside FedEx Dataworks. In 2024 FedEx launched fdx, which it calls the first data-driven commerce platform, using FedEx network data to help merchants grow demand, increase conversion, optimize fulfillment, and streamline returns.</p>
+                    <div class="legacy-src">Sources: <a href="https://newsroom.fedex.com/newsroom/fedex-completes-acquisition-of-shoprunner-expanding-its-e-commerce-capabilities/" target="_blank" rel="noopener">FedEx: ShopRunner</a> &middot; <a href="https://www.businesswire.com/news/home/20201228005055/en" target="_blank" rel="noopener">Business Wire</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-announces-first-of-its-kind-data-driven-commerce-platform" target="_blank" rel="noopener">FedEx: fdx announced</a> &middot; <a href="https://newsroom.fedex.com/newsroom/global-english/fedex-launches-the-fdx-platform" target="_blank" rel="noopener">FedEx: fdx launch</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="explored">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-store"/></svg></div><span class="status explored">Explored</span></div>
+                <h4>FedEx Office Next-Generation Design</h4>
+                <p>Reimagining the FedEx Office retail experience.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx Office rolled out a redesigned retail concept with drop-off windows, self-serve packing stations, and floor agents; designer Ziba reports it cut agent labor by 15&ndash;30%. Its Plano headquarters (2015) includes a full mock storefront for testing new store equipment.</p>
+                    <div class="legacy-src">Sources: <a href="https://www.ziba.com/work/fedex-retail" target="_blank" rel="noopener">Ziba</a> &middot; <a href="https://newsroom.fedex.com/newsroom/fedex-office-plants-roots-in-plano/" target="_blank" rel="noopener">FedEx Newsroom</a></div>
+                </details>
+            </div>
+
+            <!-- Paused or killed -->
+            <div class="explore-tile" data-status="wound-down">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-compass"/></svg></div><span class="status wound-down">Killed</span></div>
+                <h4>FedEx Ventures</h4>
+                <p>A corporate venture arm to invest in emerging startups. Killed before launch.</p>
+            </div>
+            <div class="explore-tile" data-status="wound-down">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-inbox"/></svg></div><span class="status wound-down">Killed</span></div>
+                <h4>SalesSync</h4>
+                <p>VC-funded buyer-side pitch inbox with AI-assisted opportunity identification. Still love the idea.</p>
+            </div>
+            <div class="explore-tile" data-status="wound-down">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-pen"/></svg></div><span class="status wound-down">Killed</span></div>
+                <h4>MessagePath</h4>
+                <p>Industry-first AI writing coach for sales and support teams.</p>
+            </div>
+            <div class="explore-tile" data-later="fedex" data-status="wound-down">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-drone"/></svg></div><span class="status wound-down">Paused</span></div>
+                <h4>Drone Delivery</h4>
+                <p>Unmanned aerial delivery for urgent, remote, and last-mile shipments.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx kept testing drones through partners. In 2019 Wing, the Alphabet drone company that grew out of X, made the first scheduled commercial residential drone delivery in the U.S. with FedEx Express, a limited trial in Christiansburg, Virginia. In 2022 FedEx agreed to test Elroy Air's autonomous Chaparral cargo aircraft on middle-mile routes, with flight tests slated for 2023.</p>
+                    <div class="legacy-src">Sources: <a href="https://www.fedex.com/en-au/about/sustainability/our-approach/wing-drones-transport-fedex-deliveries-directly-to-homes.html" target="_blank" rel="noopener">FedEx: Wing</a> &middot; <a href="https://newsroom.fedex.com/newsroom/elroyair" target="_blank" rel="noopener">FedEx: Elroy Air</a> &middot; <a href="https://www.freightwaves.com/news/fedex-express-to-test-autonomous-aircraft" target="_blank" rel="noopener">FreightWaves</a></div>
+                </details>
+            </div>
+            <div class="explore-tile" data-status="wound-down">
+                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-users"/></svg></div><span class="status wound-down">Killed</span></div>
+                <h4>Crowdsourced Delivery</h4>
+                <p>On-demand delivery networks powered by local couriers.</p>
+                <details class="legacy">
+                    <summary>What FedEx did next</summary>
+                    <p>FedEx never built its own crowdsourced courier network; rival UPS bought the crowdsourced platform Roadie instead. In March 2026 FedEx launched FedEx SameDay Local, tapping OneRail's network of 1,000+ delivery providers for two-hour and end-of-day delivery.</p>
+                    <div class="legacy-src">Sources: <a href="https://en.wikipedia.org/wiki/Roadie_(app)" target="_blank" rel="noopener">Wikipedia: Roadie</a> &middot; <a href="https://www.onerail.com/newsroom/fedex-taps-onerail-to-take-on-amazon-in-same-day-delivery-race/" target="_blank" rel="noopener">OneRail</a> &middot; <a href="https://www.freightwaves.com/news/fedex-to-compete-in-same-day-delivery-with-amazon-walmart-and-ups" target="_blank" rel="noopener">FreightWaves</a> &middot; <a href="https://www.retailbrew.com/stories/2026/03/31/fedex-s-same-day-delivery-offering-took-years-to-build" target="_blank" rel="noopener">Retail Brew</a></div>
+                </details>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Patents -->
-<section id="patents">
+<!-- Napkin to platform -->
+<section id="case" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div class="section-label">Case Study &middot; SenseAware</div>
+        <h2 class="section-title">From Napkin to Global Platform</h2>
+        <p class="section-desc">How one sketch became FedEx's first integrated remote-sensor IoT platform, and later helped carry COVID vaccines.</p>
+
+        <div class="proto-strip">
+            <div class="proto-frame">
+                <div class="proto-img contain"><img src="images/FedEx_SenseAware_Concept_Napkin.png" alt="Original SenseAware concept napkin sketch" loading="lazy"></div>
+                <div class="proto-step">01 &middot; Sketch</div>
+                <div class="proto-cap">The napkin</div>
+                <div class="proto-sub">The original concept for sensor-based shipment tracking.</div>
+            </div>
+            <div class="proto-frame">
+                <div class="proto-img contain"><img src="images/SenseAware_3.webp" alt="SenseAware physical tracking device" loading="lazy"></div>
+                <div class="proto-step">02 &middot; Hardware</div>
+                <div class="proto-cap">The sensor device</div>
+                <div class="proto-sub">Temperature, light, location, and barometric pressure in one package.</div>
+            </div>
+            <div class="proto-frame">
+                <div class="proto-img"><img src="images/SenseAware_1.png" alt="SenseAware platform on laptop with tracking device" loading="lazy"></div>
+                <div class="proto-step">03 &middot; Platform</div>
+                <div class="proto-cap">The SaaS platform</div>
+                <div class="proto-sub">Real-time sensor data for every critical shipment.</div>
+            </div>
+            <div class="proto-frame">
+                <div class="proto-img"><img src="images/SenseAware_2.png" alt="SenseAware multi-device dashboard showing map tracking" loading="lazy"></div>
+                <div class="proto-step">04 &middot; Scale</div>
+                <div class="proto-cap">Global deployment</div>
+                <div class="proto-sub">Vaccines, pharmaceuticals, and high-value logistics worldwide.</div>
+            </div>
+        </div>
+
+        <div class="proto-summary">
+            <div>
+                <span class="industry-first-badge">Industry First</span>
+                <span class="zero-to-one-badge">Zero-to-One</span>
+                <p>Co-founded SenseAware inside FedEx: a global SaaS IoT platform for real-time shipment tracking with live sensor data. Named a Top 10 Internet of Things product of 2009, years before IoT became a mainstream category.</p>
+                <div>
+                    <span class="showcase-metric">Global Scale IoT</span>
+                    <span class="showcase-metric">COVID Vaccine Delivery</span>
+                </div>
+            </div>
+            <div class="awards-list">
+                <div class="award-item"><strong>ReadWriteWeb:</strong> Top 10 IoT Products of 2009</div>
+                <div class="award-item"><strong>InformationWeek 500:</strong> 20 Great Ideas to Steal (2010)</div>
+                <div class="award-item"><strong>Postscapes:</strong> Best Enterprise IoT Implementation (2011 &amp; 2012)</div>
+                <div class="award-item"><strong>World Mail Awards:</strong> Innovation &amp; Security (2012)</div>
+                <div class="award-item"><strong>Cool Chain Logistics Europe:</strong> Supply Chain Integrity Innovator (2013)</div>
+                <div class="award-item"><strong>SHD Logistics:</strong> Innovation Award, Highly Commended (2014)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Called it early -->
+<section id="early">
+    <div class="container">
+        <div class="section-label">Timing</div>
+        <h2 class="section-title">Called It Early</h2>
+        <p class="section-desc">Calls that came true, and the ones I'm making now.</p>
+
+        <div class="early-group">Calls that came true</div>
+        <div class="early">
+            <div class="early-item">
+                <div class="early-year">2009</div>
+                <div class="early-what">Sensor-based IoT shipment tracking</div>
+                <div class="early-desc">SenseAware put live sensor data on shipments moving through the FedEx network.</div>
+                <div class="early-next"><strong>What happened</strong>IoT became a mainstream category; SenseAware later supported COVID vaccine delivery.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Pre-2016</div>
+                <div class="early-what">A data science division for FedEx</div>
+                <div class="early-desc">Pitched the concept of a dedicated data science organization.</div>
+                <div class="early-next"><strong>What happened</strong>Launched as FedEx Dataworks in 2021.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">2016</div>
+                <div class="early-what">Digital employees</div>
+                <div class="early-desc">Talla, one of the first B2B AI agent platforms, and <em>Managing Future Digital Employees</em>: bots become agents working across millions of business workflows.</div>
+                <div class="early-next"><strong>What happened</strong>AI agents became the industry's central focus. Talla was acquired by Bloomfire.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">2016</div>
+                <div class="early-what">“Probabilistic products”</div>
+                <div class="early-desc">Coined the term for products whose outputs are predictions, not guarantees.</div>
+                <div class="early-next"><strong>What happened</strong>Generative AI made probabilistic products the norm.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">2017</div>
+                <div class="early-what">AI product management as a discipline</div>
+                <div class="early-desc"><em>12 Tips for Designing and Managing an AI-Driven Product</em> (VentureBeat).</div>
+                <div class="early-next"><strong>What happened</strong>AI product manager became a standard role across the industry.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">2017</div>
+                <div class="early-what">Design principles for AI agents</div>
+                <div class="early-desc"><em>The 10 Principles of Intelligent Agent Design</em> (VentureBeat): context-aware, proactive, transparent, honest.</div>
+                <div class="early-next"><strong>What happened</strong>Agent behavior, trust, and transparency became core questions for every AI company.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">2018</div>
+                <div class="early-what">AI writing co-pilot for business</div>
+                <div class="early-desc">MessagePath: an industry-first AI writing coach for sales and support teams.</div>
+                <div class="early-next"><strong>What happened</strong>AI writing assistants went mainstream with ChatGPT in 2022.</div>
+            </div>
+        </div>
+
+        <div class="early-group calling">Calling it now</div>
+        <div class="early calling">
+            <div class="early-item">
+                <div class="early-year">2025</div>
+                <div class="early-what">SOPs become agentic work</div>
+                <div class="early-desc">Scaffolding AI, announced at Intuit Investor Day 2025: AI agents that run a small business from its standard operating procedures.</div>
+                <div class="early-expect"><strong>What I expect</strong>Businesses will run on agents executing their own SOPs, with humans steering from a control panel.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">AI-enhanced Innovation Factory</div>
+                <div class="early-desc">Pairing innovation teams with AI that scans early signals, frames opportunities, and builds first prototypes.</div>
+                <div class="early-expect"><strong>What I expect</strong>Small teams will explore far more bets, faster, and kill the weak ones sooner.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">Business world models</div>
+                <div class="early-desc">Mapping the objects and actions of a business so agents have the context they need to operate.</div>
+                <div class="early-expect"><strong>What I expect</strong>Enterprises will build world models of their business as the foundation layer for agents.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">Agents as the customer</div>
+                <div class="early-desc">Products designed for AI agents as the primary user. In its most basic form: agents need better tools.</div>
+                <div class="early-expect"><strong>What I expect</strong>Agent-first tools and interfaces will become a major product category.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Organizations -->
+<section id="organizations" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+        <div class="section-label">Building the Machine</div>
+        <h2 class="section-title">Innovation Organizations</h2>
+        <p class="section-desc">Not just products: the teams, labs, and processes that produce them.</p>
+
+        <div class="org-grid">
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-bulb"/></svg></div>
+                <div class="org-kicker">Founding Member</div>
+                <h3>FedEx Innovation Labs</h3>
+                <p>Built a multi-disciplinary team and created FedEx's design thinking, prototyping, open innovation, and startup launch laboratory at a Fortune 50 company.</p>
+            </div>
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-compass"/></svg></div>
+                <div class="org-kicker">Board-Level Strategy</div>
+                <h3>Innovation Imperatives</h3>
+                <p>Contributed to the Innovation Imperatives section of the strategy presented annually to the FedEx Board of Directors.</p>
+            </div>
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-flag"/></svg></div>
+                <div class="org-kicker">Founder</div>
+                <h3>EPICenter Accelerator</h3>
+                <p>Founded the EPICenter Logistics Innovation Accelerator in Memphis.</p>
+            </div>
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-users"/></svg></div>
+                <div class="org-kicker">Research</div>
+                <h3>Innovation Factory</h3>
+                <p>Researched how to lead and organize innovation teams so that exploring, discovering, and pursuing new opportunities becomes repeatable.</p>
+            </div>
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-globe"/></svg></div>
+                <div class="org-kicker">Open Innovation</div>
+                <h3>Partners &amp; Ecosystems</h3>
+                <p>Ran open innovation with Google, eBay, universities, and startups, including the eBay Valet launch across FedEx Office.</p>
+            </div>
+            <div class="org-card">
+                <div class="tile-icon"><svg class="ico"><use href="#i-send"/></svg></div>
+                <div class="org-kicker">Labs Leader &middot; 3+ Years</div>
+                <h3>App Annie Innovation Labs</h3>
+                <p>Senior Director and Head of AI New Products (Innovation Labs) at App Annie (now data.ai). Launched the industry-first Mobile Performance Score. Later led 0-to-1 AI bets on the Intuit Futures team.</p>
+            </div>
+        </div>
+        <h3 class="adv-title">Advisory, Fellowships &amp; Speaking</h3>
+        <div class="adv-grid">
+            <div class="adv-card"><img src="logos/Plug_and_Play_logo.jpeg" alt="Plug and Play logo" loading="lazy"><div><div class="adv-name">Plug and Play Tech Center</div><div class="adv-role">Advisor</div></div></div>
+            <div class="adv-card"><img src="logos/singularity_university_logo.jpeg" alt="Singularity University logo" loading="lazy"><div><div class="adv-name">Singularity University</div><div class="adv-role">Advisor</div></div></div>
+            <div class="adv-card"><img src="logos/ondeck_logo.jpeg" alt="On Deck logo" loading="lazy"><div><div class="adv-name">On Deck</div><div class="adv-role">Fellow (ODCI01, ODF18)</div></div></div>
+            <div class="adv-card"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" loading="lazy"><div><div class="adv-name">Stanford MediaX</div><div class="adv-role">Speaker</div></div></div>
+            <div class="adv-card"><img src="logos/stanford_university_logo.jpeg" alt="Stanford logo" loading="lazy"><div><div class="adv-name">Stanford Leadership Garage</div><div class="adv-role">Guest Speaker</div></div></div>
+            <div class="adv-card"><img src="logos/mit_logo.png" alt="MIT logo" loading="lazy"><div><div class="adv-name">MIT VLAB</div><div class="adv-role">Speaker</div></div></div>
+            <div class="adv-card"><img src="logos/AI_Conference_logo.webp" alt="The AI Conference logo" loading="lazy"><div><div class="adv-name">The AI Conference</div><div class="adv-role">Speaker</div></div></div>
+            <div class="adv-card"><img src="logos/monage_logo" alt="MoNage logo" loading="lazy"><div><div class="adv-name">MoNage Conference</div><div class="adv-role">Speaker</div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Thinking now -->
+<section id="now">
+    <div class="container">
+        <div class="section-label">Future Explorations</div>
+        <h2 class="section-title">What I'm Thinking About Now</h2>
+        <p class="section-desc">The next set of bets I'm exploring.</p>
+
+        <div class="now-grid">
+            <div class="now-card">
+                <h3>Innovation Machine</h3>
+                <p>How can technology help us find new opportunities before they're obvious? We have frameworks for spotting what's next. How much of that can we automate, and how do we organize people and AI to act on those early signals?</p>
+            </div>
+            <div class="now-card">
+                <h3>Business World Model</h3>
+                <p>Adapting world models from AI research to the enterprise: mapping the objects and actions of a business so agents have the foundational context they need to operate effectively.</p>
+            </div>
+            <div class="now-card">
+                <h3>Fully Autonomous Business Organization</h3>
+                <p>A company where the org chart is a graph of AI agents, with humans as the board setting goals, budgets, and hard limits.</p>
+            </div>
+            <div class="now-card">
+                <h3>Products for Agents as the Customer</h3>
+                <p>A product design paradigm for software where AI agents discover, evaluate, purchase, and operate products on behalf of humans. In its most basic form: agents need better tools.</p>
+            </div>
+        </div>
+        <div class="frameworks">
+            <span>Follow along:</span>
+            <a href="https://futurelab.substack.com/" target="_blank" rel="noopener">Future Lab Newsletter</a>
+            <a href="https://probabilisticproducts.com/" target="_blank" rel="noopener">Probabilistic Products Newsletter</a>
+        </div>
+    </div>
+</section>
+
+<!-- Inventions -->
+<section id="patents" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
         <div class="section-label">Intellectual Property</div>
-        <h2 class="section-title">Patents</h2>
-        <p class="section-desc">Inventions spanning AI, knowledge graphs, IoT, and digital commerce.</p>
-        <div class="patents-list">
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Graph Augmentation for New Applications Using Machine Learning Techniques</h4><div class="patent-status">Pending</div></div></div>
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>State Machine Methods for Natural Language Communications and AI Agents</h4><div class="patent-status">Granted</div></div></div>
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Sensor-Based Logistics System</h4><div class="patent-status">Granted</div></div></div>
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Trip Management</h4><div class="patent-status">Granted</div></div></div>
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Digital Advertisements in Delivery Networks</h4><div class="patent-status">Granted</div></div></div>
-            <div class="patent-item"><div class="patent-icon">&#x1F4A1;</div><div><h4>Systems and Methods for Creating and Delivering Digital Assets</h4><div class="patent-status">Granted</div></div></div>
+        <h2 class="section-title">Inventions</h2>
+        <p class="section-desc">Six patents spanning logistics sensing, delivery networks, and AI agents.</p>
+        <div class="inv-grid">
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-pulse"/></svg></div><div><h4>Sensor-Based Logistics System</h4><div class="patent-status">Granted</div></div></div>
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-map"/></svg></div><div><h4>Systems and Methods for Trip Management</h4><div class="patent-status">Granted</div></div></div>
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-truck"/></svg></div><div><h4>Digital Advertisements in Delivery Networks</h4><div class="patent-status">Granted</div></div></div>
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-file"/></svg></div><div><h4>Creating and Delivering Digital Assets</h4><div class="patent-status">Granted</div></div></div>
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-code"/></svg></div><div><h4>State Machine Methods for Natural Language Communications and AI Agents</h4><div class="patent-status">Granted</div></div></div>
+            <div class="inv-card"><div class="tile-icon"><svg class="ico"><use href="#i-db"/></svg></div><div><h4>Graph Augmentation for New Applications Using Machine Learning</h4><div class="patent-status">Pending</div></div></div>
         </div>
     </div>
 </section>
 
-<!-- Education -->
-<section style="background: var(--surface);">
+<!-- Experience at a glance -->
+<section id="experience">
     <div class="container">
-        <div class="section-label">Education</div>
-        <h2 class="section-title">Education</h2>
-        <div class="edu-grid">
-            <div class="edu-card"><h3>M.S. Information Systems</h3><div class="school">University of Memphis</div></div>
-            <div class="edu-card"><h3>B.S. Economics &amp; Finance</h3><div class="school">Christian Brothers University</div></div>
-            <div class="edu-card"><h3>Innovation &amp; Entrepreneurship: Prototyping</h3><div class="school">Stanford University -Executive Education</div></div>
+        <div class="section-label">Track Record</div>
+        <h2 class="section-title">Experience at a Glance</h2>
+        <p class="section-desc">From a Fortune 50 innovation lab to startups to AI platforms.</p>
+        <div class="glance">
+            <div class="glance-item"><img src="../images/ServiceNow.png" alt="ServiceNow logo"><div class="glance-co">ServiceNow</div><div class="glance-yr">2026 &ndash; Present</div></div>
+            <div class="glance-item"><img src="logos/intuit_logo.jpeg" alt="Intuit logo"><div class="glance-co">Intuit</div><div class="glance-yr">2025</div></div>
+            <div class="glance-item"><img src="logos/dataai_app_annie_logo.jpeg" alt="data.ai logo"><div class="glance-co">data.ai</div><div class="glance-yr">2020 &ndash; 2023</div></div>
+            <div class="glance-item"><img src="logos/MessagePath_logo.jpeg" alt="MessagePath logo"><div class="glance-co">MessagePath</div><div class="glance-yr">2018 &ndash; 2019</div></div>
+            <div class="glance-item"><img src="logos/talla_logo.jpeg" alt="Talla logo"><div class="glance-co">Talla</div><div class="glance-yr">2016 &ndash; 2018</div></div>
+            <div class="glance-item"><img src="logos/fedex_logo.jpeg" alt="FedEx logo"><div class="glance-co">FedEx</div><div class="glance-yr">2001 &ndash; 2015</div></div>
         </div>
+        <a href="timeline.html" class="btn btn-secondary">See the full chronological view <svg class="ico" style="width:16px;height:16px"><use href="#i-arrow"/></svg></a>
     </div>
 </section>
 
@@ -781,16 +743,32 @@
 <section id="contact" class="contact-section">
     <div class="container">
         <div class="section-label">Connect</div>
-        <h2 class="section-title">Let's Talk</h2>
-        <p class="section-desc">Interested in AI product strategy, advisory, or collaboration? Reach out.</p>
+        <h2 class="section-title">Let's Build What's Next</h2>
+        <p class="section-desc">Interested in moonshots, innovation systems, or AI in the physical world? Reach out.</p>
         <div class="contact-links">
-            <a href="https://www.linkedin.com/in/willmurphy" target="_blank" class="contact-link">&#x1F517; LinkedIn</a>
-            <a href="https://willmurphy.net" target="_blank" class="contact-link">&#x1F310; willmurphy.net</a>
+            <a href="https://www.linkedin.com/in/willmurphy" target="_blank" rel="noopener" class="contact-link">&#x1F517; LinkedIn</a>
+            <a href="https://willmurphy.net" target="_blank" rel="noopener" class="contact-link">&#x1F310; willmurphy.net</a>
         </div>
     </div>
 </section>
 
 <footer><div class="container">&copy; 2026 Will Murphy. San Mateo, CA.</div></footer>
+
+<script>
+    (function () {
+        var tiles = document.querySelectorAll('.explore-tile');
+        var buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(function (btn) {
+            var f = btn.dataset.filter;
+            var n = f === 'all' ? tiles.length : document.querySelectorAll('.explore-tile[data-status="' + f + '"]').length;
+            btn.querySelector('.count').textContent = n;
+            btn.addEventListener('click', function () {
+                buttons.forEach(function (b) { b.classList.toggle('active', b === btn); });
+                tiles.forEach(function (t) { t.hidden = !(f === 'all' || t.dataset.status === f); });
+            });
+        });
+    })();
+</script>
 
 </body>
 </html>
