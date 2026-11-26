@@ -838,3 +838,20 @@ section + section {
   .teaser-card { grid-template-columns: 1fr; padding: 1.5rem; }
   .teaser-stats { justify-content: flex-start; }
 }
+
+/* Featured hero button (portfolio) */
+.btn-featured {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px var(--accent), 0 6px 18px rgba(37,99,235,0.28);
+  margin-right: 0.35rem;
+}
+.btn-featured:hover {
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px var(--accent-hover), 0 8px 24px rgba(37,99,235,0.35);
+}
+
+/* Portfolio card inside the hero column */
+.hero-teaser { margin-top: 1.75rem; grid-template-columns: 1fr; gap: 0.9rem; padding: 1.35rem 1.5rem; }
+.hero-teaser .teaser-title { font-size: 1.25rem; margin-top: 0.15rem; }
+.hero-teaser .teaser-desc { font-size: 0.9rem; }
+.hero-teaser .teaser-stats { gap: 1.75rem; }
+.hero-teaser .teaser-stats div { align-items: flex-start; }
+.hero-teaser .teaser-num { font-size: 1.6rem; }
