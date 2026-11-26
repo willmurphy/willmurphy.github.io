@@ -157,6 +157,23 @@
         .speak-photos figcaption { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.45rem; font-weight: 500; }
         @media (max-width: 560px) { .speak-photos { grid-template-columns: 1fr; } }
 
+        .era-group .era-btn { gap: 0.35rem; }
+        .era-name { font-weight: 700; }
+        .era-yrs { font-weight: 500; opacity: 0.85; }
+        .era-group .era-2020 { background: rgba(26,115,232,0.16); border-color: rgba(26,115,232,0.35); color: #174ea6; }
+        .era-group .era-2016 { background: rgba(26,115,232,0.08); border-color: rgba(26,115,232,0.2); color: #3b6fc4; }
+        .era-group .era-2001 { background: #eef0f2; border-color: #dadce0; color: #5f6368; }
+        .era-group .era-btn:hover { filter: brightness(0.97); }
+        .era-group .era-2020.active { background: #1a73e8; border-color: #1a73e8; color: #fff; }
+        .era-group .era-2016.active { background: #6c9ef0; border-color: #6c9ef0; color: #fff; }
+        .era-group .era-2001.active { background: #80868b; border-color: #80868b; color: #fff; }
+        .era-group .era-btn.active .count { opacity: 0.85; }
+
+        .tile-media.partner { background: linear-gradient(135deg, #4d148c, #1a73e8); }
+        .partner-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; margin-bottom: 0.9rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2px; }
+        .partner-name { white-space: nowrap; padding: 0.2rem 0.5rem; border-radius: 6px; background: rgba(255,255,255,0.16); }
+        .partner-x { opacity: 0.7; }
+
         /* ===== Organizations ===== */
         .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
         .org-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
@@ -341,9 +358,9 @@
             <span class="filter-label">Era</span>
             <button class="filter-btn active" data-era-filter="all">All years<span class="count"></span></button>
             <div class="era-group" role="group" aria-label="Year ranges, newest to oldest">
-                <button class="filter-btn era-btn" data-era-filter="2020"><span class="era-dot e2020"></span>2020&ndash;Present<span class="count"></span></button>
-                <button class="filter-btn era-btn" data-era-filter="2016"><span class="era-dot e2016"></span>2016&ndash;2019<span class="count"></span></button>
-                <button class="filter-btn era-btn" data-era-filter="2001"><span class="era-dot e2001"></span>2008&ndash;2015<span class="count"></span></button>
+                <button class="filter-btn era-btn era-2020" data-era-filter="2020"><strong class="era-name">Recent</strong><span class="era-yrs">2020&ndash;Present</span><span class="count"></span></button>
+                <button class="filter-btn era-btn era-2016" data-era-filter="2016"><strong class="era-name">Startups</strong><span class="era-yrs">2016&ndash;2019</span><span class="count"></span></button>
+                <button class="filter-btn era-btn era-2001" data-era-filter="2001"><strong class="era-name">FedEx Labs</strong><span class="era-yrs">2008&ndash;2015</span><span class="count"></span></button>
             </div>
         </div>
         <div class="filter-row" role="group" aria-label="Filter by outcome">
@@ -534,16 +551,19 @@
                     </details>
                 </div>
             </div>
-            <div class="explore-tile" data-era="2001" data-status="launched">
-                <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-box"/></svg></div><span class="status launched">Launched</span></div>
-                <div class="tile-era">FedEx &middot; 2008&ndash;2015</div>
-                <h4>eBay Valet</h4>
-                <p>Marketplace consignment through 1,600 FedEx Office locations.</p>
-                <details class="legacy">
-                    <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
-                    <p>In May 2016 eBay and FedEx Office expanded the eBay Valet drop-off program to more than 1,600 FedEx Office stores: staff packed sellers' items and shipped them to eBay Valet to be listed and sold, with sellers paid through PayPal. eBay later closed its Valet program, reportedly in 2018.</p>
-                    <div class="legacy-src">Sources: <a href="https://ebayinc.com/stories/news/ebay-and-fedex-office-streamline-online-consumer-selling" target="_blank" rel="noopener">eBay Inc.</a> &middot; <a href="https://prnewswire.com/news-releases/fedex-office-and-ebay-team-up-to-help-consumers-sell-items-online-make-money-300348802.html" target="_blank" rel="noopener">PR Newswire</a> &middot; <a href="https://fortune.com/2016/05/10/ebay-fedex" target="_blank" rel="noopener">Fortune</a> &middot; <a href="https://shoppersshop.com/fedex-ebay-valet-51620162" target="_blank" rel="noopener">Shoppers Shop</a></div>
-                </details>
+            <div class="explore-tile featured" data-era="2001" data-status="launched">
+                <div class="tile-media metric partner"><div class="partner-row"><span class="partner-name">eBay Valet</span><span class="partner-x">&times;</span><span class="partner-name">FedEx Office</span></div><div class="metric-big">1,600+</div><div class="metric-lbl">FedEx Office drop-off locations</div><div class="metric-tag">Launched 2016</div></div>
+                <div class="tile-body">
+                    <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-box"/></svg></div><span class="status launched">Launched</span></div>
+                    <div class="tile-era">FedEx &middot; 2008&ndash;2015</div>
+                    <h4>eBay Valet</h4>
+                    <p>Marketplace consignment through 1,600 FedEx Office locations.</p>
+                    <details class="legacy">
+                        <summary><span class="sum-label">What FedEx did next <span class="info-tip" tabindex="0" role="img" aria-label="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. What FedEx did next shows where they went." data-tip="At FedEx Innovation Labs I led research and made the case for these bets. Some were implemented after I left in 2015; others inspired later work. &ldquo;What FedEx did next&rdquo; shows where they went.">i</span></span></summary>
+                        <p>In May 2016 eBay and FedEx Office expanded the eBay Valet drop-off program to more than 1,600 FedEx Office stores: staff packed sellers' items and shipped them to eBay Valet to be listed and sold, with sellers paid through PayPal. eBay later closed its Valet program, reportedly in 2018.</p>
+                        <div class="legacy-src">Sources: <a href="https://ebayinc.com/stories/news/ebay-and-fedex-office-streamline-online-consumer-selling" target="_blank" rel="noopener">eBay Inc.</a> &middot; <a href="https://prnewswire.com/news-releases/fedex-office-and-ebay-team-up-to-help-consumers-sell-items-online-make-money-300348802.html" target="_blank" rel="noopener">PR Newswire</a> &middot; <a href="https://fortune.com/2016/05/10/ebay-fedex" target="_blank" rel="noopener">Fortune</a> &middot; <a href="https://shoppersshop.com/fedex-ebay-valet-51620162" target="_blank" rel="noopener">Shoppers Shop</a></div>
+                    </details>
+                </div>
             </div>
             <div class="explore-tile" data-era="2001" data-status="launched">
                 <div class="tile-top"><div class="tile-icon"><svg class="ico"><use href="#i-bars"/></svg></div><span class="status launched">Launched</span></div>
