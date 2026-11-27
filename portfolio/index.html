@@ -178,6 +178,10 @@
         .org-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
         .org-card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
         .org-card .tile-icon { margin-bottom: 0.9rem; }
+        .org-card.org-new { grid-column: 1 / -1; border-color: rgba(26,115,232,0.35); background: linear-gradient(135deg, rgba(26,115,232,0.06), var(--card) 60%); }
+        .org-card.org-new p { max-width: 760px; }
+        .org-link { display: inline-block; margin-top: 0.75rem; font-size: 0.82rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+        .org-link:hover { text-decoration: underline; }
         .org-kicker { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent2); }
         .org-card h3 { font-size: 1.08rem; font-weight: 700; margin: 0.15rem 0 0.5rem; }
         .org-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; }
@@ -878,6 +882,12 @@
                 <div class="early-desc">A company where the org chart is a graph of AI agents, with humans as the board setting goals, budgets, and hard limits.</div>
                 <div class="early-expect"><strong>What I expect</strong>The first companies run largely by agents will appear, and governance will become the hard problem.</div>
             </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">Products for human agency</div>
+                <div class="early-desc">AI and robotics are reshaping work, the economy, and daily life. We need new products that give people the tools for agency and a positive vision.</div>
+                <div class="early-expect"><strong>What I expect</strong>A new category of products will help people find their place in the change, not just be displaced by it.</div>
+            </div>
         </div>
         <div class="frameworks">
             <span>Follow along:</span>
@@ -895,6 +905,13 @@
         <p class="section-desc">Not just products: the teams, labs, and processes that produce them.</p>
 
         <div class="org-grid">
+            <div class="org-card org-new">
+                <div class="tile-icon"><svg class="ico"><use href="#i-users"/></svg></div>
+                <div class="org-kicker">Founding Member &middot; New</div>
+                <h3>Appleseed Commons</h3>
+                <p>Helping people find their place in the uncertain future. AI and robotics are reshaping work, the economy, and daily life. Appleseed Commons connects that change to the people whose lives it will touch, with agency, courage, and a positive vision.</p>
+                <a class="org-link" href="https://appleseedcommons.com/" target="_blank" rel="noopener">Visit appleseedcommons.com &rarr;</a>
+            </div>
             <div class="org-card">
                 <div class="tile-icon"><svg class="ico"><use href="#i-bulb"/></svg></div>
                 <div class="org-kicker">Founding Member</div>
