@@ -18,7 +18,9 @@
         .frameworks a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.85rem; border: 1px solid var(--border); border-radius: 999px; background: var(--card); color: var(--text); text-decoration: none; font-weight: 500; transition: border-color 0.2s; }
         .frameworks a:hover { border-color: var(--accent); color: var(--accent); }
 
-        .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+        .principles { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.25rem; }
+        .principle { grid-column: span 2; }
+        .principle:nth-child(n+4) { grid-column: span 3; }
         .principle { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.03); display: flex; flex-direction: column; }
         .principle-n { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); }
         .principle h3 { font-size: 1.15rem; font-weight: 700; margin: 0.2rem 0 0.5rem; }
@@ -213,7 +215,9 @@
         .glance-yr { font-size: 0.75rem; color: var(--text-muted); }
 
         @media (max-width: 960px) {
-            .principles { grid-template-columns: 1fr; }
+            .principles { grid-template-columns: repeat(2, 1fr); }
+            .principle, .principle:nth-child(n+4) { grid-column: auto; }
+            .principle:last-child { grid-column: 1 / -1; }
             .early { grid-template-columns: repeat(2, 1fr); }
             .org-grid, .inv-grid, .adv-grid { grid-template-columns: repeat(2, 1fr); }
             .glance { grid-template-columns: repeat(4, 1fr); }
@@ -226,7 +230,7 @@
         }
         @media (max-width: 560px) {
             section { padding: 3.5rem 1rem; }
-            .org-grid, .inv-grid, .early, .adv-grid { grid-template-columns: 1fr; }
+            .principles, .org-grid, .inv-grid, .early, .adv-grid { grid-template-columns: 1fr; }
             .glance { grid-template-columns: repeat(2, 1fr); }
             .hero-stats { gap: 1.25rem; }
         }
@@ -330,20 +334,30 @@
             <div class="principle">
                 <div class="principle-n">01</div>
                 <h3>Demos Over Memos</h3>
-                <p>Build the prototype before the memo. A working demo settles debates a slide deck can't.</p>
+                <p>Interact with the world as soon and as often as possible.</p>
                 <a href="https://demosovermemos.com/" target="_blank" rel="noopener">Read the essay &rarr;</a>
             </div>
             <div class="principle">
                 <div class="principle-n">02</div>
+                <h3>OODA Loops</h3>
+                <p>Observe, orient, decide, act, and repeat. The team that learns fastest wins, so shorten every loop.</p>
+            </div>
+            <div class="principle">
+                <div class="principle-n">03</div>
                 <h3>Design for Probabilistic Outcomes</h3>
                 <p>AI products predict; they don't guarantee. I coined &ldquo;probabilistic products&rdquo; in 2016 to design for being wrong gracefully.</p>
                 <a href="https://futurelab.substack.com/p/probabilistic-products" target="_blank" rel="noopener">Read the essay &rarr;</a>
             </div>
             <div class="principle">
-                <div class="principle-n">03</div>
+                <div class="principle-n">04</div>
                 <h3>Early Is a Feature</h3>
                 <p>Many good ideas fail on timing, not merit. Pause instead of forgetting, and revisit when the technology or market catches up.</p>
                 <a href="https://www.youtube.com/watch?v=bNpx7gpSqbY" target="_blank" rel="noopener">Bill Gross (Idealab): timing is the #1 factor &rarr;</a>
+            </div>
+            <div class="principle">
+                <div class="principle-n">05</div>
+                <h3>Build a Unique Innovation Culture</h3>
+                <p>Process alone doesn't produce breakthroughs. Every organization needs its own innovation culture, fitted to its people and mission, that rewards curiosity, makes experiments safe, and celebrates smart kills as much as launches.</p>
             </div>
         </div>
     </div>
@@ -852,9 +866,9 @@
         <div class="early calling">
             <div class="early-item">
                 <div class="early-year">2025</div>
-                <div class="early-what">SOPs become agentic work</div>
-                <div class="early-desc">Scaffolding AI, announced at Intuit Investor Day 2025: AI agents that run a small business from its standard operating procedures.</div>
-                <div class="early-expect"><strong>What I expect</strong>Businesses will run on agents executing their own SOPs, with humans steering from a control panel.</div>
+                <div class="early-what">From agentic SOPs to autonomous businesses</div>
+                <div class="early-desc">Scaffolding AI, announced at Intuit Investor Day 2025: AI agents that run a small business from its standard operating procedures. The endpoint is a company where the org chart is a graph of AI agents, with humans as the board setting goals, budgets, and hard limits.</div>
+                <div class="early-expect"><strong>What I expect</strong>Businesses will run on agents executing their own SOPs, and the first companies run largely by agents will appear. Governance will become the hard problem.</div>
             </div>
             <div class="early-item">
                 <div class="early-year">Now</div>
@@ -876,15 +890,27 @@
             </div>
             <div class="early-item">
                 <div class="early-year">Now</div>
-                <div class="early-what">Fully autonomous business organizations</div>
-                <div class="early-desc">A company where the org chart is a graph of AI agents, with humans as the board setting goals, budgets, and hard limits.</div>
-                <div class="early-expect"><strong>What I expect</strong>The first companies run largely by agents will appear, and governance will become the hard problem.</div>
-            </div>
-            <div class="early-item">
-                <div class="early-year">Now</div>
                 <div class="early-what">Products for human agency</div>
                 <div class="early-desc">AI and robotics are reshaping work, the economy, and daily life. We need new products that give people the tools for agency and a positive vision.</div>
                 <div class="early-expect"><strong>What I expect</strong>A new category of products will help people find their place in the change, not just be displaced by it.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">Compute and energy approach free</div>
+                <div class="early-desc">Computation keeps getting more efficient, and the cost of energy is trending toward zero.</div>
+                <div class="early-expect"><strong>What I expect</strong>When compute and energy stop being constraints, ideas that were too expensive to try become possible, and the world changes massively.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">The future will be simulated</div>
+                <div class="early-desc">Every industry and workflow will have a simulation: a place to test ideas before they touch the real world.</div>
+                <div class="early-expect"><strong>What I expect</strong>Innovation will start in simulation, and those with the best simulations of their industry will innovate fastest.</div>
+            </div>
+            <div class="early-item">
+                <div class="early-year">Now</div>
+                <div class="early-what">Context is king</div>
+                <div class="early-desc">In the age of AI, models are becoming commodities. The advantage is the context they work with: the data, history, and know-how behind every decision.</div>
+                <div class="early-expect"><strong>What I expect</strong>The winners will be whoever captures and organizes the richest context, not whoever has the best model.</div>
             </div>
         </div>
         <div class="frameworks">
